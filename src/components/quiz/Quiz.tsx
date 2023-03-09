@@ -12,10 +12,10 @@ import Right from './right/Right'
 const Quiz = (): JSX.Element => {
   return (
     <Row>
-      <Col span={12}>
+      <Col span={6}>
         <Left/>
       </Col>
-      <Col span={12}>
+      <Col span={16}>
         <Right/>
       </Col>
     </Row>

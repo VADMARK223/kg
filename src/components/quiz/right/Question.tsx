@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react'
 import type { RadioChangeEvent } from 'antd'
 import { Radio, Space, Button, Tooltip } from 'antd'
+import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
 
 const NEXT_BUTTON_TOOLTIP = 'Следующий вопрос'
 const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответа'
@@ -18,10 +19,12 @@ interface QuestionData {
 }
 
 interface QuestionProps {
+  showNextButton?: boolean
   question: QuestionData
 }
 
-const Question = ({ question }: QuestionProps): JSX.Element => {
+const Question = ({ showNextButton = false, question }: QuestionProps): JSX.Element => {
+  const [titleIconState, setTitleIconState] = useState<boolean | null>(null)
   const [value, setValue] = useState(-1)
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
   const [nextButtonTooltip, setNextButtonTooltip] = useState('')
@@ -32,6 +35,13 @@ const Question = ({ question }: QuestionProps): JSX.Element => {
   useEffect(() => {
     if (value !== -1) {
       setNextButtonDisabled(false)
+      if (checkRightAnswer()) {
+        console.log('Good2.')
+        setTitleIconState(true)
+      } else {
+        console.log('Ba3.')
+        setTitleIconState(false)
+      }
     }
   }, [value])
 
@@ -42,32 +52,61 @@ const Question = ({ question }: QuestionProps): JSX.Element => {
     setNextButtonTooltip(nextButtonDisabled ? NEXT_BUTTON_TOOLTIP_DISABLED : NEXT_BUTTON_TOOLTIP)
   }, [nextButtonDisabled])
 
+  /**
+   * Метод вызывается, когда выбирается ответ
+   * @param {RadioChangeEvent} e
+   */
   const onChange = (e: RadioChangeEvent): void => {
     setValue(e.target.value)
   }
 
   /**
+   * Метод проверяет правильность ответа
+   * @return {boolean}
+   */
+  const checkRightAnswer = (): boolean => question.right - 1 === value
+
+  /**
    * Метод вызывается после нажатия кнопки
    */
   const handlerNextButton = (): void => {
-    if (question.right - 1 === value) {
-      console.log('Good:')
+    if (checkRightAnswer()) {
+      console.log('Good.')
     } else {
-      console.log('Bad:')
+      console.log('Bad.')
     }
+  }
+
+  const getIcon = (): JSX.Element => {
+    if (titleIconState === null) {
+      return <QuestionCircleTwoTone twoToneColor={'orange'}/>
+    }
+
+    if (titleIconState) {
+      return <CheckCircleTwoTone twoToneColor="#52c41a"/>
+    }
+
+    return <ExclamationCircleTwoTone twoToneColor={'red'}/>
   }
 
   return (
     <Space direction={'vertical'}>
-      {question.title}
+      <Space>
+        {getIcon()}
+        <b>{question.title}</b>
+      </Space>
+
       <Radio.Group onChange={onChange} value={value}>
         <Space direction={'vertical'}>
           {question.answers.map((value, index) => <Radio key={index} value={index}>{value}</Radio>)}
         </Space>
       </Radio.Group>
-      <Tooltip title={nextButtonTooltip} placement={'right'}>
-        <Button type={'primary'} onClick={handlerNextButton} disabled={nextButtonDisabled}>Дальше</Button>
-      </Tooltip>
+      {showNextButton
+        ? <Tooltip title={nextButtonTooltip} placement={'right'}>
+          <Button type={'primary'} onClick={handlerNextButton} disabled={nextButtonDisabled}>Дальше</Button>
+        </Tooltip>
+        : null}
+
     </Space>
   )
 }

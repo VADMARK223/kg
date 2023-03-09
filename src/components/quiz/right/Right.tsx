@@ -5,19 +5,30 @@
  * @since 10.03.2023
  */
 import React from 'react'
-import { Layout, Space } from 'antd'
+import { Space, Divider, Button, Tooltip } from 'antd'
 import Question from './Question'
 import data from '../../../assets/data.json'
 
 const Right = (): JSX.Element => {
   return (
-    <Layout>
-      <Space direction={'vertical'}>
-        {data.questions.map(question => {
-          return <Question key={question.id} question={question}/>
-        })}
+    <Space direction={'vertical'}>
+      {data.questions.map(question => {
+        if (question.hidden !== true) {
+          return <span key={question.id}>
+            <Question key={question.id} question={question}/>
+            <Divider/>
+          </span>
+        }
+
+        return null
+      })}
+      <Space>
+        <Button type={'primary'}>Назад</Button>
+        <Tooltip title={'Ответьте на все вопросы'} placement={'right'}>
+          <Button type={'primary'} disabled={true}>Вперед</Button>
+        </Tooltip>
       </Space>
-    </Layout>
+    </Space>
   )
 }
 

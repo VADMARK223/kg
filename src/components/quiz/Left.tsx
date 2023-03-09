@@ -5,28 +5,20 @@
  * @since 09.03.2023
  */
 import React from 'react'
-import { Steps, Layout } from 'antd'
+import { Steps } from 'antd'
+import data from '../../assets/data.json'
+import type { StepsProps } from 'antd/lib'
 
 const Left = (): JSX.Element => {
+  const items: StepsProps['items'] = data.categories.map((category) => {
+    return { title: category.title, description: category.description }
+  })
   return (
-    <Layout>
-      <Steps
-        direction={'vertical'}
-        current={1}
-        items={[
-          {
-            title: 'Красный',
-            description: 'Красный описание'
-          }, {
-            title: 'Синий',
-            description: 'Красный описание'
-          }, {
-            title: 'Желтый',
-            description: 'Красный описание'
-          }
-        ]}
-      />
-    </Layout>
+    <Steps
+      direction={'vertical'}
+      current={1}
+      items={items}
+    />
   )
 }
 
