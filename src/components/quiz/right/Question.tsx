@@ -11,12 +11,18 @@ import { Radio, Space, Button, Tooltip } from 'antd'
 const NEXT_BUTTON_TOOLTIP = 'Следующий вопрос'
 const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответа'
 
-interface QuestionProps {
+interface QuestionData {
   title: string
+  right: number
+  answers: string[]
 }
 
-const Question = (data: QuestionProps): JSX.Element => {
-  const [value, setValue] = useState(0)
+interface QuestionProps {
+  question: QuestionData
+}
+
+const Question = ({ question }: QuestionProps): JSX.Element => {
+  const [value, setValue] = useState(-1)
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
   const [nextButtonTooltip, setNextButtonTooltip] = useState('')
 
@@ -24,7 +30,7 @@ const Question = (data: QuestionProps): JSX.Element => {
    * Эффект устанавливает доступность кнопки в зависимости от выбранного ответа
    */
   useEffect(() => {
-    if (value !== 0) {
+    if (value !== -1) {
       setNextButtonDisabled(false)
     }
   }, [value])
@@ -40,18 +46,27 @@ const Question = (data: QuestionProps): JSX.Element => {
     setValue(e.target.value)
   }
 
+  /**
+   * Метод вызывается после нажатия кнопки
+   */
+  const handlerNextButton = (): void => {
+    if (question.right - 1 === value) {
+      console.log('Good:')
+    } else {
+      console.log('Bad:')
+    }
+  }
+
   return (
     <Space direction={'vertical'}>
-      {data.title}
+      {question.title}
       <Radio.Group onChange={onChange} value={value}>
         <Space direction={'vertical'}>
-          <Radio value={1}>Сары</Radio>
-          <Radio value={2}>Жашыл</Radio>
-          <Radio value={3}>Кызыл</Radio>
+          {question.answers.map((value, index) => <Radio key={index} value={index}>{value}</Radio>)}
         </Space>
       </Radio.Group>
       <Tooltip title={nextButtonTooltip} placement={'right'}>
-        <Button type={'primary'} disabled={nextButtonDisabled}>Дальше</Button>
+        <Button type={'primary'} onClick={handlerNextButton} disabled={nextButtonDisabled}>Дальше</Button>
       </Tooltip>
     </Space>
   )

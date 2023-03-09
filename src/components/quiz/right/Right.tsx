@@ -7,14 +7,15 @@
 import React from 'react'
 import { Layout, Space } from 'antd'
 import Question from './Question'
+import data from '../../../assets/data.json'
 
 const Right = (): JSX.Element => {
   return (
     <Layout>
       <Space direction={'vertical'}>
-        <Question title={'Как переводится красный цвет?'}/>
-        <Question title={'Как переводится синий цвет?'}/>
-        <Question title={'Как переводится зеленый цвет?'}/>
+        {data.questions.map(question => {
+          return <Question key={question.id} question={question}/>
+        })}
       </Space>
     </Layout>
   )
