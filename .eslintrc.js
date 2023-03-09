@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/type-annotation-spacing": "warn", // Предупреждения об отступах
     "@typescript-eslint/semi": "warn", // Предупреждение о лишней точкой с запятой
+    "@typescript-eslint/no-unused-vars": "warn", // Предупреждение о неиспользуемых элементах
     "@typescript-eslint/consistent-type-imports": // Типы в импортах
         [
           "warn", // Сделать предупреждением

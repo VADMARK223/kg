@@ -23,7 +23,7 @@ function App (): JSX.Element {
     <Tabs
       items={items}
       size={'large'}
-      style={{ margin: 32 }}
+      style={{ margin: 16 }}
     />
   )
 }
