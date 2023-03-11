@@ -1,34 +1,73 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import Quiz from './components/quiz/Quiz'
 import Dictionary from './components/dictionary/Dictionary'
 import { QuestionOutlined, ProfileOutlined, RadarChartOutlined } from '@ant-design/icons'
+import { useDispatch } from 'react-redux'
+import { updateUserInfo } from './store/userSlice'
 
-const items: TabsProps['items'] = [
+interface TabData {
+  title: string
+  icon: React.ReactNode
+  component: React.ReactNode
+  disable?: boolean
+}
+
+const initItems: TabData[] = [
   {
-    key: '1',
-    label: (<span><QuestionOutlined/>Опросник</span>),
-    children: <Quiz/>
+    title: 'Опросник',
+    icon: <QuestionOutlined/>,
+    component: <Quiz/>
   }, {
-    key: '2',
-    label: (<span><ProfileOutlined/>Словарь</span>),
-    children: <Dictionary/>,
-    disabled: false
+    title: 'Словарь',
+    icon: <ProfileOutlined/>,
+    component: <Dictionary/>
   }, {
-    key: '3',
-    label: (<span><RadarChartOutlined/>Карта</span>),
-    children: <Dictionary/>,
-    disabled: true
+    title: 'Карта',
+    icon: <RadarChartOutlined/>,
+    component: <Dictionary/>,
+    disable: true
   }
 ]
 
+/**
+ * Метод создает вкладки
+ */
+const createTabsItems = (): TabsProps['items'] => {
+  const items: TabsProps['items'] = []
+
+  const addTabsItem = (title: string, icon: React.ReactNode, children: React.ReactNode, disable?: boolean): void => {
+    const label = <span>{icon}{title}</span>
+    items.push({ key: String(items.length), label, children, disabled: disable })
+  }
+
+  initItems.forEach(item => {
+    addTabsItem(item.title, item.icon, item.component, item.disable)
+  })
+
+  return items
+}
+
 function App (): JSX.Element {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(updateUserInfo({
+      lastName: 'Vadmark',
+      tabIndex: 1
+    }))
+  }, [])
+
+  const tabsChangeHandler = (activeKey:string) => {
+    console.log('activeKey:', activeKey)
+  }
+
   return (
     <Tabs
-      items={items}
+      items={createTabsItems()}
       size={'large'}
       style={{ margin: 16 }}
+      onChange={tabsChangeHandler}
     />
   )
 }
