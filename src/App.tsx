@@ -3,9 +3,19 @@ import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import Quiz from './components/quiz/Quiz'
 import Dictionary from './components/dictionary/Dictionary'
-import { QuestionOutlined, ProfileOutlined, RadarChartOutlined } from '@ant-design/icons'
-import { useDispatch } from 'react-redux'
+import {
+  QuestionOutlined,
+  ReadOutlined,
+  SubnodeOutlined,
+  RadarChartOutlined,
+  FieldBinaryOutlined
+} from '@ant-design/icons'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateUserInfo } from './store/userSlice'
+import { updateActiveKey } from './store/commonSlice'
+import Numerals from './components/numerals/Numerals'
+import WordEndings from './components/wordEndings/WordEndings'
+import { getSetting, LocalStoreKey, setSetting } from './service/settings'
 
 interface TabData {
   title: string
@@ -21,8 +31,16 @@ const initItems: TabData[] = [
     component: <Quiz/>
   }, {
     title: 'Словарь',
-    icon: <ProfileOutlined/>,
+    icon: <ReadOutlined/>,
     component: <Dictionary/>
+  }, {
+    title: 'Числительные',
+    icon: <FieldBinaryOutlined/>,
+    component: <Numerals/>
+  }, {
+    title: 'Вопросительный аффикс -бы',
+    icon: <SubnodeOutlined/>,
+    component: <WordEndings/>
   }, {
     title: 'Карта',
     icon: <RadarChartOutlined/>,
@@ -50,20 +68,41 @@ const createTabsItems = (): TabsProps['items'] => {
 }
 
 function App (): JSX.Element {
+  const activeKey = useSelector((state: any): string => state.common.activeKey)
   const dispatch = useDispatch()
   useEffect(() => {
+    const stringValue = getSetting<number>(LocalStoreKey.NUMBER_KEY, -1)
+    console.log('stringValue:', stringValue)
+    // if (stringValue === -1) {
+    //   console.log('GODD1')
+    // }
+    // setSetting<number>(LocalStoreKey.NUMBER_KEY, 999)
+    // const stringValue1 = getSetting<number>(LocalStoreKey.NUMBER_KEY, -1)
+    // console.log('stringValue1:', stringValue1)
+    // if (stringValue1 === 999) {
+    //   console.log('GODD2')
+    // }
+    //
+    // let temp: boolean = true
+    // console.log('temp:', temp)
+    // const boolValue = getSetting<boolean>(LocalStoreKey.BOOL_KEY, true)
+    // console.log('boolValue:', boolValue)
+
     dispatch(updateUserInfo({
       lastName: 'Vadmark',
       tabIndex: 1
     }))
   }, [])
 
-  const tabsChangeHandler = (activeKey:string) => {
-    console.log('activeKey:', activeKey)
+  const tabsChangeHandler = (activeKey: string): void => {
+    dispatch(updateActiveKey(activeKey))
   }
 
   return (
     <Tabs
+      activeKey={activeKey}
+      defaultActiveKey={activeKey}
+      defaultValue={activeKey}
       items={createTabsItems()}
       size={'large'}
       style={{ margin: 16 }}

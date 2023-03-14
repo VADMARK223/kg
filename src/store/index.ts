@@ -4,9 +4,10 @@
  */
 import { configureStore } from '@reduxjs/toolkit'
 import user from './userSlice'
+import common from './commonSlice'
 
 const store = configureStore({
-  reducer: { user }
+  reducer: { user, common }
 })
 
 export default store
