@@ -23,16 +23,16 @@ export enum LocalStoreKey {
 export const getSetting = <T extends boolean | string | number> (key: LocalStoreKey, defaultValue: T): T => {
   const result: string | null = localStorage.getItem(key)
   if (typeof defaultValue === 'boolean') {
-    if (result !== null) {
+    if (result == null) {
       return defaultValue
     } else {
-      return Boolean(defaultValue) as T
+      return Boolean(result === 'true') as T
     }
   } else if (typeof defaultValue === 'string') {
-    if (result !== null) {
+    if (result == null) {
       return defaultValue
     } else {
-      return String(defaultValue) as T
+      return String(result) as T
     }
   } else if (typeof defaultValue === 'number') {
     if (result == null) {
@@ -62,7 +62,6 @@ export const setSetting = <T extends string | boolean | number> (key: LocalStore
   }
 }
 
-
-export const tempSum = (a:number, b:number):number => {
+export const tempSum = (a: number, b: number): number => {
   return a + b
 }
