@@ -17,9 +17,11 @@ const Word = (props: WordProps): JSX.Element => {
     <>
       {props.direction
         ? <div>
-          {props.data.kg} - {props.data.ru}
+          {props.data.ru} - {props.data.kg}
         </div>
-        : <div>{props.data.ru} - {props.data.kg}</div>}
+        : <div>
+          {props.data.kg} - {props.data.ru}
+        </div>}
     </>
   )
 }
