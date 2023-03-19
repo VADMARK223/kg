@@ -13,7 +13,7 @@ import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 
 const Dictionary = (): JSX.Element => {
-  const items: DictionaryData[] = data.words
+  let items: DictionaryData[] = data.words
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
@@ -32,9 +32,15 @@ const Dictionary = (): JSX.Element => {
   }
 
   const onSearch = (value: string): void => {
-    console.log('SER:', value)
     setSearch(value)
   }
+
+  items = items.filter(value => {
+    if (search === '') {
+      return true
+    }
+    return value.ru.toLowerCase().includes(search.toLowerCase()) || value.kg.toLowerCase().includes(search.toLowerCase())
+  })
 
   return (
     <>
@@ -49,12 +55,6 @@ const Dictionary = (): JSX.Element => {
       <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       {items
         .sort(compareFunction)
-        .filter(value => {
-          if (search === '') {
-            return true
-          }
-          return value.ru.toLowerCase().includes(search.toLowerCase())
-        })
         .map((item, index) => {
           const current = items[index]
           const prev = items[index - 1]
