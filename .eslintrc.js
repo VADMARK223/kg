@@ -25,6 +25,7 @@ module.exports = {
 
     // Type script
     "@typescript-eslint/type-annotation-spacing": "warn", // Ожидается пробел после ':'
+    "@typescript-eslint/dot-notation": "warn", // Лучше писать через точку
     "@typescript-eslint/semi": "warn", // Лишняя точка с запятой
     "@typescript-eslint/no-unused-vars": "warn", // Имеет значение, но никогда не используется
     "@typescript-eslint/explicit-function-return-type": "warn", // Отсутствует возвращаемый тип функции
