@@ -71,23 +71,6 @@ function App (): JSX.Element {
   const activeKey = useSelector((state: any): string => state.common.activeKey)
   const dispatch = useDispatch()
   useEffect(() => {
-    const stringValue = getSetting<number>(LocalStoreKey.NUMBER_KEY, -1)
-    console.log('stringValue:', stringValue)
-    // if (stringValue === -1) {
-    //   console.log('GODD1')
-    // }
-    // setSetting<number>(LocalStoreKey.NUMBER_KEY, 999)
-    // const stringValue1 = getSetting<number>(LocalStoreKey.NUMBER_KEY, -1)
-    // console.log('stringValue1:', stringValue1)
-    // if (stringValue1 === 999) {
-    //   console.log('GODD2')
-    // }
-    //
-    // let temp: boolean = true
-    // console.log('temp:', temp)
-    // const boolValue = getSetting<boolean>(LocalStoreKey.BOOL_KEY, true)
-    // console.log('boolValue:', boolValue)
-
     dispatch(updateUserInfo({
       lastName: 'Vadmark',
       tabIndex: 1
