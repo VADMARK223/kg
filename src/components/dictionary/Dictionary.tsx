@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button } from 'antd'
+import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 
@@ -42,6 +42,10 @@ const Dictionary = (): JSX.Element => {
     return value.ru.toLowerCase().includes(search.toLowerCase()) || value.kg.toLowerCase().includes(search.toLowerCase())
   })
 
+  const handleChange = (value: string) => {
+    console.log('value:', value)
+  }
+
   return (
     <>
       <Search
@@ -52,7 +56,15 @@ const Dictionary = (): JSX.Element => {
         onSearch={onSearch}
       />
       <p>Всего слов: {items?.length}</p>
-      <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+      <Space>
+        Категория:
+        <Select
+          style={{ width: 200 }}
+          onChange={handleChange}
+          options={data.categories}
+        />
+        <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+      </Space>
       {items
         .sort(compareFunction)
         .map((item, index) => {
