@@ -4,19 +4,25 @@
  * @author Markitanov Vadim
  * @since 09.03.2023
  */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
 import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
+import { getDictionary } from '../../api/dictionary'
 
 const Dictionary = (): JSX.Element => {
   let items: DictionaryData[] = data.words
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
+
+  useEffect(()=>{
+    console.log('Test calc API.')
+    getDictionary()
+  },[])
 
   const directionHandler = (): void => {
     setDirection(!direction)
