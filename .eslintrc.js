@@ -30,6 +30,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn", // Имеет значение, но никогда не используется
     "@typescript-eslint/explicit-function-return-type": "warn", // Отсутствует возвращаемый тип функции
     "@typescript-eslint/comma-spacing": "warn", // Пробел обязателен после ','
+    "@typescript-eslint/no-unnecessary-type-assertion": "warn", // Это утверждение не нужно, так как оно не меняет тип выражения
     "@typescript-eslint/consistent-type-imports": // Типы в импортах
         [
           "warn", // Сделать предупреждением

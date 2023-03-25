@@ -1,27 +1,34 @@
 {
-  "categories": [
+  "tags": [
     {
-      "value": "1",
+      "value": 1,
       "label": "Цвета"
     },
     {
-      "value": "2",
+      "value": 2,
       "label": "Домашние животные"
     },
     {
-      "value": "3",
+      "value": 3,
       "label": "Фрукты"
     },
     {
-      "value": "4",
+      "value": 4,
       "label": "Овощи"
     },
     {
-      "value": "5",
+      "value": 5,
       "label": "Числительные"
     }
   ],
   "words": [
+    {
+      "ru": "Лиса",
+      "kg": "Түлкү",
+      "tags": [
+        2
+      ]
+    },
     {
       "ru": "Цвета",
       "kg": "Түстөр"

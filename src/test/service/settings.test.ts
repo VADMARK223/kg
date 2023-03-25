@@ -3,7 +3,8 @@
  * @since 14.03.2023
  */
 
-import { getSetting, LocalStoreKey, setSetting } from '../../service/settings'
+import type { LocalStoreKey } from '../../service/settings'
+import { getSetting, setSetting } from '../../service/settings'
 
 describe('Local store.', () => {
   test('String for Local Store.', () => {
@@ -63,5 +64,3 @@ describe('Local store.', () => {
     expect(valueAfterSetting).toBe(NEW_VALUE_TRUE)
   })
 })
-
-

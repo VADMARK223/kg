@@ -28,7 +28,7 @@ const Dictionary = (): JSX.Element => {
   }
 
   const compareFunction = (a: DictionaryData, b: DictionaryData): number => {
-    return a[locale].localeCompare(b[locale])
+    return (a[locale] as string).localeCompare(b[locale] as string)
   }
 
   const onSearch = (value: string): void => {
@@ -61,7 +61,7 @@ const Dictionary = (): JSX.Element => {
         <Select
           style={{ width: 200 }}
           onChange={handleChange}
-          options={data.categories}
+          options={data.tags}
         />
         <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
@@ -70,8 +70,8 @@ const Dictionary = (): JSX.Element => {
         .map((item, index) => {
           const current = items[index]
           const prev = items[index - 1]
-          const needShowSymbol = prev === undefined || current[locale].charCodeAt(0) !== prev[locale].charCodeAt(0)
-          const firstSymbol = item[locale].substring(0, 1)
+          const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
+          const firstSymbol = (item[locale] as string).substring(0, 1)
           if (needShowSymbol) {
             return <div key={firstSymbol.charCodeAt(0)}>
               <h4>{firstSymbol}</h4>
