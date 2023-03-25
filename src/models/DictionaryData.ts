@@ -3,7 +3,7 @@
  * @since 16.03.2023
  */
 export interface DictionaryData {
-  [index: string]: string | number | number[] | undefined
+  [index: string]: any
 
   ru: string
   kg: string

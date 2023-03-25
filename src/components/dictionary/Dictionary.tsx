@@ -42,7 +42,7 @@ const Dictionary = (): JSX.Element => {
     return value.ru.toLowerCase().includes(search.toLowerCase()) || value.kg.toLowerCase().includes(search.toLowerCase())
   })
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: string): void => {
     console.log('value:', value)
   }
 

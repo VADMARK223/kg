@@ -13,14 +13,15 @@ interface WordProps {
 }
 
 const Word = (props: WordProps): JSX.Element => {
+  const data = props.data
   return (
     <>
       {props.direction
         ? <div>
-          {props.data.ru} - {props.data.kg}
+          {data.ru} - {data.kg} {data.tags !== undefined ? <>Категории: {data.tags}</> : null}
         </div>
         : <div>
-          {props.data.kg} - {props.data.ru}
+          {data.kg} - {data.ru} {data.tags !== undefined ? <>Категории: {data.tags}</> : null}
         </div>}
     </>
   )
