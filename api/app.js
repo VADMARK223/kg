@@ -26,32 +26,19 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.post('/create', function (request, response) {
-    console.log('Create dic.')
+    console.log('Append dic.')
     let body = ''
     const filePath = __dirname + '/public/dict.json'
     request.on('data', function (data) {
-        console.log('data:', data)
         body += data
     })
 
     request.on('end', function () {
-        fs.appendFile(filePath, body, function () {
-            response.end()
-        })
-    })
-})
-
-app.get('/receive', function (request, response) {
-    console.log('>>>>>>>>>>>>>>>>>>:')
-    let body = ''
-    const filePath = __dirname + '/public/data.txt'
-    request.on('data', function (data) {
-        body += data
-    })
-
-    request.on('end', function () {
-        fs.appendFile(filePath, body, function () {
-            response.end()
+        fs.rm(filePath, function () {
+            console.log('Файл удален.')
+            fs.appendFile(filePath, body, function () {
+                response.end()
+            })
         })
     })
 })

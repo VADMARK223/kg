@@ -3,6 +3,7 @@
  * @since 25.03.2023
  */
 import ky, { HTTPError } from 'ky'
+import data from '../assets/dictionary.json'
 
 const BASE_API_URL: string = 'http://localhost:9000/'
 
@@ -25,7 +26,7 @@ const commonApi = ky.create({
 
 export const createDic = () => {
   commonApi.post('create', {
-    body: 'test'
+    body: JSON.stringify(data, null, 2)
   }).then(value => {
     console.log('good:' + String(value))
   }).catch((reason: HTTPError) => {
