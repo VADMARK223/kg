@@ -8,9 +8,11 @@ import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Select, SelectProps, Space } from 'antd'
+import type { SelectProps } from 'antd'
+import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
+import { getDictionary, validateDic } from '../../api/dictionary'
 
 const Dictionary = (): JSX.Element => {
   let items: DictionaryData[] = data.words
@@ -42,7 +44,6 @@ const Dictionary = (): JSX.Element => {
 
   items = items.filter(value => {
     if (search === '' && tags.length === 0) {
-      console.log('Нечего фильтровать.')
       return true
     }
 
@@ -50,7 +51,7 @@ const Dictionary = (): JSX.Element => {
       const tagsType = typeof value.tags
       if (tagsType === 'number') {
         const result = tags.includes(value.tags as number)
-        console.log('Result: ' + result)
+        console.log('Result: ' + String(result))
       }
     }
 
@@ -64,43 +65,49 @@ const Dictionary = (): JSX.Element => {
 
   const tagsOptions: SelectProps['options'] = data.tags
 
+  const validateDicHandler = () => {
+    console.log('Vadid.')
+    validateDic()
+  }
+
   return (
-      <>
-        <Search
-            placeholder={'Введите слово для поиска'}
-            allowClear
-            enterButton={'Поиск'}
-            size={'middle'}
-            onSearch={onSearch}
+    <>
+      <Search
+        placeholder={'Введите слово для поиска'}
+        allowClear
+        enterButton={'Поиск'}
+        size={'middle'}
+        onSearch={onSearch}
+      />
+      <Button type={'primary'} onClick={validateDicHandler}>Валидировать словарь</Button>
+      <p>Всего слов: {items?.length}</p>
+      <Space>
+        Категория:
+        <Select
+          style={{ width: 400 }}
+          mode={'multiple'}
+          onChange={handleChange}
+          options={tagsOptions}
         />
-        <p>Всего слов: {items?.length}</p>
-        <Space>
-          Категория:
-          <Select
-              style={{width: 400}}
-              mode={'multiple'}
-              onChange={handleChange}
-              options={tagsOptions}
-          />
-          <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
-        </Space>
-        {items
-            .sort(compareFunction)
-            .map((item, index) => {
-              const current = items[index]
-              const prev = items[index - 1]
-              const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
-              const firstSymbol = (item[locale] as string).substring(0, 1)
-              if (needShowSymbol) {
-                return <div key={firstSymbol.charCodeAt(0)}>
-                  <h4>{firstSymbol}</h4>
-                  <Word data={item} direction={direction}/>
-                </div>
-              } else {
-                return <Word key={index} data={item} direction={direction}/>
-              }
-            })}
-      </>
+        <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+      </Space>
+      {items
+        .sort(compareFunction)
+        .map((item, index) => {
+          const current = items[index]
+          const prev = items[index - 1]
+          const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
+          const firstSymbol = (item[locale] as string).substring(0, 1)
+          if (needShowSymbol) {
+            return <div key={firstSymbol.charCodeAt(0)}>
+              <h4>{firstSymbol}</h4>
+              <Word data={item} direction={direction}/>
+            </div>
+          } else {
+            return <Word key={index} data={item} direction={direction}/>
+          }
+        })}
+    </>
   )
 }
 
