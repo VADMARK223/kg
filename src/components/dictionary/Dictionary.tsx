@@ -8,21 +8,20 @@ import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Select, Space } from 'antd'
+import { Button, Select, SelectProps, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
-import { getDictionary } from '../../api/dictionary'
 
 const Dictionary = (): JSX.Element => {
   let items: DictionaryData[] = data.words
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
+  const [tags, setTags] = useState<number[]>([])
 
-  useEffect(()=>{
-    console.log('Test calc API.')
-    getDictionary()
-  },[])
+  useEffect(() => {
+    // getDictionary()
+  }, [])
 
   const directionHandler = (): void => {
     setDirection(!direction)
@@ -42,52 +41,66 @@ const Dictionary = (): JSX.Element => {
   }
 
   items = items.filter(value => {
-    if (search === '') {
+    if (search === '' && tags.length === 0) {
+      console.log('Нечего фильтровать.')
       return true
     }
+
+    if (value.tags !== undefined) {
+      const tagsType = typeof value.tags
+      if (tagsType === 'number') {
+        const result = tags.includes(value.tags as number)
+        console.log('Result: ' + result)
+      }
+    }
+
     return value.ru.toLowerCase().includes(search.toLowerCase()) || value.kg.toLowerCase().includes(search.toLowerCase())
   })
 
-  const handleChange = (value: string): void => {
+  const handleChange = (value: number[]): void => {
     console.log('value:', value)
+    setTags(value)
   }
 
+  const tagsOptions: SelectProps['options'] = data.tags
+
   return (
-    <>
-      <Search
-        placeholder={'Введите слово для поиска'}
-        allowClear
-        enterButton={'Поиск'}
-        size={'middle'}
-        onSearch={onSearch}
-      />
-      <p>Всего слов: {items?.length}</p>
-      <Space>
-        Категория:
-        <Select
-          style={{ width: 200 }}
-          onChange={handleChange}
-          options={data.tags}
+      <>
+        <Search
+            placeholder={'Введите слово для поиска'}
+            allowClear
+            enterButton={'Поиск'}
+            size={'middle'}
+            onSearch={onSearch}
         />
-        <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
-      </Space>
-      {items
-        .sort(compareFunction)
-        .map((item, index) => {
-          const current = items[index]
-          const prev = items[index - 1]
-          const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
-          const firstSymbol = (item[locale] as string).substring(0, 1)
-          if (needShowSymbol) {
-            return <div key={firstSymbol.charCodeAt(0)}>
-              <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction}/>
-            </div>
-          } else {
-            return <Word key={index} data={item} direction={direction}/>
-          }
-        })}
-    </>
+        <p>Всего слов: {items?.length}</p>
+        <Space>
+          Категория:
+          <Select
+              style={{width: 400}}
+              mode={'multiple'}
+              onChange={handleChange}
+              options={tagsOptions}
+          />
+          <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+        </Space>
+        {items
+            .sort(compareFunction)
+            .map((item, index) => {
+              const current = items[index]
+              const prev = items[index - 1]
+              const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
+              const firstSymbol = (item[locale] as string).substring(0, 1)
+              if (needShowSymbol) {
+                return <div key={firstSymbol.charCodeAt(0)}>
+                  <h4>{firstSymbol}</h4>
+                  <Word data={item} direction={direction}/>
+                </div>
+              } else {
+                return <Word key={index} data={item} direction={direction}/>
+              }
+            })}
+      </>
   )
 }
 

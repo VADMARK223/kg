@@ -22,9 +22,12 @@ module.exports = {
     "arrow-spacing": "warn", // Пропущен пробел после =>
     "no-multiple-empty-lines": "warn", // Не допускается более 1 пустой строки
     "prefer-const": "warn", // Никогда не переназначается. Вместо этого используйте 'const'
+    "no-empty": "warn", // Пустой блок условия
 
     // Type script
     "@typescript-eslint/type-annotation-spacing": "warn", // Ожидается пробел после ':'
+    "@typescript-eslint/indent": "warn", // Неверные отступы
+    "@typescript-eslint/object-curly-spacing": "warn", // Отступы между фигурными скобочками
     "@typescript-eslint/dot-notation": "warn", // Лучше писать через точку
     "@typescript-eslint/semi": "warn", // Лишняя точка с запятой
     "@typescript-eslint/no-unused-vars": "warn", // Имеет значение, но никогда не используется
