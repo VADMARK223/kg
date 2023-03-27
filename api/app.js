@@ -25,6 +25,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.post('/create', function (request, response) {
+    console.log('Create dic.')
+    let body = ''
+    const filePath = __dirname + '/public/dict.json'
+    request.on('data', function (data) {
+        console.log('data:', data)
+        body += data
+    })
+
+    request.on('end', function () {
+        fs.appendFile(filePath, body, function () {
+            response.end()
+        })
+    })
+})
+
 app.get('/receive', function (request, response) {
     console.log('>>>>>>>>>>>>>>>>>>:')
     let body = ''
@@ -33,8 +49,8 @@ app.get('/receive', function (request, response) {
         body += data
     })
 
-    request.on('end', function (){
-        fs.appendFile(filePath, body, function (){
+    request.on('end', function () {
+        fs.appendFile(filePath, body, function () {
             response.end()
         })
     })

@@ -2,7 +2,7 @@
  * @author Markitanov Vadim
  * @since 25.03.2023
  */
-import ky from 'ky'
+import ky, { HTTPError } from 'ky'
 
 const BASE_API_URL: string = 'http://localhost:9000/'
 
@@ -23,12 +23,26 @@ const commonApi = ky.create({
   }
 })
 
+export const createDic = () => {
+  commonApi.post('create', {
+    body: 'test'
+  }).then(value => {
+    console.log('good:' + String(value))
+  }).catch((reason: HTTPError) => {
+    if (reason.response.status === 404) {
+      console.error('На сервере не найден точка входа.')
+    } else if (reason.response.status === 400) {
+      console.error('Ошибка запроса.')
+    } else {
+      console.log('Неизвестная ошибка:', reason.response)
+    }
+  })
+}
+
 export const validateDic = () => {
-  fetch('http://localhost:9000/receive')
-    .then(res => {
-      console.log('RES', res)
-    })
-    .catch(err => {
-      console.log('err:', err)
-    })
+  commonApi.get('receive').then(value => {
+    console.log('good:' + String(value))
+  }).catch(reason => {
+    console.log('Errro:', reason)
+  })
 }
