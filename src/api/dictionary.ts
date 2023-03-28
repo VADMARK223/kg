@@ -40,6 +40,20 @@ export const createDic = () => {
   })
 }
 
+export const getDic = ()=> {
+  commonApi.get('get_dic').then(value => {
+    console.log('good:' + String(value))
+  }).catch((reason: HTTPError) => {
+    if (reason.response.status === 404) {
+      console.error('На сервере не найден точка входа.')
+    } else if (reason.response.status === 400) {
+      console.error('Ошибка запроса.')
+    } else {
+      console.log('Неизвестная ошибка:', reason.response)
+    }
+  })
+}
+
 export const validateDic = () => {
   commonApi.get('receive').then(value => {
     console.log('good:' + String(value))

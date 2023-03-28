@@ -43,6 +43,11 @@ app.post('/create', function (request, response) {
     })
 })
 
+app.get('/get_dic', function (request, response) {
+    console.log('Get dic.')
+    response.send('Dic value');
+})
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
