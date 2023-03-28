@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors')
-var fs = require('fs')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const fs = require('fs');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,7 +54,14 @@ app.get('/get_dic', function (request, response) {
         console.log('>>>:', JSON.parse(data))
         response.send(JSON.parse(data));
     })
+})
 
+app.post('/add_word', (request, response) => {
+    console.log('Add word.')
+    request.on('data', function (data) {
+        console.log('New word:', JSON.parse(data))
+        response.end()
+    })
 })
 
 // catch 404 and forward to error handler

@@ -4,6 +4,6 @@
  */
 export interface WordDto {
   ru: string
-  fg: string
+  kg: string
   tags?: number | number[]
 }
