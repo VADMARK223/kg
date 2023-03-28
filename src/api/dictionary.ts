@@ -2,8 +2,10 @@
  * @author Markitanov Vadim
  * @since 25.03.2023
  */
-import ky, { HTTPError } from 'ky'
+import type { HTTPError } from 'ky'
+import ky from 'ky'
 import data from '../assets/dictionary.json'
+import { showError } from './common'
 
 const BASE_API_URL: string = 'http://localhost:9000/'
 
@@ -30,27 +32,15 @@ export const createDic = () => {
   }).then(value => {
     console.log('good:' + String(value))
   }).catch((reason: HTTPError) => {
-    if (reason.response.status === 404) {
-      console.error('На сервере не найден точка входа.')
-    } else if (reason.response.status === 400) {
-      console.error('Ошибка запроса.')
-    } else {
-      console.log('Неизвестная ошибка:', reason.response)
-    }
+    showError(reason)
   })
 }
 
-export const getDic = ()=> {
-  commonApi.get('get_dic').then(value => {
-    console.log('good:' + String(value))
+export const getDic = () => {
+  commonApi.get('get_dic').text().then(value => {
+    console.log('Dic:' + String(value))
   }).catch((reason: HTTPError) => {
-    if (reason.response.status === 404) {
-      console.error('На сервере не найден точка входа.')
-    } else if (reason.response.status === 400) {
-      console.error('Ошибка запроса.')
-    } else {
-      console.log('Неизвестная ошибка:', reason.response)
-    }
+    showError(reason)
   })
 }
 

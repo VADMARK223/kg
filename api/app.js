@@ -44,8 +44,17 @@ app.post('/create', function (request, response) {
 })
 
 app.get('/get_dic', function (request, response) {
-    console.log('Get dic.')
-    response.send('Dic value');
+    console.log('Get dic1.')
+    const filePath = __dirname + '/public/dict.json'
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.log('Error:', err)
+            return
+        }
+        console.log('>>>:', JSON.parse(data))
+        response.send(JSON.parse(data));
+    })
+
 })
 
 // catch 404 and forward to error handler
