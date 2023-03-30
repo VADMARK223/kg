@@ -12,7 +12,7 @@ import type { SelectProps } from 'antd'
 import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
-import { getDictionary, validateDic, setDic, getDic, addWord } from '../../api/dictionary'
+import { setDic, getDic, addWord } from '../../api/dictionary'
 
 const Dictionary = (): JSX.Element => {
   let items: DictionaryData[] = data.words
@@ -65,11 +65,6 @@ const Dictionary = (): JSX.Element => {
 
   const tagsOptions: SelectProps['options'] = data.tags
 
-  const validateDicHandler = () => {
-    console.log('Vadid.')
-    validateDic()
-  }
-
   return (
     <>
       <Search
@@ -83,7 +78,6 @@ const Dictionary = (): JSX.Element => {
         <Button type={'primary'} onClick={setDic}>Перезаписать словарь</Button>
         <Button type={'primary'} onClick={getDic}>Получить словарь</Button>
         <Button type={'primary'} onClick={addWord}>Добавить слово</Button>
-        <Button type={'primary'} onClick={validateDicHandler}>Валидировать словарь</Button>
       </Space>
       <p>Всего слов: {items?.length}</p>
       <Space>

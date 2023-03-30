@@ -68,11 +68,3 @@ export const addWord = () => {
     showError(reason)
   })
 }
-
-export const validateDic = () => {
-  commonApi.get('receive').then(value => {
-    console.log('good:' + String(value))
-  }).catch(reason => {
-    console.log('Errro:', reason)
-  })
-}
