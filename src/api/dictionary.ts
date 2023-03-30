@@ -52,11 +52,7 @@ export const fetchDic = (dispatch: any) => {
 /**
  * Метод добавляет слово в словарь
  */
-export const addWord = (dispatch: any) => {
-  const newWord: WordDto = {
-    ru: 'Вадим',
-    kg: 'Vadim'
-  }
+export const addWord = (dispatch: any, newWord: WordDto) => {
   commonApi.post('add_word', {
     body: JSON.stringify(newWord, null, 2)
   }).json<DicDto>().then(response => {
