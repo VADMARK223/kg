@@ -12,9 +12,10 @@ import type { SelectProps } from 'antd'
 import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
-import { setDic, fetchDic, addWord } from '../../api/dictionary'
+import { setDic, fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import { DicDto } from '../../models/dto/DicDto'
+import AddWord from './AddWord'
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -84,7 +85,7 @@ const Dictionary = (): JSX.Element => {
       <Space direction={'vertical'}>
         <Button type={'primary'} onClick={setDic}>Перезаписать словарь</Button>
         <Button type={'primary'} onClick={fetchDic}>Получить словарь</Button>
-        <Button type={'primary'} onClick={addWord}>Добавить слово</Button>
+        <AddWord/>
       </Space>
       <p>Всего слов: {items?.length}</p>
       <Space>

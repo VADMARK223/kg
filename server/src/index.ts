@@ -52,16 +52,33 @@ app.get('/get_dic', function (request: any, response: any, next: any) {
   })
 })
 
-const rewriteDic = (data: DicDto) => {
+const rewriteDic = (data: DicDto, response: any) => {
   console.log('Перезаписать словарь')
   fs.rm(DIC_PATH, function () {
     fs.appendFile(DIC_PATH, JSON.stringify(data, null, 2), function () {
       console.log('Словарь перезаписан.')
+
+      fs.stat(DIC_PATH, (err, stat) => {
+        if (err == null) {
+          console.log('Файл существует.')
+          fs.readFile(DIC_PATH, 'utf8', (err: any, data: any) => {
+            if (err) {
+              console.log('Error:', err)
+              return
+            }
+            console.log('Отправляем ответ.')
+            response.send(JSON.parse(data))
+          })
+        } else if (err.code === 'ENOENT') {
+          const message = `Файл '${DIC_PATH}' не существует.`
+          console.error(message)
+        }
+      })
     })
   })
 }
 
-const addNewWordInDic = (newWord: WordDto) => {
+const addNewWordInDic = (newWord: WordDto, resp: any) => {
   fs.stat(DIC_PATH, (err, stat) => {
     if (err == null) {
       fs.readFile(DIC_PATH, 'utf8', (err: any, data: any) => {
@@ -73,7 +90,7 @@ const addNewWordInDic = (newWord: WordDto) => {
         const dicDto: DicDto = JSON.parse(data) as DicDto
         dicDto.words.push(newWord)
         console.log('Файл:', dicDto)
-        rewriteDic(dicDto)
+        rewriteDic(dicDto, resp)
       })
     }
   })
@@ -83,8 +100,7 @@ app.post('/add_word', (request: any, response: any) => {
   console.log('Add word.')
   request.on('data', function (data: any) {
     const newWord: WordDto = JSON.parse(data)
-    addNewWordInDic(newWord)
-    response.end()
+    addNewWordInDic(newWord, response)
   })
 })
 

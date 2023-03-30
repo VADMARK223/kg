@@ -8,7 +8,6 @@ import data from '../assets/dictionary.json'
 import { showError } from './common'
 import { DicDto } from '../models/dto/DicDto'
 import { WordDto } from '../models/dto/WordDto'
-import { toast } from 'react-toastify'
 import { getDic } from '../store/dicSlice'
 
 const BASE_API_URL: string = 'http://localhost:9000/'
@@ -42,8 +41,8 @@ export const setDic = () => {
 
 export const fetchDic = (dispatch: any) => {
   commonApi.get('get_dic').json<DicDto>().then(value => {
-    console.log('Tags:' + String(value.tags.length))
-    console.log('Words:' + String(value.words.length))
+    console.log('Fetch dic Tags:' + String(value.tags.length))
+    console.log('Fetch dic Words:' + String(value.words.length))
     dispatch(getDic(value))
   }).catch((reason: HTTPError) => {
     showError(reason)
@@ -53,19 +52,17 @@ export const fetchDic = (dispatch: any) => {
 /**
  * Метод добавляет слово в словарь
  */
-export const addWord = () => {
+export const addWord = (dispatch: any) => {
   const newWord: WordDto = {
     ru: 'Вадим',
     kg: 'Vadim'
   }
   commonApi.post('add_word', {
     body: JSON.stringify(newWord, null, 2)
-  }).then(response => {
-    if (response.status === 200) {
-      toast.success('Слово успешно добавлено.')
-    } else {
-      toast.error('Статус ответа: ' + String(response.status))
-    }
+  }).json<DicDto>().then(response => {
+    console.log('Add word dic Tags:' + String(response.tags.length))
+    console.log('Add word dic Words:' + String(response.words.length))
+    dispatch(getDic(response))
   }).catch((reason: HTTPError) => {
     showError(reason)
   })

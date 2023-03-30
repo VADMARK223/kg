@@ -15,7 +15,6 @@ import { updateUserInfo } from './store/userSlice'
 import { updateActiveKey } from './store/commonSlice'
 import Numerals from './components/numerals/Numerals'
 import WordEndings from './components/wordEndings/WordEndings'
-import { getSetting, LocalStoreKey, setSetting } from './service/settings'
 
 interface TabData {
   title: string
@@ -26,13 +25,14 @@ interface TabData {
 
 const initItems: TabData[] = [
   {
-    title: 'Опросник',
-    icon: <QuestionOutlined/>,
-    component: <Quiz/>
-  }, {
     title: 'Словарь',
     icon: <ReadOutlined/>,
     component: <Dictionary/>
+  },
+  {
+    title: 'Опросник',
+    icon: <QuestionOutlined/>,
+    component: <Quiz/>
   }, {
     title: 'Числительные',
     icon: <FieldBinaryOutlined/>,
