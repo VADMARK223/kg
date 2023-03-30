@@ -9,6 +9,7 @@ import { showError } from './common'
 import { DicDto } from '../models/dto/DicDto'
 import { WordDto } from '../models/dto/WordDto'
 import { toast } from 'react-toastify'
+import { getDic } from '../store/dicSlice'
 
 const BASE_API_URL: string = 'http://localhost:9000/'
 
@@ -39,10 +40,11 @@ export const setDic = () => {
   })
 }
 
-export const getDic = () => {
+export const fetchDic = (dispatch: any) => {
   commonApi.get('get_dic').json<DicDto>().then(value => {
     console.log('Tags:' + String(value.tags.length))
     console.log('Words:' + String(value.words.length))
+    dispatch(getDic(value))
   }).catch((reason: HTTPError) => {
     showError(reason)
   })

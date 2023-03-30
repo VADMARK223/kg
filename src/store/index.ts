@@ -5,9 +5,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import user from './userSlice'
 import common from './commonSlice'
+import dic from './dicSlice'
 
 const store = configureStore({
-  reducer: { user, common }
+  reducer: { user, common, dic }
 })
 
 export default store
