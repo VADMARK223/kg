@@ -3,6 +3,8 @@
  * @since 28.03.2023
  */
 import * as fs from 'fs'
+import { DicDto } from '../models/DicDto'
+import { WordDto } from '../models/WordDto'
 
 const express = require('express')
 const app = express()
@@ -34,10 +36,28 @@ app.get('/get_dic', function (request: any, response: any, next: any) {
   })
 })
 
+const addNewWordInDic = (newWord: WordDto) => {
+  fs.stat(DIC_PATH, (err, stat) => {
+    if (err == null) {
+      fs.readFile(DIC_PATH, 'utf8', (err: any, data: any) => {
+        if (err) {
+          console.log('Ошибка чтения словаря:', err)
+          return
+        }
+
+        const dicDto: DicDto = JSON.parse(data) as DicDto
+        dicDto.words.push(newWord)
+        console.log('Файл:', dicDto)
+      })
+    }
+  })
+}
+
 app.post('/add_word', (request: any, response: any) => {
   console.log('Add word.')
   request.on('data', function (data: any) {
-    console.log('New word:', JSON.parse(data))
+    const newWord: WordDto = JSON.parse(data)
+    addNewWordInDic(newWord)
     response.end()
   })
 })
