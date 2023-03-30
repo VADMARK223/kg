@@ -20,8 +20,10 @@ export const showError = (reason: HTTPError) => {
   if (reason.response.status === 404) {
     toast.error('Сервер не может найти запрашиваемый ресурс.')
   } else if (reason.response.status === 400) {
-    console.error('Сервер не понимает запрос из-за неверного синтаксиса.')
+    toast.error('Сервер не понимает запрос из-за неверного синтаксиса.')
+  } else if (reason.response.status === 500) {
+    toast.error('Внутренняя ошибка сервера.')
   } else {
-    console.log('Неизвестная ошибка:', reason.response)
+    toast.error(`Неизвестная ошибка: ${reason.response.status}`)
   }
 }
