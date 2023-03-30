@@ -29,8 +29,8 @@ const commonApi = ky.create({
   }
 })
 
-export const createDic = () => {
-  commonApi.post('create', {
+export const setDic = () => {
+  commonApi.post('set_dic', {
     body: JSON.stringify(data, null, 2)
   }).then(value => {
     console.log('good:' + String(value))

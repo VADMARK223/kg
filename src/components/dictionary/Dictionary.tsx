@@ -12,7 +12,7 @@ import type { SelectProps } from 'antd'
 import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
-import { getDictionary, validateDic, createDic, getDic, addWord } from '../../api/dictionary'
+import { getDictionary, validateDic, setDic, getDic, addWord } from '../../api/dictionary'
 
 const Dictionary = (): JSX.Element => {
   let items: DictionaryData[] = data.words
@@ -80,7 +80,7 @@ const Dictionary = (): JSX.Element => {
         onSearch={onSearch}
       />
       <Space direction={'vertical'}>
-        <Button type={'primary'} onClick={createDic}>Создать словарь</Button>
+        <Button type={'primary'} onClick={setDic}>Перезаписать словарь</Button>
         <Button type={'primary'} onClick={getDic}>Получить словарь</Button>
         <Button type={'primary'} onClick={addWord}>Добавить слово</Button>
         <Button type={'primary'} onClick={validateDicHandler}>Валидировать словарь</Button>

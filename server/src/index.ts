@@ -15,6 +15,22 @@ const cors = require('cors')
 
 app.use(cors())
 
+app.post('/set_dic', function (request: any, response: any) {
+  let body = ''
+  request.on('data', function (data: any) {
+    body += data
+  })
+
+  request.on('end', function () {
+    fs.rm(DIC_PATH, function () {
+      console.log('Словарь перезаписан.')
+      fs.appendFile(DIC_PATH, body, function () {
+        response.end()
+      })
+    })
+  })
+})
+
 app.get('/get_dic', function (request: any, response: any, next: any) {
   fs.stat(DIC_PATH, (err, stat) => {
     if (err == null) {
@@ -36,6 +52,15 @@ app.get('/get_dic', function (request: any, response: any, next: any) {
   })
 })
 
+const rewriteDic = (data: DicDto) => {
+  console.log('Перезаписать словарь')
+  fs.rm(DIC_PATH, function () {
+    fs.appendFile(DIC_PATH, JSON.stringify(data, null, 2), function () {
+      console.log('Словарь перезаписан.')
+    })
+  })
+}
+
 const addNewWordInDic = (newWord: WordDto) => {
   fs.stat(DIC_PATH, (err, stat) => {
     if (err == null) {
@@ -48,6 +73,7 @@ const addNewWordInDic = (newWord: WordDto) => {
         const dicDto: DicDto = JSON.parse(data) as DicDto
         dicDto.words.push(newWord)
         console.log('Файл:', dicDto)
+        rewriteDic(dicDto)
       })
     }
   })
