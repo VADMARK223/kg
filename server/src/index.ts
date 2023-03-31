@@ -5,7 +5,7 @@
 import * as fs from 'fs'
 import { DicDto } from '../models/DicDto'
 import { WordDto } from '../models/WordDto'
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 const express = require('express')
 const app = express()
@@ -107,6 +107,44 @@ app.post('/add_word', (request: any, response: any) => {
     addNewWordInDic(newWord, response)
   })
 })
+
+app.delete('/remove_word', (request: any, response: any) => {
+  console.log('Remove word.')
+  request.on('data', function (data: any) {
+    const wordId: string = JSON.parse(data)
+    console.log('wordId:', wordId)
+    removeWordFromDic(wordId, response)
+  })
+})
+
+const removeWordFromDic = (id: string, resp: any) => {
+  fs.stat(DIC_PATH, (err, stat) => {
+    if (err == null) {
+      fs.readFile(DIC_PATH, 'utf8', (err: any, data: any) => {
+        if (err) {
+          console.log('Ошибка чтения словаря:', err)
+          return
+        }
+
+        function removeById (value: WordDto, index: number, arr: WordDto[]) {
+          if (value.id === id) {
+            arr.splice(index, 1)
+            return true
+          }
+
+          return false
+        }
+
+        const dicDto: DicDto = JSON.parse(data) as DicDto
+        const words: WordDto[] = dicDto.words
+        words.filter(removeById)
+
+        console.log('Файл:', dicDto)
+        rewriteDic(dicDto, resp)
+      })
+    }
+  })
+}
 
 // Стартуем сервер
 app.listen(port, () => {

@@ -63,3 +63,16 @@ export const addWord = (dispatch: any, newWord: WordDto) => {
     showError(reason)
   })
 }
+
+/**
+ * Метод удаляет слово в словаря
+ */
+export const removeWord = (dispatch: any, id: string | undefined) => {
+  commonApi.delete('remove_word', {
+    body: JSON.stringify(id)
+  }).json<DicDto>().then(response => {
+    dispatch(getDic(response))
+  }).catch((reason: HTTPError) => {
+    showError(reason)
+  })
+}
