@@ -16,15 +16,12 @@ const AddWord = (): JSX.Element => {
   const [kgValue, setKgValue] = useState('')
   const addWordHandler = () => {
     if (ruValue === '' && kgValue === '') {
-      console.log('Empty!')
       const newWord: WordDto = {
-        ru: 'Вадим',
-        kg: 'Vadim'
+        ru: 'вадим',
+        kg: 'vadim'
       }
       addWord(dispatch, newWord)
     } else {
-      console.log('ruVa:', ruValue)
-      console.log('лпVa:', kgValue)
       const newWord: WordDto = {
         ru: ruValue,
         kg: kgValue

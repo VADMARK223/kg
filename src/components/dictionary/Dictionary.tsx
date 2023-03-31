@@ -27,7 +27,7 @@ const Dictionary = (): JSX.Element => {
   // Local
   // let items: DictionaryData[] = data.words
   // Remote
-  let items: DictionaryData[] = dic.words
+  let words: DictionaryData[] = dic.words
 
   useEffect(() => {
     fetchDic(dispatch)
@@ -50,7 +50,7 @@ const Dictionary = (): JSX.Element => {
     setSearch(value)
   }
 
-  items = items.filter(value => {
+  words = words.filter(value => {
     if (search === '' && tags.length === 0) {
       return true
     }
@@ -83,26 +83,25 @@ const Dictionary = (): JSX.Element => {
         onSearch={onSearch}
       />
       <Space direction={'vertical'}>
-        <Button type={'primary'} onClick={setDic}>Перезаписать словарь</Button>
-        <Button type={'primary'} onClick={fetchDic}>Получить словарь</Button>
+        <Button type={'primary'} onClick={setDic} style={{ display: 'none' }}>Перезаписать словарь</Button>
+        <Button type={'primary'} onClick={fetchDic} style={{ display: 'none' }}>Получить словарь</Button>
         <AddWord/>
       </Space>
-      <p>Всего слов: {items?.length}</p>
+      <p>Всего слов: {words?.length}</p>
       <Space>
-        Категория:
         <Select
-          style={{ width: 400 }}
+          style={{ width: 400, display: 'none' }}
           mode={'multiple'}
           onChange={handleChange}
           options={tagsOptions}
         />
         <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
-      {items
+      {words
         .sort(compareFunction)
         .map((item, index) => {
-          const current = items[index]
-          const prev = items[index - 1]
+          const current = words[index]
+          const prev = words[index - 1]
           const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
           const firstSymbol = (item[locale] as string).substring(0, 1)
           if (needShowSymbol) {

@@ -5,6 +5,7 @@
 import * as fs from 'fs'
 import { DicDto } from '../models/DicDto'
 import { WordDto } from '../models/WordDto'
+import {v4 as uuidv4} from 'uuid'
 
 const express = require('express')
 const app = express()
@@ -88,6 +89,9 @@ const addNewWordInDic = (newWord: WordDto, resp: any) => {
         }
 
         const dicDto: DicDto = JSON.parse(data) as DicDto
+        newWord.id = uuidv4()
+        newWord.ru = newWord.ru.charAt(0).toUpperCase() + newWord.ru.slice(1)
+        newWord.kg = newWord.kg.charAt(0).toUpperCase() + newWord.kg.slice(1)
         dicDto.words.push(newWord)
         console.log('Файл:', dicDto)
         rewriteDic(dicDto, resp)
