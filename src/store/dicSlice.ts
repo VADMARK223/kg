@@ -2,8 +2,9 @@
  * @author Markitanov Vadim
  * @since 30.03.2023
  */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DicDto } from '../models/dto/DicDto'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import type { DicDto } from '../models/dto/DicDto'
 
 const initialState: DicDto = {
   tags: [],

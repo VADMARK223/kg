@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 /**
  * Метод показывает ошибки запросов
  */
-export const showError = (reason: HTTPError) => {
+export const showError = (reason: HTTPError): void => {
   console.log('reason.response:', reason.response)
   if (reason.response === undefined) {
     toast.error('Нет соединения с сервером. Или ответ не пришел.')

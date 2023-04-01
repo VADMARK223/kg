@@ -85,7 +85,7 @@ const Dictionary = (): JSX.Element => {
       <Space direction={'vertical'}>
         <Button type={'primary'} onClick={setDic} style={{ display: 'none' }}>Перезаписать словарь</Button>
         <Button type={'primary'} onClick={fetchDic} style={{ display: 'none' }}>Получить словарь</Button>
-        <AddWord/>
+        <AddWord tags={dic.tags}/>
       </Space>
       <p>Всего слов: {words?.length}</p>
       <Space>
@@ -107,10 +107,10 @@ const Dictionary = (): JSX.Element => {
           if (needShowSymbol) {
             return <div key={firstSymbol.charCodeAt(0)}>
               <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction}/>
+              <Word data={item} direction={direction} tags={dic.tags}/>
             </div>
           } else {
-            return <Word key={index} data={item} direction={direction}/>
+            return <Word key={index} data={item} direction={direction} tags={dic.tags}/>
           }
         })}
     </>

@@ -41,8 +41,6 @@ export const setDic = () => {
 
 export const fetchDic = (dispatch: any) => {
   commonApi.get('get_dic').json<DicDto>().then(value => {
-    console.log('Fetch dic Tags:' + String(value.tags.length))
-    console.log('Fetch dic Words:' + String(value.words.length))
     dispatch(getDic(value))
   }).catch((reason: HTTPError) => {
     showError(reason)
@@ -56,8 +54,6 @@ export const addWord = (dispatch: any, newWord: WordDto) => {
   commonApi.post('add_word', {
     body: JSON.stringify(newWord, null, 2)
   }).json<DicDto>().then(response => {
-    console.log('Add word dic Tags:' + String(response.tags.length))
-    console.log('Add word dic Words:' + String(response.words.length))
     dispatch(getDic(response))
   }).catch((reason: HTTPError) => {
     showError(reason)

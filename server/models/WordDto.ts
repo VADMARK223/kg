@@ -6,5 +6,5 @@ export interface WordDto {
   id?: string
   ru: string
   kg: string
-  tags?: number | number[]
+  tags: number | number[]
 }

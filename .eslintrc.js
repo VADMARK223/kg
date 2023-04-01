@@ -24,6 +24,8 @@ module.exports = {
         "no-empty": "warn", // Пустой блок условия
 
         // Type script
+        "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки
+        "@typescript-eslint/restrict-plus-operands": "warn", // Операнды операции '+' должны быть либо обеими строками, либо обоими числами. Рассмотрите возможность использования литерала шаблона
         "@typescript-eslint/type-annotation-spacing": "warn", // Ожидается пробел после ':'
         "@typescript-eslint/indent": "warn", // Неверные отступы
         "@typescript-eslint/object-curly-spacing": "warn", // Отступы между фигурными скобочками
