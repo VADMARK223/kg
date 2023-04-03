@@ -84,13 +84,13 @@ const Dictionary = (): JSX.Element => {
       />
       <Space direction={'vertical'}>
         <Button type={'primary'} onClick={setDic} style={{ display: 'none' }}>Перезаписать словарь</Button>
-        <Button type={'primary'} onClick={fetchDic} style={{ display: 'none' }}>Получить словарь</Button>
+        {/*<Button type={'primary'} onClick={fetchDic} style={{ display: 'none' }}>Получить словарь</Button>*/}
         <AddWord tags={dic.tags}/>
       </Space>
-      <p>Всего слов: {words?.length}</p>
       <Space>
+        <p>Всего слов: {words?.length}</p>
         <Select
-          style={{ width: 400, display: 'none' }}
+          style={{ width: 400 }}
           mode={'multiple'}
           onChange={handleChange}
           options={tagsOptions}

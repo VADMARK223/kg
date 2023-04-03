@@ -22,6 +22,7 @@ module.exports = {
         "no-multiple-empty-lines": "warn", // Не допускается более 1 пустой строки
         "prefer-const": "warn", // Никогда не переназначается. Вместо этого используйте 'const'
         "no-empty": "warn", // Пустой блок условия
+        "spaced-comment": "warn", // Пробелы в комментах
 
         // Type script
         "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки

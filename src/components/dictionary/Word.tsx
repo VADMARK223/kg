@@ -39,6 +39,7 @@ const Word = (props: WordProps): JSX.Element => {
           </div>}
         <Button danger onClick={wordRemoveHandler}>Удалить</Button>
       </Space>
+      <br/>
     </>
   )
 }
