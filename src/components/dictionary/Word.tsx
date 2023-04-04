@@ -20,22 +20,48 @@ interface WordProps {
 const Word = (props: WordProps): JSX.Element => {
   const data = props.data
   const tags = props.tags
-  const currentTag = tags.find(value => {
-    return value.value === data.tags
-  })
+  const wordTags: number | number[] = props.data.tags
+  let currentTag: undefined | TagDto | TagDto[]
+
+  if (Array.isArray(wordTags)) {
+    currentTag = tags.filter(value => {
+      return wordTags.includes(value.value)
+    })
+  } else if (Number.isInteger(wordTags)) {
+    currentTag = tags.find(value => {
+      return value.value === data.tags
+    })
+  }
+
   const dispatch = useDispatch()
   const wordRemoveHandler = () => {
     removeWord(dispatch, data.id)
   }
+
+  const getTags = (): string => {
+    if (currentTag !== undefined) {
+      if (Array.isArray(currentTag)) {
+        const joinString = currentTag.map(value => value.label).join(', ')
+        return `(${joinString})`
+      } else {
+        return `(${currentTag.label})`
+      }
+    } else {
+      return ''
+    }
+  }
+
+  const tagsElement = () => (<i>{getTags()}</i>)
+
   return (
     <>
       <Space direction={'horizontal'}>
         {props.direction
           ? <div>
-            {data.ru} - {data.kg} {data.tags !== undefined ? <i>({currentTag?.label})</i> : null}
+            {data.ru} - {data.kg} {tagsElement()}
           </div>
           : <div>
-            {data.kg} - {data.ru} {data.tags !== undefined ? <i>({currentTag?.label})</i> : null}
+            {data.kg} - {data.ru} {tagsElement()}
           </div>}
         <Button danger onClick={wordRemoveHandler}>Удалить</Button>
       </Space>
