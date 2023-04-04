@@ -55,7 +55,9 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
       const currentAnswerIndex = getRandomIndex(words.length)
       const currentAnswer = words[currentAnswerIndex]
       words.splice(currentAnswerIndex, 1)
-      answers.push(currentAnswer.kg)
+      if (currentAnswer !== undefined) {
+        answers.push(currentAnswer.kg)
+      }
     }
     // Добавляем правильный ответ
     rightIndex = getRandomIndex(answersValueCount)

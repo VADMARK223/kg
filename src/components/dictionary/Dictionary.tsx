@@ -25,7 +25,7 @@ const Dictionary = (): JSX.Element => {
   const [types, setTypes] = useState<number[]>([])
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
-  const [isModalOpen, setIsModalOpen] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Local
   // let items: DictionaryData[] = data.words
