@@ -8,7 +8,6 @@ import React, { useState, useEffect } from 'react'
 // import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import type { SelectProps } from 'antd'
 import { Button, Select, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
@@ -22,6 +21,7 @@ const Dictionary = (): JSX.Element => {
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
   const [tags, setTags] = useState<number[]>([])
+  const [types, setTypes] = useState<number[]>([])
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
   // Local
@@ -71,19 +71,29 @@ const Dictionary = (): JSX.Element => {
     }
   }
 
-  words = words.filter(value => {
-    if (search === '' && tags.length === 0) {
+  const getCheckTypeForWord = (wordType: number): boolean => {
+    if (types.length === 0) {
       return true
     }
 
-    return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags)
+    return types.includes(wordType)
+  }
+
+  words = words.filter(value => {
+    if (search === '' && tags.length === 0 && types.length === 0) {
+      return true
+    }
+
+    return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
   })
 
-  const handleChange = (value: number[]): void => {
+  const tagsChangeHandler = (value: number[]): void => {
     setTags(value)
   }
 
-  const tagsOptions: SelectProps['options'] = dic.tags
+  const typesChangeHandler = (value: number[]): void => {
+    setTypes(value)
+  }
 
   return (
     <>
@@ -99,8 +109,15 @@ const Dictionary = (): JSX.Element => {
           placeholder={'Категории'}
           style={{ width: '100%' }}
           mode={'multiple'}
-          onChange={handleChange}
-          options={tagsOptions}
+          onChange={tagsChangeHandler}
+          options={dic.tags}
+        />
+        <Select
+          placeholder={'Части речи'}
+          style={{ width: '100%' }}
+          mode={'multiple'}
+          onChange={typesChangeHandler}
+          options={dic.types}
         />
         <AddWord tags={dic.tags} types={dic.types}/>
         <p>Всего слов: {words?.length}</p>
