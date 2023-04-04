@@ -21,9 +21,10 @@ interface QuestionData {
 interface QuestionProps {
   showNextButton?: boolean
   question: QuestionData
+  complete?: (rightAnswer: boolean) => void
 }
 
-const Question = ({ showNextButton = false, question }: QuestionProps): JSX.Element => {
+const Question = ({ showNextButton = false, question, complete }: QuestionProps): JSX.Element => {
   const [titleIconState, setTitleIconState] = useState<boolean | null>(null)
   const [value, setValue] = useState(-1)
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
@@ -36,11 +37,14 @@ const Question = ({ showNextButton = false, question }: QuestionProps): JSX.Elem
     if (value !== -1) {
       setNextButtonDisabled(false)
       if (checkRightAnswer()) {
-        console.log('Good2.')
         setTitleIconState(true)
       } else {
-        console.log('Ba3.')
         setTitleIconState(false)
+      }
+      if (complete !== undefined) {
+        setValue(-1)
+        setTitleIconState(null)
+        complete(checkRightAnswer())
       }
     }
   }, [value])
@@ -64,7 +68,7 @@ const Question = ({ showNextButton = false, question }: QuestionProps): JSX.Elem
    * Метод проверяет правильность ответа
    * @return {boolean}
    */
-  const checkRightAnswer = (): boolean => question.right - 1 === value
+  const checkRightAnswer = (): boolean => question.right === value
 
   /**
    * Метод вызывается после нажатия кнопки
