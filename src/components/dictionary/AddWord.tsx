@@ -10,9 +10,11 @@ import { useDispatch } from 'react-redux'
 import { TagDto } from '../../models/dto/TagDto'
 import { WordDto } from '../../models/dto/WordDto'
 import { addWord } from '../../api/dictionary'
+import { TypeDto } from '../../models/dto/TypeDto'
 
 interface AddWordProps {
   tags: TagDto[]
+  types: TypeDto[]
 }
 
 const AddWord = (props: AddWordProps): JSX.Element => {
@@ -20,13 +22,14 @@ const AddWord = (props: AddWordProps): JSX.Element => {
   const [ruValue, setRuValue] = useState('')
   const [kgValue, setKgValue] = useState('')
   const [tags, setTags] = useState<number | number[]>([0])
+  const [type, setType] = useState<number>(0)
   const [addButtonDisable, setAddButtonDisable] = useState(true)
   const addWordHandler = (): void => {
-    console.log('tag:', tags)
     const newWord: WordDto = {
       ru: ruValue,
       kg: kgValue,
-      tags: tags
+      tags: tags,
+      type: type
     }
     addWord(dispatch, newWord)
 
@@ -45,6 +48,7 @@ const AddWord = (props: AddWordProps): JSX.Element => {
       <Input placeholder={'Кыргыский'} value={kgValue} onChange={(e) => setKgValue(e.target.value)}/>
       <Select placeholder={'Категории'} style={{ width: '100%', minWidth: '300px' }} options={props.tags}
               mode={'multiple'} defaultValue={0} onChange={(e) => setTags(e)}/>
+      <Select placeholder={'Часть речи'} style={{ width: '170px' }} defaultValue={type} options={props.types} onChange={(e) => setType(e)}/>
       <Button type={'primary'} onClick={addWordHandler} disabled={addButtonDisable}>Добавить слово</Button>
     </Space>
   )

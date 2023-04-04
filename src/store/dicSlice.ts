@@ -8,6 +8,7 @@ import type { DicDto } from '../models/dto/DicDto'
 
 const initialState: DicDto = {
   tags: [],
+  types: [],
   words: []
 }
 
@@ -17,6 +18,7 @@ const dicSlice = createSlice({
   reducers: {
     getDic: (state, action: PayloadAction<DicDto>) => {
       state.tags = action.payload.tags
+      state.types = action.payload.types
       state.words = action.payload.words
     }
   }

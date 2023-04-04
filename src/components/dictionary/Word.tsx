@@ -10,16 +10,21 @@ import { Button, Space } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch } from 'react-redux'
 import { TagDto } from '../../models/dto/TagDto'
+import { TypeDto } from '../../models/dto/TypeDto'
 
 interface WordProps {
   data: DictionaryData
   direction: boolean
   tags: TagDto[]
+  types: TypeDto[]
 }
 
 const Word = (props: WordProps): JSX.Element => {
   const data = props.data
   const tags = props.tags
+  const currentType = props.types.find(value => {
+    return value.value === data.type
+  })
   const wordTags: number | number[] = props.data.tags
   let currentTag: undefined | TagDto | TagDto[]
 
@@ -53,15 +58,17 @@ const Word = (props: WordProps): JSX.Element => {
 
   const tagsElement = () => (<i>{getTags()}</i>)
 
+  const typeElement = () => (<b>{currentType?.label}</b>)
+
   return (
     <>
       <Space direction={'horizontal'}>
         {props.direction
           ? <div>
-            {data.ru} - {data.kg} {tagsElement()}
+            {data.ru} - {data.kg} {typeElement()} {tagsElement()}
           </div>
           : <div>
-            {data.kg} - {data.ru} {tagsElement()}
+            {data.kg} - {data.ru} {typeElement()} {tagsElement()}
           </div>}
         <Button danger onClick={wordRemoveHandler}>Удалить</Button>
       </Space>

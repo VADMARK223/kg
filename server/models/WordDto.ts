@@ -7,4 +7,5 @@ export interface WordDto {
   ru: string
   kg: string
   tags: number | number[]
+  type: number
 }

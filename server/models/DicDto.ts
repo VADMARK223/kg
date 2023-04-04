@@ -4,8 +4,10 @@
  */
 import { TagDto } from './TagDto'
 import { WordDto } from './WordDto'
+import { TypeDto } from './TypeDto'
 
 export interface DicDto {
   tags: TagDto[]
+  types: TypeDto[]
   words: WordDto[]
 }

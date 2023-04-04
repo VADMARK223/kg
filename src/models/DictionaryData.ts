@@ -9,4 +9,5 @@ export interface DictionaryData {
   ru: string
   kg: string
   tags: number | number[]
+  type: number
 }

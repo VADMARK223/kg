@@ -101,7 +101,7 @@ const Dictionary = (): JSX.Element => {
           onChange={handleChange}
           options={tagsOptions}
         />
-        <AddWord tags={dic.tags}/>
+        <AddWord tags={dic.tags} types={dic.types}/>
         <p>Всего слов: {words?.length}</p>
         <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
@@ -115,10 +115,10 @@ const Dictionary = (): JSX.Element => {
           if (needShowSymbol) {
             return <div key={firstSymbol.charCodeAt(0)}>
               <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction} tags={dic.tags}/>
+              <Word data={item} direction={direction} tags={dic.tags} types={dic.types}/>
             </div>
           } else {
-            return <Word key={index} data={item} direction={direction} tags={dic.tags}/>
+            return <Word key={index} data={item} direction={direction} tags={dic.tags} types={dic.types}/>
           }
         })}
     </>
