@@ -17,7 +17,7 @@ interface ModalQuizProps {
 }
 
 const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
-  const words = props.words
+  const words = [...props.words]
   const [currentAnswer, setCurrentAnswer] = useState(0)
   // Общее кол-во вопросов
   const totalQuestions: number = 3
@@ -48,10 +48,14 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   let currentWord = null
   let rightIndex: number = -1
   if (words.length !== 0) {
-    currentWord = words[getRandomIndex(words.length)]
+    const currentWordIndex = getRandomIndex(words.length)
+    currentWord = words[currentWordIndex]
+    words.splice(currentWordIndex, 1)
     for (let i = 0; i < answersValueCount - 1; i++) {
-      const temp = words[getRandomIndex(words.length)]
-      answers.push(temp.kg)
+      const currentAnswerIndex = getRandomIndex(words.length)
+      const currentAnswer = words[currentAnswerIndex]
+      words.splice(currentAnswerIndex, 1)
+      answers.push(currentAnswer.kg)
     }
     // Добавляем правильный ответ
     rightIndex = getRandomIndex(answersValueCount)
