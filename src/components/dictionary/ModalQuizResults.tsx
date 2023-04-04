@@ -15,6 +15,7 @@ export interface ResultItemProps {
   success: boolean
   title: string
   rightAnswerText: string
+  wrongAnswerText: string
 }
 
 const ResultItem = (props: ResultItemProps): JSX.Element => {
@@ -25,8 +26,15 @@ const ResultItem = (props: ResultItemProps): JSX.Element => {
       return <ExclamationCircleTwoTone twoToneColor={'red'}/>
     }
   }
+  const getWrongAnswer = (): JSX.Element | undefined => {
+    if (props.success) {
+      return undefined
+    } else {
+      return <i>Ваш ответ: {props.wrongAnswerText}</i>
+    }
+  }
   return (
-    <p> {getIcon()} {props.title} Правильный ответ: {props.rightAnswerText}</p>
+    <p> {getIcon()} {props.title} Ответ: {props.rightAnswerText}. {getWrongAnswer()}</p>
   )
 }
 
@@ -35,7 +43,7 @@ const ModalQuizResults = (props: ModalQuizResultsProps): JSX.Element => {
     <div>
       {props.data.map((value: ResultItemProps, index) => {
         return <ResultItem key={index} success={value.success} title={value.title}
-                           rightAnswerText={value.rightAnswerText}/>
+                           rightAnswerText={value.rightAnswerText} wrongAnswerText={value.wrongAnswerText}/>
       })}
     </div>
   )

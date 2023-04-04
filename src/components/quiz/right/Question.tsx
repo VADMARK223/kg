@@ -48,8 +48,10 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
         const result: ResultItemProps = {
           success: checkRightAnswer(),
           title: question.title,
-          rightAnswerText: question.answers[question.right]
+          rightAnswerText: question.answers[question.right],
+          wrongAnswerText: question.answers[value]
         }
+
         complete(result)
       }
     }
