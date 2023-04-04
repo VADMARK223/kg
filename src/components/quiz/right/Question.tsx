@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react'
 import type { RadioChangeEvent } from 'antd'
 import { Radio, Space, Button, Tooltip } from 'antd'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
+import { ResultItemProps } from '../../dictionary/ModalQuizResults'
 
 const NEXT_BUTTON_TOOLTIP = 'Следующий вопрос'
 const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответа'
@@ -21,7 +22,7 @@ interface QuestionData {
 interface QuestionProps {
   showNextButton?: boolean
   question: QuestionData
-  complete?: (rightAnswer: boolean) => void
+  complete?: (resultItemProps: ResultItemProps) => void
 }
 
 const Question = ({ showNextButton = false, question, complete }: QuestionProps): JSX.Element => {
@@ -44,7 +45,12 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
       if (complete !== undefined) {
         setValue(-1)
         setTitleIconState(null)
-        complete(checkRightAnswer())
+        const result: ResultItemProps = {
+          success: checkRightAnswer(),
+          title: question.title,
+          rightAnswerText: question.answers[question.right]
+        }
+        complete(result)
       }
     }
   }, [value])

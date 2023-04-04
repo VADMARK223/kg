@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react'
 import Question from '../quiz/right/Question'
 import { DictionaryData } from '../../models/DictionaryData'
 import { Modal } from 'antd'
+import ModalQuizResults, { ResultItemProps } from './ModalQuizResults'
 
 interface ModalQuizProps {
   open: boolean
@@ -23,17 +24,14 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   // Кол-во ответов вопросе
   const answersValueCount: number = 4
   const [totalComplete, setTotalComplete] = useState(false)
+  const [results, setResult] = useState<ResultItemProps[]>([])
 
   useEffect(() => {
     setTotalComplete(currentAnswer === totalQuestions)
   }, [currentAnswer])
 
-  const answerComplete = (rightAnswer: boolean) => {
-    if (rightAnswer) {
-      console.log('Да.')
-    } else {
-      console.log('Нет.')
-    }
+  const answerComplete = (resultItemProps: ResultItemProps) => {
+    results.push(resultItemProps)
     const newCurrentAnswer = currentAnswer + 1
     setCurrentAnswer(newCurrentAnswer)
   }
@@ -62,12 +60,21 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
 
   const closeHandler = () => {
     setCurrentAnswer(0)
+    setResult([])
     props.onClose()
+  }
+
+  const getTitle = (): string => {
+    if (currentAnswer === totalQuestions) {
+      return 'Результаты'
+    } else {
+      return `Быстрый опросник (${currentAnswer}/${totalQuestions})`
+    }
   }
 
   return (
     <div>
-      <Modal title={`Быстрый опросник (${currentAnswer}/${totalQuestions})`}
+      <Modal title={getTitle()}
              open={props.open}
              onOk={closeHandler}
              closable={false}
@@ -76,7 +83,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
              destroyOnClose={true}
       >
         {totalComplete
-          ? <p>Complete</p>
+          ? <ModalQuizResults data={results}/>
           : questionElement(`Как перевести слово: "${currentWord?.ru ?? ''}"?`, rightIndex, answers)
         }
       </Modal>
