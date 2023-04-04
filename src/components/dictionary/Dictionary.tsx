@@ -62,11 +62,12 @@ const Dictionary = (): JSX.Element => {
     if (tags.length === 0) {
       return true
     }
-    const tagsType = typeof wordTags
-    if (tagsType === 'number') {
+    if (Number.isInteger(wordTags)) {
       return tags.includes(wordTags as number)
+    } else if (Array.isArray(wordTags)) {
+      return tags.find(tag => wordTags.includes(tag)) !== undefined
     } else {
-      return true
+      throw new Error('Unknown type of word tags.')
     }
   }
 
