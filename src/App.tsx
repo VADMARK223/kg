@@ -15,6 +15,7 @@ import { updateUserInfo } from './store/userSlice'
 import { updateActiveKey } from './store/commonSlice'
 import Numerals from './components/numerals/Numerals'
 import WordEndings from './components/wordEndings/WordEndings'
+import Map from './components/map/Map'
 
 interface TabData {
   title: string
@@ -44,7 +45,7 @@ const initItems: TabData[] = [
   }, {
     title: 'Карта',
     icon: <RadarChartOutlined/>,
-    component: <Dictionary/>,
+    component: <Map/>,
     disable: true
   }
 ]

@@ -55,6 +55,8 @@ export const setDic = () => {
  * Метод добавляет слово в словарь
  */
 export const addWord = (dispatch: any, newWord: WordDto) => {
+  newWord.ru = newWord.ru.charAt(0).toUpperCase() + newWord.ru.slice(1)
+  newWord.kg = newWord.kg.charAt(0).toUpperCase() + newWord.kg.slice(1)
   commonApi.post('add_word', {
     json: newWord
   }).json<boolean>().then(response => {

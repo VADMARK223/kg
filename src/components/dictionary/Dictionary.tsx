@@ -18,6 +18,7 @@ import AddWord from './AddWord'
 import ModalQuiz from './ModalQuiz'
 
 const Dictionary = (): JSX.Element => {
+  console.log('DUCT:')
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
@@ -33,6 +34,7 @@ const Dictionary = (): JSX.Element => {
   let words: DictionaryData[] = dic.words
 
   useEffect(() => {
+    console.log('USE EFFECT:')
     fetchDic(dispatch)
   }, [])
 
