@@ -6,9 +6,10 @@
  */
 import React, { useState, useEffect } from 'react'
 import Question from '../quiz/right/Question'
-import { DictionaryData } from '../../models/DictionaryData'
+import type { DictionaryData } from '../../models/DictionaryData'
 import { Modal } from 'antd'
-import ModalQuizResults, { ResultItemProps } from './ModalQuizResults'
+import type { ResultItemProps } from './ModalQuizResults'
+import ModalQuizResults from './ModalQuizResults'
 
 interface ModalQuizProps {
   open: boolean
@@ -20,7 +21,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   const words = [...props.words]
   const [currentAnswer, setCurrentAnswer] = useState(0)
   // Общее кол-во вопросов
-  const totalQuestions: number = 3
+  const totalQuestions: number = 5
   // Кол-во ответов вопросе
   const answersValueCount: number = 4
   const [totalComplete, setTotalComplete] = useState(false)
@@ -30,14 +31,14 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
     setTotalComplete(currentAnswer === totalQuestions)
   }, [currentAnswer])
 
-  const answerComplete = (resultItemProps: ResultItemProps) => {
+  const answerComplete = (resultItemProps: ResultItemProps): void => {
     results.push(resultItemProps)
     const newCurrentAnswer = currentAnswer + 1
     setCurrentAnswer(newCurrentAnswer)
   }
 
-  const questionElement = (title: string, rightIndex: number, answers: string[]) => (
-    <Question question={{ title: title, right: rightIndex, answers: answers }} complete={answerComplete}/>
+  const questionElement = (title: string, rightIndex: number, answers: string[]): JSX.Element => (
+    <Question question={{ title, right: rightIndex, answers }} complete={answerComplete}/>
   )
 
   const getRandomIndex = (value: number): number => {
@@ -64,7 +65,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
     answers.splice(rightIndex, 0, currentWord.kg)
   }
 
-  const closeHandler = () => {
+  const closeHandler = (): void => {
     setCurrentAnswer(0)
     setResult([])
     props.onClose()
@@ -84,8 +85,9 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
              open={props.open}
              onOk={closeHandler}
              closable={false}
-             cancelText={'Завершить'}
-             onCancel={closeHandler}
+             okText={currentAnswer === totalQuestions ? 'Готово' : 'Завершить'}
+             okButtonProps={{ type: currentAnswer === totalQuestions ? 'primary' : 'default' }}
+             cancelButtonProps={{ style: { display: 'none' } }}
              destroyOnClose={true}
       >
         {totalComplete
