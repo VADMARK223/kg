@@ -21,7 +21,7 @@ const AddWord = (props: AddWordProps): JSX.Element => {
   const dispatch = useDispatch()
   const [ruValue, setRuValue] = useState('')
   const [kgValue, setKgValue] = useState('')
-  const [tags, setTags] = useState<number | number[]>([0])
+  const [tags] = useState<number | number[]>([0])
   const [type, setType] = useState<number>(0)
   const [addButtonDisable, setAddButtonDisable] = useState(true)
   const addWordHandler = (): void => {

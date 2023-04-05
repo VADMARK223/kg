@@ -39,7 +39,7 @@ const Word = (props: WordProps): JSX.Element => {
   }
 
   const dispatch = useDispatch()
-  const wordRemoveHandler = () => {
+  const wordRemoveHandler = (): void => {
     removeWord(dispatch, data.id)
   }
 
@@ -56,9 +56,9 @@ const Word = (props: WordProps): JSX.Element => {
     }
   }
 
-  const tagsElement = () => (<i>{getTags()}</i>)
+  const tagsElement = (): JSX.Element => (<i>{getTags()}</i>)
 
-  const typeElement = () => (<b>{currentType?.label}</b>)
+  const typeElement = (): JSX.Element => (<b>{currentType?.label}</b>)
 
   return (
     <>

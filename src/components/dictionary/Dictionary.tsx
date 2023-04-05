@@ -18,11 +18,10 @@ import AddWord from './AddWord'
 import ModalQuiz from './ModalQuiz'
 
 const Dictionary = (): JSX.Element => {
-  console.log('DUCT:')
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
-  const [tags, setTags] = useState<number[]>([])
+  const [tags] = useState<number[]>([])
   const [types, setTypes] = useState<number[]>([])
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
@@ -34,7 +33,6 @@ const Dictionary = (): JSX.Element => {
   let words: DictionaryData[] = dic.words
 
   useEffect(() => {
-    console.log('USE EFFECT:')
     fetchDic(dispatch)
   }, [])
 
@@ -91,10 +89,6 @@ const Dictionary = (): JSX.Element => {
 
     return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
   })
-
-  const tagsChangeHandler = (value: number[]): void => {
-    setTags(value)
-  }
 
   const typesChangeHandler = (value: number[]): void => {
     setTypes(value)

@@ -4,7 +4,6 @@
  */
 import type { HTTPError } from 'ky'
 import ky from 'ky'
-import data from '../assets/dictionary.json'
 import { showError } from './common'
 import type { DicDto } from '../models/dto/DicDto'
 import type { WordDto } from '../models/dto/WordDto'
@@ -15,16 +14,6 @@ import { toast } from 'react-toastify'
 const PORT: number = 8080 // Java
 const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
 
-export const getDictionary = () => {
-  fetch('http://localhost:9000/receive')
-    .then(res => {
-      console.log('RES', res)
-    })
-    .catch(err => {
-      console.log('err:', err)
-    })
-}
-
 const commonApi = ky.create({
   prefixUrl: BASE_API_URL, // Префикс, который следует добавлять перед входным URL-адресом при выполнении запроса. Это может быть любой допустимый URL-адрес, относительный или абсолютный.
   retry: {
@@ -32,7 +21,7 @@ const commonApi = ky.create({
   }
 })
 
-export const fetchDic = (dispatch: any) => {
+export const fetchDic = (dispatch: any): void => {
   commonApi.get('dic_get').json<DicDto>().then(value => {
     console.log('value:', value)
     dispatch(getDic(value))
@@ -41,20 +30,10 @@ export const fetchDic = (dispatch: any) => {
   })
 }
 
-export const setDic = () => {
-  commonApi.post('set_dic', {
-    body: JSON.stringify(data, null, 2)
-  }).then(value => {
-    console.log('good:' + String(value))
-  }).catch((reason: HTTPError) => {
-    showError(reason)
-  })
-}
-
 /**
  * Метод добавляет слово в словарь
  */
-export const addWord = (dispatch: any, newWord: WordDto) => {
+export const addWord = (dispatch: any, newWord: WordDto): void => {
   newWord.ru = newWord.ru.charAt(0).toUpperCase() + newWord.ru.slice(1)
   newWord.kg = newWord.kg.charAt(0).toUpperCase() + newWord.kg.slice(1)
   commonApi.post('add_word', {
@@ -72,7 +51,7 @@ export const addWord = (dispatch: any, newWord: WordDto) => {
 /**
  * Метод удаляет слово в словаря
  */
-export const removeWord = (dispatch: any, id: string | undefined) => {
+export const removeWord = (dispatch: any, id: string | undefined): void => {
   commonApi.delete('delete_word', {
     body: id
   }).json<boolean>().then(response => {
