@@ -108,13 +108,13 @@ const Dictionary = (): JSX.Element => {
           size={'middle'}
           onSearch={onSearch}
         />
-        <Select
+        {/* <Select
           placeholder={'Категории'}
           style={{ width: '100%' }}
           mode={'multiple'}
           onChange={tagsChangeHandler}
           options={dic.tags}
-        />
+        /> */}
         <Select
           placeholder={'Части речи'}
           style={{ width: '100%' }}

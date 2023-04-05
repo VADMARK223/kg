@@ -9,13 +9,13 @@ import type { DictionaryData } from '../../models/DictionaryData'
 import { Button, Space } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch } from 'react-redux'
-import { TagDto } from '../../models/dto/TagDto'
-import { TypeDto } from '../../models/dto/TypeDto'
+import type { TagDto } from '../../models/dto/TagDto'
+import type { TypeDto } from '../../models/dto/TypeDto'
 
 interface WordProps {
   data: DictionaryData
   direction: boolean
-  tags: TagDto[]
+  tags: null | TagDto[]
   types: TypeDto[]
 }
 
@@ -29,11 +29,11 @@ const Word = (props: WordProps): JSX.Element => {
   let currentTag: undefined | TagDto | TagDto[]
 
   if (Array.isArray(wordTags)) {
-    currentTag = tags.filter(value => {
+    currentTag = tags?.filter(value => {
       return wordTags.includes(value.value)
     })
   } else if (Number.isInteger(wordTags)) {
-    currentTag = tags.find(value => {
+    currentTag = tags?.find(value => {
       return value.value === data.tags
     })
   }

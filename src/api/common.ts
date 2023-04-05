@@ -21,6 +21,8 @@ export const showError = (reason: HTTPError): void => {
     toast.error('Сервер не может найти запрашиваемый ресурс.')
   } else if (reason.response.status === 400) {
     toast.error('Сервер не понимает запрос из-за неверного синтаксиса.')
+  } else if (reason.response.status === 415) {
+    toast.error('Сервер отказывается принять запрос, потому что формат содержимого не поддерживается сервером.')
   } else if (reason.response.status === 500) {
     toast.error('Внутренняя ошибка сервера.')
   } else {

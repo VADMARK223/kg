@@ -32,7 +32,7 @@ app.post('/set_dic', function (request: any, response: any) {
   })
 })
 
-app.get('/get_dic', function (request: any, response: any, next: any) {
+app.get('/dic_get', function (request: any, response: any, next: any) {
   fs.stat(DIC_PATH, (err, stat) => {
     if (err == null) {
       console.log('Файл существует.')

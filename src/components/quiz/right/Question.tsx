@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react'
 import type { RadioChangeEvent } from 'antd'
 import { Radio, Space, Button, Tooltip } from 'antd'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
-import { ResultItemProps } from '../../dictionary/ModalQuizResults'
+import type { ResultItemProps } from '../../dictionary/ModalQuizResults'
 
 const NEXT_BUTTON_TOOLTIP = 'Следующий вопрос'
 const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответа'

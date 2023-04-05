@@ -6,11 +6,14 @@ import type { HTTPError } from 'ky'
 import ky from 'ky'
 import data from '../assets/dictionary.json'
 import { showError } from './common'
-import { DicDto } from '../models/dto/DicDto'
-import { WordDto } from '../models/dto/WordDto'
+import type { DicDto } from '../models/dto/DicDto'
+import type { WordDto } from '../models/dto/WordDto'
 import { getDic } from '../store/dicSlice'
+import { toast } from 'react-toastify'
 
-const BASE_API_URL: string = 'http://localhost:9000/'
+// const PORT: number = 9000 // Express
+const PORT: number = 8080 // Java
+const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
 
 export const getDictionary = () => {
   fetch('http://localhost:9000/receive')
@@ -29,6 +32,15 @@ const commonApi = ky.create({
   }
 })
 
+export const fetchDic = (dispatch: any) => {
+  commonApi.get('dic_get').json<DicDto>().then(value => {
+    console.log('value:', value)
+    dispatch(getDic(value))
+  }).catch((reason: HTTPError) => {
+    showError(reason)
+  })
+}
+
 export const setDic = () => {
   commonApi.post('set_dic', {
     body: JSON.stringify(data, null, 2)
@@ -39,22 +51,17 @@ export const setDic = () => {
   })
 }
 
-export const fetchDic = (dispatch: any) => {
-  commonApi.get('get_dic').json<DicDto>().then(value => {
-    dispatch(getDic(value))
-  }).catch((reason: HTTPError) => {
-    showError(reason)
-  })
-}
-
 /**
  * Метод добавляет слово в словарь
  */
 export const addWord = (dispatch: any, newWord: WordDto) => {
   commonApi.post('add_word', {
-    body: JSON.stringify(newWord, null, 2)
-  }).json<DicDto>().then(response => {
-    dispatch(getDic(response))
+    json: newWord
+  }).json<boolean>().then(response => {
+    if (response) {
+      toast.success('Слово успешно добавлено.')
+      fetchDic(dispatch)
+    }
   }).catch((reason: HTTPError) => {
     showError(reason)
   })
@@ -64,10 +71,17 @@ export const addWord = (dispatch: any, newWord: WordDto) => {
  * Метод удаляет слово в словаря
  */
 export const removeWord = (dispatch: any, id: string | undefined) => {
-  commonApi.delete('remove_word', {
-    body: JSON.stringify(id)
-  }).json<DicDto>().then(response => {
-    dispatch(getDic(response))
+  commonApi.delete('delete_word', {
+    body: id
+  }).json<boolean>().then(response => {
+    console.log('response:', response)
+    if (response) {
+      toast.success('Слово успешно удалено.')
+      fetchDic(dispatch)
+    } else {
+      toast.error('Ошибка при удалении слова.')
+    }
+    // dispatch(getDic(response))
   }).catch((reason: HTTPError) => {
     showError(reason)
   })
