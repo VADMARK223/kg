@@ -13,7 +13,7 @@ import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
-import { DicDto } from '../../models/dto/DicDto'
+import type { DicDto } from '../../models/dto/DicDto'
 import AddWord from './AddWord'
 import ModalQuiz from './ModalQuiz'
 
@@ -125,8 +125,12 @@ const Dictionary = (): JSX.Element => {
         <AddWord tags={dic.tags} types={dic.types}/>
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
-          <Button type={'primary'} onClick={() => setIsModalOpen(true)}>Генерировать быстрый опросник</Button>
-          <ModalQuiz open={isModalOpen} words={words} onClose={() => setIsModalOpen(false)}/>
+          <Button type={'primary'} onClick={(): void => {
+            setIsModalOpen(true)
+          }}>Генерировать быстрый опросник</Button>
+          <ModalQuiz open={isModalOpen} words={words} onClose={(): void => {
+            setIsModalOpen(false)
+          }}/>
         </Space>
         <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
