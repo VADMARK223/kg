@@ -9,7 +9,7 @@ import { Button, Input, Space, Select } from 'antd'
 import { useDispatch } from 'react-redux'
 import type { TagDto } from '../../models/dto/TagDto'
 import type { WordDto } from '../../models/dto/WordDto'
-import { addWord } from '../../api/dictionary'
+import { saveWord } from '../../api/dictionary'
 import type { TypeDto } from '../../models/dto/TypeDto'
 
 interface AddWordProps {
@@ -31,7 +31,7 @@ const AddWord = (props: AddWordProps): JSX.Element => {
       tags,
       type
     }
-    addWord(dispatch, newWord)
+    saveWord(dispatch, newWord)
 
     setRuValue('')
     setKgValue('')
