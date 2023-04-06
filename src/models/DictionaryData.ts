@@ -5,9 +5,8 @@
 export interface DictionaryData {
   [index: string]: any
 
-  id?: string
+  id: number | null
   ru: string
   kg: string
-  tags: number | number[]
   type: number
 }

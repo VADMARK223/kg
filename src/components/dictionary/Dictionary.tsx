@@ -14,8 +14,8 @@ import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { DicDto } from '../../models/dto/DicDto'
-import AddWord from './AddWord'
 import ModalQuiz from './ModalQuiz'
+import WordEditor from './WordEditor'
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -118,7 +118,7 @@ const Dictionary = (): JSX.Element => {
           onChange={typesChangeHandler}
           options={dic.types}
         />
-        <AddWord tags={dic.tags} types={dic.types}/>
+        <WordEditor types={dic.types}/>
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
           <Button type={'primary'} onClick={(): void => {

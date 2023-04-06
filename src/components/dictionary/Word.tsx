@@ -1,16 +1,17 @@
 /**
- * Компонент
+ * Компонент слова в словаре
  *
  * @author Markitanov Vadim
  * @since 16.03.2023
  */
-import React from 'react'
+import React, { useState } from 'react'
 import type { DictionaryData } from '../../models/DictionaryData'
-import { Button, Space } from 'antd'
+import { Button, Space, Popover } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch } from 'react-redux'
 import type { TagDto } from '../../models/dto/TagDto'
 import type { TypeDto } from '../../models/dto/TypeDto'
+import WordEditor from './WordEditor'
 
 interface WordProps {
   data: DictionaryData
@@ -40,7 +41,7 @@ const Word = (props: WordProps): JSX.Element => {
 
   const dispatch = useDispatch()
   const wordRemoveHandler = (): void => {
-    removeWord(dispatch, data.id)
+    removeWord(dispatch, data.id as number)
   }
 
   const getTags = (): string => {
@@ -60,6 +61,12 @@ const Word = (props: WordProps): JSX.Element => {
 
   const typeElement = (): JSX.Element => (<b>{currentType?.label}</b>)
 
+  const [open, setOpen] = useState(false)
+
+  const handleOpenChange = (newOpen: boolean): void => {
+    setOpen(newOpen)
+  }
+
   return (
     <>
       <Space direction={'horizontal'}>
@@ -70,6 +77,13 @@ const Word = (props: WordProps): JSX.Element => {
           : <div>
             {data.kg} - {data.ru} {typeElement()} {tagsElement()}
           </div>}
+        <Popover content={<WordEditor data={data} types={props.types}/>}
+                 title={'Редактирование слова'}
+                 trigger={'click'}
+                 open={open}
+                 onOpenChange={handleOpenChange}>
+          <Button>Изменить</Button>
+        </Popover>
         <Button danger onClick={wordRemoveHandler}>Удалить</Button>
       </Space>
       <br/>
