@@ -21,6 +21,7 @@ import { Content, Header as AntHeader } from 'antd/es/layout/layout'
 import Header from './components/Header'
 import { RoutePath } from './service/router'
 import NoPage from './components/NoPage'
+import ServicePage from './components/ServicePage'
 
 interface TabData {
   title: string
@@ -124,6 +125,10 @@ function App (): JSX.Element {
                 />
             }
           ]
+        },
+        {
+          path: RoutePath.SERVICE,
+          element: <ServicePage/>
         },
         {
           path: RoutePath.ALL,

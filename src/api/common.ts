@@ -6,13 +6,32 @@
  */
 
 import type { HTTPError } from 'ky'
+import ky from 'ky'
 import { toast } from 'react-toastify'
+
+// const PORT: number = 9000 // Express
+const PORT: number = 8080 // Java
+const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
+
+export const commonApi = ky.create({
+  prefixUrl: BASE_API_URL, // Префикс, который следует добавлять перед входным URL-адресом при выполнении запроса. Это может быть любой допустимый URL-адрес, относительный или абсолютный.
+  retry: {
+    limit: 1 // Максимальное количество повторных попыток неудачных запросов
+  },
+  hooks: {
+    beforeError: [
+      (error: HTTPError) => {
+        showError(error)
+        return error
+      }
+    ]
+  }
+})
 
 /**
  * Метод показывает ошибки запросов
  */
 export const showError = (reason: HTTPError): void => {
-  console.log('reason.response:', reason.response)
   if (reason.response === undefined) {
     toast.error('Нет соединения с сервером. Или ответ не пришел.')
     return

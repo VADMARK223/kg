@@ -3,24 +3,12 @@
  * @since 25.03.2023
  */
 import type { HTTPError } from 'ky'
-import ky from 'ky'
-import { showError } from './common'
+import { showError, commonApi } from './common'
 import type { DicDto } from '../models/dto/DicDto'
 import type { WordDto } from '../models/dto/WordDto'
 import { getDic } from '../store/dicSlice'
 import { toast } from 'react-toastify'
 import type { ResponseDto } from '../models/dto/ResponseDto'
-
-// const PORT: number = 9000 // Express
-const PORT: number = 8080 // Java
-const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
-
-const commonApi = ky.create({
-  prefixUrl: BASE_API_URL, // Префикс, который следует добавлять перед входным URL-адресом при выполнении запроса. Это может быть любой допустимый URL-адрес, относительный или абсолютный.
-  retry: {
-    limit: 1 // Максимальное количество повторных попыток неудачных запросов
-  }
-})
 
 export const fetchDic = (dispatch: any): void => {
   commonApi.get('dic_get').json<DicDto>().then(value => {

@@ -23,9 +23,12 @@ module.exports = {
         "prefer-const": "warn", // Никогда не переназначается. Вместо этого используйте 'const'
         "no-empty": "warn", // Пустой блок условия
         "spaced-comment": "warn", // Пробелы в комментах
+        "eol-last": "warn", // Требуется новая строка в конце файла, но не найдена
 
         // Type script
         "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки
+        "@typescript-eslint/strict-boolean-expressions": "warn", // Неожиданное любое значение в условном выражении. Требуется явное сравнение или приведение типов.
+        "@typescript-eslint/no-floating-promises": "warn", // Обещания должны ожидаться, заканчиваться вызовом .catch, заканчиваться вызовом .then с обработчиком отклонения или быть явно помечены как игнорируемые с помощью оператора `void`
         "@typescript-eslint/restrict-plus-operands": "warn", // Операнды операции '+' должны быть либо обеими строками, либо обоими числами. Рассмотрите возможность использования литерала шаблона
         "@typescript-eslint/type-annotation-spacing": "warn", // Ожидается пробел после ':'
         "@typescript-eslint/indent": "warn", // Неверные отступы
