@@ -24,7 +24,6 @@ const commonApi = ky.create({
 
 export const fetchDic = (dispatch: any): void => {
   commonApi.get('dic_get').json<DicDto>().then(value => {
-    console.log('value:', value)
     dispatch(getDic(value))
   }).catch((reason: HTTPError) => {
     showError(reason)

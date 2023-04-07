@@ -16,6 +16,11 @@ import { updateActiveKey } from './store/commonSlice'
 import Numerals from './components/numerals/Numerals'
 import WordEndings from './components/wordEndings/WordEndings'
 import Map from './components/map/Map'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { Content, Header as AntHeader } from 'antd/es/layout/layout'
+import Header from './components/Header'
+import { RoutePath } from './service/router'
+import NoPage from './components/NoPage'
 
 interface TabData {
   title: string
@@ -82,16 +87,56 @@ function App (): JSX.Element {
     dispatch(updateActiveKey(activeKey))
   }
 
+  const headerStyle: React.CSSProperties = {
+    alignItems: 'center',
+    height: 60,
+    paddingInline: '0px',
+    backgroundColor: '#FFF'
+  }
+
+  const CustomLayout = (): JSX.Element => (
+    <>
+      <AntHeader style={headerStyle}>
+        <Header/>
+      </AntHeader>
+      <Outlet/>
+    </>
+  )
+
+  const routes = createBrowserRouter([
+    {
+      element: <CustomLayout/>,
+      children: [
+        {
+          path: RoutePath.HOME,
+          children: [
+            {
+              index: true,
+              element:
+                <Tabs
+                  activeKey={activeKey}
+                  defaultActiveKey={activeKey}
+                  defaultValue={activeKey}
+                  items={createTabsItems()}
+                  size={'large'}
+                  style={{ margin: 16 }}
+                  onChange={tabsChangeHandler}
+                />
+            }
+          ]
+        },
+        {
+          path: RoutePath.ALL,
+          element: <NoPage/>
+        }
+      ]
+    }
+  ])
+
   return (
-    <Tabs
-      activeKey={activeKey}
-      defaultActiveKey={activeKey}
-      defaultValue={activeKey}
-      items={createTabsItems()}
-      size={'large'}
-      style={{ margin: 16 }}
-      onChange={tabsChangeHandler}
-    />
+    <Content>
+      <RouterProvider router={routes}/>
+    </Content>
   )
 }
 
