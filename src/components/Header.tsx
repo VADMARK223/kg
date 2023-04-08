@@ -1,8 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Space } from 'antd'
+import navigationService from '../service/navigation'
 
 const Header = (): JSX.Element => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    navigationService.setNavigation(navigate)
+  }, [])
   return (
     <Space>
       <Link key={'1'} to={'/'}>Дом</Link>

@@ -8,6 +8,7 @@
 import type { HTTPError } from 'ky'
 import ky from 'ky'
 import { toast } from 'react-toastify'
+import navigationService from '../service/navigation'
 
 // const PORT: number = 9000 // Express
 const PORT: number = 8080 // Java
@@ -22,7 +23,7 @@ export const commonApi = ky.create({
     beforeError: [
       (error: HTTPError) => {
         if (error.response.status === 401) {
-          toast.error('Не хватает действительных учётных данных.')
+          navigationService.redirectLoginPage()
         }
         return error
       }

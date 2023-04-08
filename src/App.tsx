@@ -135,7 +135,7 @@ function App (): JSX.Element {
         {
           path: RoutePath.LOGIN,
           element: <LoginPage/>
-        },{
+        }, {
           path: RoutePath.REGISTER,
           element: <RegisterPage/>
         },
