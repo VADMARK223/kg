@@ -22,6 +22,8 @@ import Header from './components/Header'
 import { RoutePath } from './service/router'
 import NoPage from './components/NoPage'
 import ServicePage from './components/ServicePage'
+import LoginPage from './components/LoginPage'
+import RegisterPage from './components/RegisterPage'
 
 interface TabData {
   title: string
@@ -129,6 +131,13 @@ function App (): JSX.Element {
         {
           path: RoutePath.SERVICE,
           element: <ServicePage/>
+        },
+        {
+          path: RoutePath.LOGIN,
+          element: <LoginPage/>
+        },{
+          path: RoutePath.REGISTER,
+          element: <RegisterPage/>
         },
         {
           path: RoutePath.ALL,

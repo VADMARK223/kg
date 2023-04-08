@@ -21,7 +21,9 @@ export const commonApi = ky.create({
   hooks: {
     beforeError: [
       (error: HTTPError) => {
-        showError(error)
+        if (error.response.status === 401) {
+          toast.error('Не хватает действительных учётных данных.')
+        }
         return error
       }
     ]
@@ -36,6 +38,11 @@ export const showError = (reason: HTTPError): void => {
     toast.error('Нет соединения с сервером. Или ответ не пришел.')
     return
   }
+
+  if (reason.response.status === 401) {
+    return
+  }
+
   if (reason.response.status === 404) {
     toast.error('Сервер не может найти запрашиваемый ресурс.')
   } else if (reason.response.status === 400) {

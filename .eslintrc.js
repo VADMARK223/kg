@@ -24,6 +24,7 @@ module.exports = {
         "no-empty": "warn", // Пустой блок условия
         "spaced-comment": "warn", // Пробелы в комментах
         "eol-last": "warn", // Требуется новая строка в конце файла, но не найдена
+        "no-trailing-spaces": "warn", //
 
         // Type script
         "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки
