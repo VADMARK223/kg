@@ -29,7 +29,7 @@ const Selector = (props: SelectorProps): JSX.Element => {
   return (
     <Select<SelectorDto[], SelectorDto>
       placeholder={props.placeholder}
-      style={{ minWidth: minWidth }}
+      style={{ minWidth }}
       mode={props.mode}
       options={props.options}
       defaultValue={props.defaultOption}

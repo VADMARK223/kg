@@ -71,14 +71,14 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       <Selector placeholder={'Категории'}
                 mode={'multiple'}
                 defaultOption={data?.tags.map(value => {
-                  return { value: value.id, label: value.label }
+                  return { value: value.value, label: value.label }
                 })}
                 options={dicTags.map(value => {
-                  return { value: value.id, label: value.label }
+                  return { value: value.value, label: value.label }
                 })}
                 selectedCallback={(options) => {
                   setTags(options.map(value => {
-                    const result: TagDto = { id: value.value, value: value.value, label: value.label, color: null }
+                    const result: TagDto = { value: value.value, label: value.label, color: null }
                     return result
                   }))
                 }}

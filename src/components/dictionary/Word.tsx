@@ -59,7 +59,7 @@ const Word = (props: WordProps): JSX.Element => {
         </Popover>
         <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
         <div>
-          {tags.map(value => <WordTag key={value.id} label={value.label} color={value.color}/>)}
+          {tags.map(value => <WordTag key={value.value} label={value.label} color={value.color}/>)}
         </div>
       </Space>
       <br/>

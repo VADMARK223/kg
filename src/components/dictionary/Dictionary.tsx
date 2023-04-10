@@ -68,7 +68,7 @@ const Dictionary = (): JSX.Element => {
       return true
     }
 
-    const wordTagsIds = wordTags.map(value => value.id)
+    const wordTagsIds = wordTags.map(value => value.value)
 
     if (Array.isArray(wordTags)) {
       return tags.find(tag => wordTagsIds.includes(tag)) !== undefined
@@ -114,7 +114,7 @@ const Dictionary = (): JSX.Element => {
         <Selector placeholder={'Категории'}
                   mode={'multiple'}
                   options={dic.tags.map(value => {
-                    return { value: value.id, label: value.label }
+                    return { value: value.value, label: value.label }
                   })}
                   selectedCallback={(options) => {
                     setTags(options.map(value => value.value))
