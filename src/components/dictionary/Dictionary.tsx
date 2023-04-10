@@ -105,21 +105,17 @@ const Dictionary = (): JSX.Element => {
         />
         <Selector placeholder={'Части речи'}
                   mode={'multiple'}
-                  options={dic.types.map(value => {
-                    return { value: value.value, label: value.label }
-                  })}
+                  options={dic.types}
                   selectedCallback={(options) => {
                     setTypes(options.map(value => value.value))
                   }}/>
         <Selector placeholder={'Категории'}
                   mode={'multiple'}
-                  options={dic.tags.map(value => {
-                    return { value: value.value, label: value.label }
-                  })}
+                  options={dic.tags}
                   selectedCallback={(options) => {
                     setTags(options.map(value => value.value))
                   }}/>
-        <WordEditor types={dic.types}/>
+        <WordEditor/>
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
           <Button type={'primary'} onClick={(): void => {
@@ -141,10 +137,10 @@ const Dictionary = (): JSX.Element => {
           if (needShowSymbol) {
             return <div key={firstSymbol.charCodeAt(0)}>
               <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction} types={dic.types}/>
+              <Word data={item} direction={direction}/>
             </div>
           } else {
-            return <Word key={index} data={item} direction={direction} types={dic.types}/>
+            return <Word key={index} data={item} direction={direction}/>
           }
         })}
     </>

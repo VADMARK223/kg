@@ -8,18 +8,18 @@ import React, { useState, useEffect } from 'react'
 import type { WordDto } from '../../models/dto/WordDto'
 import { useDispatch, useSelector } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
-import type { TypeDto } from '../../models/dto/TypeDto'
 import { saveWord } from '../../api/dictionary'
 import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
+import type { DicDto } from '../../models/dto/DicDto'
 
 interface WordEditorProps {
   data?: WordDto
-  types: TypeDto[] // TODO: вынести в общее состояние
+  closeCallback?: () => void
 }
 
 const WordEditor = (props: WordEditorProps): JSX.Element => {
-  const dicTags = useSelector((state: any): TagDto[] => state.dic.tags)
+  const dicData = useSelector((state: any): DicDto => state.dic)
   const data = props.data
   const isEditMode = data !== undefined
   const dispatch = useDispatch()
@@ -48,6 +48,10 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       setRuValue('')
       setKgValue('')
     }
+
+    if (props.closeCallback !== undefined) {
+      props.closeCallback()
+    }
   }
 
   return (
@@ -64,7 +68,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
              }}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
               defaultValue={type}
-              options={props.types}
+              options={dicData.types}
               onChange={(e) => {
                 setType(e)
               }}/>
@@ -73,9 +77,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
                 defaultOption={data?.tags.map(value => {
                   return { value: value.value, label: value.label }
                 })}
-                options={dicTags.map(value => {
-                  return { value: value.value, label: value.label }
-                })}
+                options={dicData.tags}
                 selectedCallback={(options) => {
                   setTags(options.map(value => {
                     const result: TagDto = { value: value.value, label: value.label, color: null }

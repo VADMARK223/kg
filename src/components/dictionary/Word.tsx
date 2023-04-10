@@ -6,9 +6,9 @@
  */
 import React, { useState } from 'react'
 import type { DictionaryData } from '../../models/DictionaryData'
-import { Button, Space, Popover } from 'antd'
+import { Button, Space, Popover, Tooltip } from 'antd'
 import { removeWord } from '../../api/dictionary'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import WordEditor from './WordEditor'
 import WordTag from './WordTag'
@@ -17,13 +17,13 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 interface WordProps {
   data: DictionaryData
   direction: boolean
-  types: TypeDto[]
 }
 
 const Word = (props: WordProps): JSX.Element => {
+  const types = useSelector((state: any): TypeDto[] => state.dic.types)
   const data = props.data
   const tags = data.tags
-  const currentType = props.types.find(value => {
+  const currentType = types.find(value => {
     return value.value === data.type
   })
 
@@ -50,14 +50,18 @@ const Word = (props: WordProps): JSX.Element => {
           : <div>
             {data.kg} - {data.ru} {typeElement()}
           </div>}
-        <Popover content={<WordEditor data={data} types={props.types}/>}
+        <Popover content={<WordEditor data={data} closeCallback={() => {
+          setOpen(false)
+        }}/>}
                  title={'Редактирование слова'}
                  trigger={'click'}
                  open={open}
                  onOpenChange={handleOpenChange}>
           <Button icon={<EditOutlined/>}/>
         </Popover>
-        <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
+        <Tooltip title={'Удалить слово'}>
+          <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
+        </Tooltip>
         <div>
           {tags.map(value => <WordTag key={value.value} label={value.label} color={value.color}/>)}
         </div>
