@@ -11,6 +11,7 @@ import { removeWord } from '../../api/dictionary'
 import { useDispatch } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import WordEditor from './WordEditor'
+import WordTag from './WordTag'
 
 interface WordProps {
   data: DictionaryData
@@ -30,16 +31,6 @@ const Word = (props: WordProps): JSX.Element => {
     removeWord(dispatch, data.id as number)
   }
 
-  const getTags = (): string => {
-    if (tags.length === 0) {
-      return ''
-    }
-    const joinString: string = tags.map(value => value.label).join(', ')
-    return `(${joinString})`
-  }
-
-  const tagsElement = (): JSX.Element => (<i>{getTags()}</i>)
-
   const typeElement = (): JSX.Element => (<b>{currentType?.label}</b>)
 
   const [open, setOpen] = useState(false)
@@ -53,10 +44,10 @@ const Word = (props: WordProps): JSX.Element => {
       <Space direction={'horizontal'}>
         {props.direction
           ? <div>
-            {data.ru} - {data.kg} {typeElement()} {tagsElement()}
+            {data.ru} - {data.kg} {typeElement()}
           </div>
           : <div>
-            {data.kg} - {data.ru} {typeElement()} {tagsElement()}
+            {data.kg} - {data.ru} {typeElement()}
           </div>}
         <Popover content={<WordEditor data={data} types={props.types}/>}
                  title={'Редактирование слова'}
@@ -66,6 +57,9 @@ const Word = (props: WordProps): JSX.Element => {
           <Button>Изменить</Button>
         </Popover>
         <Button danger onClick={wordRemoveHandler}>Удалить</Button>
+        <div>
+          {tags.map(value => <WordTag key={value.id} label={value.label} color={value.color}/>)}
+        </div>
       </Space>
       <br/>
     </>

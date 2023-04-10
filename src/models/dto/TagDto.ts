@@ -6,4 +6,5 @@ export interface TagDto {
   id: number
   value: number
   label: string
+  color: null | string
 }
