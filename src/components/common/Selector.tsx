@@ -11,31 +11,29 @@ import type { SelectorDto } from '../../models/dto/SelectorDto'
 interface SelectorProps {
   placeholder: string
   mode: 'multiple' | 'tags'
+  defaultOption?: SelectorDto[]
   options?: SelectorDto[]
   selectedCallback?: (options: SelectorDto[]) => void
+  minWidth?: string
 }
 
 const Selector = (props: SelectorProps): JSX.Element => {
-  function onChangeHandler (value: string, options: SelectorDto[] | SelectorDto): void {
-    console.log('Selected options', options)
+  const minWidth: string = props.minWidth ?? '100%'
+
+  function onChangeHandler (value: SelectorDto[], option: any): void {
     if (props.selectedCallback !== undefined) {
-      if (Array.isArray(options)) {
-        props.selectedCallback(options)
-      } else {
-        props.selectedCallback([options])
-      }
+      props.selectedCallback(option)
     }
   }
 
   return (
-    <Select
+    <Select<SelectorDto[], SelectorDto>
       placeholder={props.placeholder}
-      style={{ minWidth: '170px', width: '100%' }}
+      style={{ minWidth: minWidth }}
       mode={props.mode}
       options={props.options}
+      defaultValue={props.defaultOption}
       filterOption={(inputValue, option) => {
-        console.log('inputValue', inputValue)
-        console.log('option', option)
         return option?.label.toLowerCase().includes(inputValue.toLowerCase()) ?? true
       }}
       onChange={onChangeHandler}

@@ -6,12 +6,12 @@
  */
 import React, { useState, useEffect } from 'react'
 import type { WordDto } from '../../models/dto/WordDto'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import { saveWord } from '../../api/dictionary'
-import TagSelector from './TagSelector'
 import type { TagDto } from '../../models/dto/TagDto'
+import Selector from '../common/Selector'
 
 interface WordEditorProps {
   data?: WordDto
@@ -19,6 +19,7 @@ interface WordEditorProps {
 }
 
 const WordEditor = (props: WordEditorProps): JSX.Element => {
+  const dicTags = useSelector((state: any): TagDto[] => state.dic.tags)
   const data = props.data
   const isEditMode = data !== undefined
   const dispatch = useDispatch()
@@ -67,9 +68,22 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
               onChange={(e) => {
                 setType(e)
               }}/>
-      <TagSelector data={data?.tags} changeCallback={tags => {
-        setTags(tags)
-      }}/>
+      <Selector placeholder={'Категории'}
+                mode={'multiple'}
+                defaultOption={data?.tags.map(value => {
+                  return { value: value.id, label: value.label }
+                })}
+                options={dicTags.map(value => {
+                  return { value: value.id, label: value.label }
+                })}
+                selectedCallback={(options) => {
+                  setTags(options.map(value => {
+                    const result: TagDto = { id: value.value, value: value.value, label: value.label, color: null }
+                    return result
+                  }))
+                }}
+                minWidth={'170px'}
+      />
       <Button type={'primary'} onClick={buttonHandler}
               disabled={buttonDisable}>{isEditMode ? 'Изменить' : 'Добавить'}</Button>
     </Space>

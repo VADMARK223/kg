@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react'
 // import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Select, Space } from 'antd'
+import { Button, Space } from 'antd'
 import { SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
@@ -18,7 +18,6 @@ import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
 import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
-import type { SelectorDto } from '../../models/dto/SelectorDto'
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -94,18 +93,6 @@ const Dictionary = (): JSX.Element => {
     return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
   })
 
-  const typesChangeHandler = (value: number[]): void => {
-    setTypes(value)
-  }
-
-  const tagsSelectorDto: SelectorDto[] = dic.tags.map(value => {
-    return { value: value.id, label: value.label }
-  })
-
-  const typesSelectorDto: SelectorDto[] = dic.types.map(value => {
-    return { value: value.value, label: value.label }
-  })
-
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -116,25 +103,22 @@ const Dictionary = (): JSX.Element => {
           size={'middle'}
           onSearch={onSearch}
         />
-        <Selector placeholder={'Категории'}
-                  mode={'multiple'}
-                  options={tagsSelectorDto}
-                  selectedCallback={(options) => {
-                    setTags(options.map(value => value.value))
-                  }}/>
         <Selector placeholder={'Части речи'}
                   mode={'multiple'}
-                  options={typesSelectorDto}
+                  options={dic.types.map(value => {
+                    return { value: value.value, label: value.label }
+                  })}
                   selectedCallback={(options) => {
                     setTypes(options.map(value => value.value))
                   }}/>
-        <Select
-          placeholder={'Части речи'}
-          style={{ width: '100%' }}
-          mode={'multiple'}
-          onChange={typesChangeHandler}
-          options={dic.types}
-        />
+        <Selector placeholder={'Категории'}
+                  mode={'multiple'}
+                  options={dic.tags.map(value => {
+                    return { value: value.id, label: value.label }
+                  })}
+                  selectedCallback={(options) => {
+                    setTags(options.map(value => value.value))
+                  }}/>
         <WordEditor types={dic.types}/>
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
