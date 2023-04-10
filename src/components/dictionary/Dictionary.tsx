@@ -17,6 +17,8 @@ import type { DicDto } from '../../models/dto/DicDto'
 import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
 import type { TagDto } from '../../models/dto/TagDto'
+import Selector from '../common/Selector'
+import type { SelectorDto } from '../../models/dto/SelectorDto'
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -96,10 +98,13 @@ const Dictionary = (): JSX.Element => {
     setTypes(value)
   }
 
-  const tagsChangeHandler = (value: number[]): void => {
-    console.log('tags', value)
-    setTags(value)
-  }
+  const tagsSelectorDto: SelectorDto[] = dic.tags.map(value => {
+    return { value: value.id, label: value.label }
+  })
+
+  const typesSelectorDto: SelectorDto[] = dic.types.map(value => {
+    return { value: value.value, label: value.label }
+  })
 
   return (
     <>
@@ -111,13 +116,18 @@ const Dictionary = (): JSX.Element => {
           size={'middle'}
           onSearch={onSearch}
         />
-        <Select
-          placeholder={'Категории'}
-          style={{ width: '100%' }}
-          mode={'multiple'}
-          onChange={tagsChangeHandler}
-          options={dic.tags}
-        />
+        <Selector placeholder={'Категории'}
+                  mode={'multiple'}
+                  options={tagsSelectorDto}
+                  selectedCallback={(options) => {
+                    setTags(options.map(value => value.value))
+                  }}/>
+        <Selector placeholder={'Части речи'}
+                  mode={'multiple'}
+                  options={typesSelectorDto}
+                  selectedCallback={(options) => {
+                    setTypes(options.map(value => value.value))
+                  }}/>
         <Select
           placeholder={'Части речи'}
           style={{ width: '100%' }}
