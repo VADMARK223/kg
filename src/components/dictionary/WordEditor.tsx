@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import { saveWord } from '../../api/dictionary'
+import TagSelector from './TagSelector'
+import type { TagDto } from '../../models/dto/TagDto'
 
 interface WordEditorProps {
   data?: WordDto
@@ -23,6 +25,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
   const [ruValue, setRuValue] = useState(data?.ru)
   const [kgValue, setKgValue] = useState(data?.kg)
   const [type, setType] = useState<number>(data?.type ?? 0)
+  const [tags, setTags] = useState<TagDto[]>(data?.tags ?? [])
   const [buttonDisable, setButtonDisable] = useState(true)
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       ru: ruValue as string,
       kg: kgValue as string,
       type,
-      tags: []
+      tags
     }
 
     saveWord(dispatch, newWord)
@@ -64,6 +67,9 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
               onChange={(e) => {
                 setType(e)
               }}/>
+      <TagSelector data={data?.tags} changeCallback={tags => {
+        setTags(tags)
+      }}/>
       <Button type={'primary'} onClick={buttonHandler}
               disabled={buttonDisable}>{isEditMode ? 'Изменить' : 'Добавить'}</Button>
     </Space>

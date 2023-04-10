@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import WordEditor from './WordEditor'
 import WordTag from './WordTag'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
 interface WordProps {
   data: DictionaryData
@@ -54,9 +55,9 @@ const Word = (props: WordProps): JSX.Element => {
                  trigger={'click'}
                  open={open}
                  onOpenChange={handleOpenChange}>
-          <Button>Изменить</Button>
+          <Button icon={<EditOutlined/>}/>
         </Popover>
-        <Button danger onClick={wordRemoveHandler}>Удалить</Button>
+        <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
         <div>
           {tags.map(value => <WordTag key={value.id} label={value.label} color={value.color}/>)}
         </div>

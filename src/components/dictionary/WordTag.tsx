@@ -19,7 +19,7 @@ const WordTag = (props: WordTagProps): JSX.Element => {
             {props.label}
           </span>
     </Tag>
-  );
+  )
 }
 
 export default WordTag
