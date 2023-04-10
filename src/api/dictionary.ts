@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import type { ResponseDto } from '../models/dto/ResponseDto'
 
 export const fetchDic = (dispatch: any): void => {
-  commonApi.get('dic_get').json<DicDto>().then(value => {
+  commonApi.get('get_dic').json<DicDto>().then(value => {
     dispatch(getDic(value))
   }).catch((reason: HTTPError) => {
     showError(reason)

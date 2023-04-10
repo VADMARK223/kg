@@ -2,6 +2,8 @@
  * @author Markitanov Vadim
  * @since 16.03.2023
  */
+import { TagDto } from './dto/TagDto'
+
 export interface DictionaryData {
   [index: string]: any
 
@@ -9,4 +11,5 @@ export interface DictionaryData {
   ru: string
   kg: string
   type: number
+  tags: TagDto[]
 }

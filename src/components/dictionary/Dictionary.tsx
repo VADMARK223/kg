@@ -16,12 +16,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { DicDto } from '../../models/dto/DicDto'
 import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
+import type { TagDto } from '../../models/dto/TagDto'
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
   const [search, setSearch] = useState('')
-  const [tags] = useState<number[]>([])
+  const [tags, setTags] = useState<number[]>([])
   const [types, setTypes] = useState<number[]>([])
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
@@ -61,14 +62,15 @@ const Dictionary = (): JSX.Element => {
     return ruValue.toLowerCase().includes(search.toLowerCase()) || kgValue.toLowerCase().includes(search.toLowerCase())
   }
 
-  const getCheckTagForWord = (wordTags: number | number[]): boolean => {
+  const getCheckTagForWord = (wordTags: TagDto[]): boolean => {
     if (tags.length === 0) {
       return true
     }
-    if (Number.isInteger(wordTags)) {
-      return tags.includes(wordTags as number)
-    } else if (Array.isArray(wordTags)) {
-      return tags.find(tag => wordTags.includes(tag)) !== undefined
+
+    const wordTagsIds = wordTags.map(value => value.id)
+
+    if (Array.isArray(wordTags)) {
+      return tags.find(tag => wordTagsIds.includes(tag)) !== undefined
     } else {
       throw new Error('Unknown type of word tags.')
     }
@@ -94,6 +96,11 @@ const Dictionary = (): JSX.Element => {
     setTypes(value)
   }
 
+  const tagsChangeHandler = (value: number[]): void => {
+    console.log('tags', value)
+    setTags(value)
+  }
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -104,13 +111,13 @@ const Dictionary = (): JSX.Element => {
           size={'middle'}
           onSearch={onSearch}
         />
-        {/* <Select
+        <Select
           placeholder={'Категории'}
           style={{ width: '100%' }}
           mode={'multiple'}
           onChange={tagsChangeHandler}
           options={dic.tags}
-        /> */}
+        />
         <Select
           placeholder={'Части речи'}
           style={{ width: '100%' }}
@@ -140,10 +147,10 @@ const Dictionary = (): JSX.Element => {
           if (needShowSymbol) {
             return <div key={firstSymbol.charCodeAt(0)}>
               <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction} tags={dic.tags} types={dic.types}/>
+              <Word data={item} direction={direction} types={dic.types}/>
             </div>
           } else {
-            return <Word key={index} data={item} direction={direction} tags={dic.tags} types={dic.types}/>
+            return <Word key={index} data={item} direction={direction} types={dic.types}/>
           }
         })}
     </>

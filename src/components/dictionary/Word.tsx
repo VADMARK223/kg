@@ -9,35 +9,21 @@ import type { DictionaryData } from '../../models/DictionaryData'
 import { Button, Space, Popover } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch } from 'react-redux'
-import type { TagDto } from '../../models/dto/TagDto'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import WordEditor from './WordEditor'
 
 interface WordProps {
   data: DictionaryData
   direction: boolean
-  tags: null | TagDto[]
   types: TypeDto[]
 }
 
 const Word = (props: WordProps): JSX.Element => {
   const data = props.data
-  const tags = props.tags
+  const tags = data.tags
   const currentType = props.types.find(value => {
     return value.value === data.type
   })
-  const wordTags: number | number[] = props.data.tags
-  let currentTag: undefined | TagDto | TagDto[]
-
-  if (Array.isArray(wordTags)) {
-    currentTag = tags?.filter(value => {
-      return wordTags.includes(value.value)
-    })
-  } else if (Number.isInteger(wordTags)) {
-    currentTag = tags?.find(value => {
-      return value.value === data.tags
-    })
-  }
 
   const dispatch = useDispatch()
   const wordRemoveHandler = (): void => {
@@ -45,16 +31,11 @@ const Word = (props: WordProps): JSX.Element => {
   }
 
   const getTags = (): string => {
-    if (currentTag !== undefined) {
-      if (Array.isArray(currentTag)) {
-        const joinString = currentTag.map(value => value.label).join(', ')
-        return `(${joinString})`
-      } else {
-        return `(${currentTag.label})`
-      }
-    } else {
+    if (tags.length === 0) {
       return ''
     }
+    const joinString: string = tags.map(value => value.label).join(', ')
+    return `(${joinString})`
   }
 
   const tagsElement = (): JSX.Element => (<i>{getTags()}</i>)

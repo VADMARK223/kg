@@ -1,5 +1,5 @@
 import { commonApi } from './common'
-import { UserDto } from '../models/dto/UserDto'
+import type { UserDto } from '../models/dto/UserDto'
 
 export const fetchUserInfo = (): void => {
   commonApi.get('get_user_info').then(response => {

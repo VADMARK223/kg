@@ -34,7 +34,8 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       id: data?.id ?? null,
       ru: ruValue as string,
       kg: kgValue as string,
-      type
+      type,
+      tags: []
     }
 
     saveWord(dispatch, newWord)

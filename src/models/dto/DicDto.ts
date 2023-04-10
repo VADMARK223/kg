@@ -9,5 +9,5 @@ import type { TypeDto } from './TypeDto'
 export interface DicDto {
   types: TypeDto[]
   words: WordDto[]
-  tags: null | TagDto[]
+  tags: TagDto[]
 }
