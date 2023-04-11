@@ -18,3 +18,21 @@ export const registerUser = (user: UserDto): void => {
     console.warn('Error fetch user info', reason)
   })
 }
+
+export const loginUser = (user: UserDto): void => {
+  commonApi.post('login_user', {
+    json: user
+  }).then(response => {
+    console.log('Register user:', response)
+  }).catch(reason => {
+    console.warn('Error fetch user info', reason)
+  })
+}
+
+export const testService = (): void => {
+  commonApi.post('test_service').then(response => {
+    console.log('Register user:', response)
+  }).catch(reason => {
+    console.warn('Error fetch user info', reason)
+  })
+}
