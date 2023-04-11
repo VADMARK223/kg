@@ -1,5 +1,7 @@
 import { commonApi } from './common'
 import type { UserDto } from '../models/dto/UserDto'
+import type { ResponseDto } from '../models/dto/ResponseDto'
+import { toast } from 'react-toastify'
 
 export const fetchUserInfo = (): void => {
   commonApi.get('get_user_info').then(response => {
@@ -22,8 +24,17 @@ export const registerUser = (user: UserDto): void => {
 export const loginUser = (user: UserDto): void => {
   commonApi.post('login_user', {
     json: user
-  }).then(response => {
-    console.log('Register user:', response)
+  }).json<ResponseDto>().then(response => {
+    console.log('Register login user:', response)
+    if (response.status) {
+      toast.success('Вы успешно вышло.')
+      console.log(response.message)
+      if (response.data != null) {
+        localStorage.setItem('Token', `Bearer ${response.data as string}`)
+      }
+    } else {
+      toast.error(response.message)
+    }
   }).catch(reason => {
     console.warn('Error fetch user info', reason)
   })

@@ -7,6 +7,7 @@
 import type { FormEvent } from 'react'
 import React, { useState } from 'react'
 import type { UserDto } from '../models/dto/UserDto'
+import { loginUser } from '../api/user'
 
 const LoginPage = (): JSX.Element => {
   const [username, setUsername] = useState<string>('')
@@ -17,8 +18,7 @@ const LoginPage = (): JSX.Element => {
         username,
         password
       }
-      console.log('LOGIN', user)
-      // registerUser(user)
+      loginUser(user)
     }
     event.preventDefault()
   }

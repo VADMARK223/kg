@@ -20,7 +20,7 @@ export const commonApi = ky.create({
     limit: 1 // Максимальное количество повторных попыток неудачных запросов
   },
   headers: {
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZG1pbiJ9.2Hx0E_7w0F11bGFAzeiwcwasdwA14XdhBkIVhPW_0Ko'
+    Authorization: localStorage.getItem('Token') ?? ''
   },
   hooks: {
     beforeError: [
