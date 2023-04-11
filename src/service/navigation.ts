@@ -30,6 +30,15 @@ class NavigationService {
       this._navigation(RoutePath.LOGIN)
     }
   }
+
+  /**
+   * Метод перенаправляет на страницу
+   */
+  public redirectPage (path: string): void {
+    if (this._navigation != null) {
+      this._navigation(path)
+    }
+  }
 }
 
 const navigationService = new NavigationService()

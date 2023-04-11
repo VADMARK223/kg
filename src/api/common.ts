@@ -9,6 +9,7 @@ import type { HTTPError } from 'ky'
 import ky from 'ky'
 import { toast } from 'react-toastify'
 import navigationService from '../service/navigation'
+import { getSetting, LocalStoreKey } from '../service/settings'
 
 // const PORT: number = 9000 // Express
 const PORT: number = 8080 // Java
@@ -19,10 +20,10 @@ export const commonApi = ky.create({
   retry: {
     limit: 1 // Максимальное количество повторных попыток неудачных запросов
   },
-  headers: {
-    Authorization: localStorage.getItem('Token') ?? ''
-  },
   hooks: {
+    beforeRequest: [request => {
+      request.headers.set('Authorization', getSetting<string>(LocalStoreKey.TOKEN, ''))
+    }],
     beforeError: [
       (error: HTTPError) => {
         if (error.response.status === 401) {
