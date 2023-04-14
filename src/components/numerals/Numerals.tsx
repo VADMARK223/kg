@@ -13,7 +13,7 @@ const Numerals = (): JSX.Element => {
   const [debug, setDebug] = useState<string>('-')
   const [rightAnswer, setRightAnswer] = useState<string>('-')
 
-  const convertNumberToString = (value: number): string => {
+  const convertNumberToString = (value: number): string | null => {
     if (value === 0) {
       return 'нөл'
     }
@@ -74,6 +74,11 @@ const Numerals = (): JSX.Element => {
     if (value === 100) {
       return 'жүз'
     }
+
+    // if (value === 200) {
+    //   return 'эки жүз'
+    // }
+
     if (value === 1000) {
       return 'миң'
     }
@@ -83,38 +88,57 @@ const Numerals = (): JSX.Element => {
     if (value === 1000000) {
       return 'миллиард'
     }
-    return 'unknown'
+    return null
+  }
+
+  const tempConvert = (value: number, dig: boolean) => {
+    if (convertNumberToString(value) != null) {
+      return convertNumberToString(value)
+    } else {
+      let zero = '1'
+      for (let j = 0; j < value.toString().length - 1; j++) {
+        zero += '0'
+      }
+      const temp = value / Number(zero)
+      return convertNumberToString(temp) + ' ' + convertNumberToString(Number(zero))
+    }
+  }
+
+  const countDigits = (value: number): number => {
+    let i = 0
+    for (i; value >= 1; i++) {
+      value /= 10
+    }
+    return i
   }
 
   useEffect(() => {
-    const numbersArray = String(targetNumber).split('').map(Number)
-    let result: string = ''
+    const cnt = countDigits(targetNumber)
     const resultNumber = []
-    for (let i = numbersArray.length - 1; i >= 0; i--) {
-      result += '|' + convertNumberToString(numbersArray[i])
-      let zero = '1'
-      for (let j = 0; j < numbersArray.length - i - 1; j++) {
-        zero += '0'
+    let newTargetNumber = targetNumber
+    for (let i = 0; i < cnt; i++) {
+      const current = newTargetNumber % 10 * Math.pow(10, i)
+      if (current !== 0) {
+        resultNumber.push(current)
       }
-      const temp: number = Number(zero) * Math.floor(numbersArray[i] * 10 / 10)
-      if (temp !== 0) {
-        resultNumber.push(temp)
-      }
-      result += ' ' + temp
+
+      newTargetNumber = Math.floor(newTargetNumber / 10)
     }
-    setDebug(result)
-    setRightAnswer(resultNumber.reverse().map(value => convertNumberToString(value)).join(' '))
+    setDebug(resultNumber.join(' '))
+    const dig = targetNumber / Math.pow(10, cnt - 1)
+    console.log('DIG', dig)
+    setRightAnswer(resultNumber.reverse().map(value => tempConvert(value, dig === 1)).join(' '))
   }, [targetNumber])
 
   const checkResultHandler = (answerString: string): void => {
-    const targetString: string = convertNumberToString(targetNumber)
-    console.log('Целевое число: ', targetString)
-    console.log('Введенное число: ', answerString)
-    if (targetString === answerString) {
-      console.log('GOOD')
-    } else {
-      console.log('BAD')
-    }
+    // const targetString: string = convertNumberToString(targetNumber)
+    // console.log('Целевое число: ', targetString)
+    // console.log('Введенное число: ', answerString)
+    // if (targetString === answerString) {
+    //   console.log('GOOD')
+    // } else {
+    //   console.log('BAD')
+    // }
   }
 
   return (
