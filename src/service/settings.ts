@@ -23,7 +23,6 @@ export enum LocalStoreKey {
  */
 export const getSetting = <T extends boolean | string | number> (key: LocalStoreKey, defaultValue: T): T => {
   const result: string | null = localStorage.getItem(key)
-  console.log('GET TOKEN:', result)
   if (typeof defaultValue === 'boolean') {
     if (result == null) {
       return defaultValue
@@ -53,7 +52,6 @@ export const getSetting = <T extends boolean | string | number> (key: LocalStore
  * @param {boolean|string|number} value - значение настройки.
  */
 export const setSetting = <T extends string | boolean | number> (key: LocalStoreKey, value: T): void => {
-  console.log('SET TOKEN:', value)
   if (typeof value === 'boolean') {
     localStorage.setItem(key, String(Boolean(value)))
   } else if (typeof value === 'string') {
@@ -63,8 +61,4 @@ export const setSetting = <T extends string | boolean | number> (key: LocalStore
   } else {
     console.error('Unknown value type:', typeof value)
   }
-}
-
-export const tempSum = (a: number, b: number): number => {
-  return a + b
 }

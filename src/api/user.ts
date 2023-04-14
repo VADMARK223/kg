@@ -47,7 +47,7 @@ export const loginUser = (user: UserDto): void => {
 
 export const testService = (): void => {
   commonApi.post('test_service').then(response => {
-    console.log('Register user:', response)
+    // console.log('Register user:', response)
   }).catch(reason => {
     console.warn('Error fetch user info', reason)
   })
