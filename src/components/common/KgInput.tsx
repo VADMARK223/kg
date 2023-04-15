@@ -38,6 +38,7 @@ const KgInput = (props: KgInputProps): JSX.Element => {
 
   const doneHandler = (): void => {
     props.inputValueCallback(value)
+    setValue('')
   }
 
   return (

@@ -10,6 +10,8 @@ import KgInput from '../common/KgInput'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
 import { generateRandomInteger } from '../../service/utils'
 
+const SHOW_DEBUG: boolean = false
+const SHOW_RIGHT_ANSWER: boolean = false
 // const MAX_TARGET_VALUE: number = 9999
 const MAX_TARGET_VALUE: number = 10
 
@@ -18,6 +20,7 @@ const Numerals = (): JSX.Element => {
   const [debug, setDebug] = useState<string>('-')
   const [rightAnswer, setRightAnswer] = useState<string>('-')
   const [answerState, setAnswerState] = useState<boolean | null>(null) // Состояние ответа: null - неизвестно, true - верно, false - неверно
+  const [answerStateText, setAnswerStateText] = useState<string>('')
 
   const convertNumberToString = (value: number): string | null => {
     if (value === 0) {
@@ -126,6 +129,16 @@ const Numerals = (): JSX.Element => {
     setAnswerState(null)
   }, [targetNumber])
 
+  useEffect(() => {
+    if (answerState === null) {
+      setAnswerStateText('Введите ответ для проверки')
+    } else if (answerState) {
+      setAnswerStateText('Ответ верный')
+    } else {
+      setAnswerStateText(`Правильный ответ: ${rightAnswer}`)
+    }
+  }, [answerState])
+
   const checkResultHandler = (answerString: string): void => {
     setAnswerState(rightAnswer.toLowerCase() === answerString.toLowerCase())
   }
@@ -159,14 +172,23 @@ const Numerals = (): JSX.Element => {
                              }}/>
         <Button type={'primary'} onClick={generateHandler}>Генерировать</Button>
       </Space.Compact>
-      <p>
-        Отладка: {debug}
-      </p>
-      <p>
-        Правильный ответ: {rightAnswer}
-      </p>
-      <KgInput inputValueCallback={checkResultHandler}/>
-      <AnswerStateIcon/>
+      {SHOW_DEBUG
+        ? <p>
+          Отладка: {debug}
+        </p>
+        : null}
+      {SHOW_RIGHT_ANSWER
+        ? <p>
+          Правильный ответ: {rightAnswer}
+        </p>
+        : null}
+      <Space direction={'horizontal'}>
+        <KgInput inputValueCallback={checkResultHandler}/>
+        <AnswerStateIcon/>
+        <p>
+          {answerStateText}
+        </p>
+      </Space>
     </Space>
   )
 }
