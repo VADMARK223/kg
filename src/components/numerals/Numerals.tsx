@@ -5,18 +5,15 @@
  * @since 11.03.2023
  */
 import React, { useState, useEffect } from 'react'
-import { Space, Button, InputNumber } from 'antd'
-import KgInput from '../common/KgInput'
+import { Space, Button, InputNumber, Checkbox, Tooltip } from 'antd'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
-import { generateRandomInteger } from '../../service/utils'
+import { generateRandomInteger, countDigitsInNumber } from '../../service/utils'
 import NumberTag from './NumberTag'
 import AnswerTag from './AnswerTag'
 import type { NumberData } from './NumberData'
 
 const SHOW_DEBUG: boolean = false
-const SHOW_RIGHT_ANSWER: boolean = false
-// const MAX_TARGET_VALUE: number = 9999
-const MAX_TARGET_VALUE: number = 100
+const MAX_TARGET_VALUE: number = 9999
 
 const Numerals = (): JSX.Element => {
   const [targetNumber, setTargetNumber] = useState<number>(generateRandomInteger(MAX_TARGET_VALUE))
@@ -24,6 +21,8 @@ const Numerals = (): JSX.Element => {
   const [rightAnswer, setRightAnswer] = useState<string>('-')
   const [answerState, setAnswerState] = useState<boolean | null>(null) // Состояние ответа: null - неизвестно, true - верно, false - неверно
   const [answerStateText, setAnswerStateText] = useState<string>('')
+  const [answerTags, setAnswerTags] = useState<NumberData[]>([]) // Теги ответов
+  const [showHint, setShowHint] = useState<boolean>(false)
 
   const convertNumberToString = (value: number): string | null => {
     if (value === 0) {
@@ -86,8 +85,6 @@ const Numerals = (): JSX.Element => {
     return null
   }
 
-  const countDigits = (value: number): number => String(value).length
-
   const convertNumberByCountDigits = (value: number): string | null => {
     if (value === 3) {
       return 'жүз'
@@ -102,13 +99,13 @@ const Numerals = (): JSX.Element => {
     if (convertNumberToString(value) != null) {
       return convertNumberToString(value)
     } else {
-      const cntDigits = countDigits(value)
+      const cntDigits = countDigitsInNumber(value)
       return `${convertNumberToString(value / Math.pow(10, cntDigits - 1)) as string} ${convertNumberByCountDigits(cntDigits) as string}`
     }
   }
 
   useEffect(() => {
-    const cnt = countDigits(targetNumber)
+    const cnt = countDigitsInNumber(targetNumber)
     const resultNumber = []
     let newTargetNumber = targetNumber
     for (let i = 0; i < cnt; i++) {
@@ -124,21 +121,18 @@ const Numerals = (): JSX.Element => {
       return deepConvert(value)
     }).join(' '))
     setAnswerState(null)
+    setAnswerTags([])
   }, [targetNumber])
 
   useEffect(() => {
     if (answerState === null) {
-      setAnswerStateText('Введите ответ для проверки')
+      setAnswerStateText('Введите ответ кнопками ниже')
     } else if (answerState) {
       setAnswerStateText('Ответ верный')
     } else {
       setAnswerStateText(`Правильный ответ: ${rightAnswer}`)
     }
   }, [answerState])
-
-  const checkResultHandler = (answerString: string): void => {
-    setAnswerState(rightAnswer.toLowerCase() === answerString.toLowerCase())
-  }
 
   const generateHandler = (): void => {
     setTargetNumber(generateRandomInteger(MAX_TARGET_VALUE))
@@ -156,7 +150,6 @@ const Numerals = (): JSX.Element => {
     return (<ExclamationCircleTwoTone twoToneColor={'red'}/>)
   }
 
-  const [answerTags, setAnswerTags] = useState<NumberData[]>([])
   const addTag = (numberData: NumberData): void => {
     answerTags.push(numberData)
     setAnswerTags([...answerTags])
@@ -164,78 +157,86 @@ const Numerals = (): JSX.Element => {
 
   const removeTag = (data: NumberData): void => {
     answerTags.splice(answerTags.indexOf(data), 1)
-    // delete answerTags[answerTags.indexOf(data)]
-    // setAnswerTags(answerTags)
+    setAnswerTags([...answerTags])
   }
 
   const checkHandler = (): void => {
-    console.log('answerTags', answerTags)
     const answerString = answerTags.map(value => value.label)
-    console.log('answerString', answerString)
     setAnswerState(rightAnswer.toLowerCase() === answerString.join(' ').toLowerCase())
   }
 
   const initNumbersTags: NumberData[] = [
-    { value: 0, label: 'нөл' },
-    { value: 1, label: 'бир' },
-    { value: 2, label: 'эки' },
-    { value: 4, label: 'төрт' },
-    { value: 5, label: 'беш' },
-    { value: 6, label: 'алты' },
-    { value: 7, label: 'жети' },
-    { value: 8, label: 'сегиз' },
-    { value: 9, label: 'тогуз' },
-    { value: 10, label: 'он' },
-    { value: 20, label: 'жыйырма' },
-    { value: 30, label: 'отуз' },
-    { value: 40, label: 'кырк' },
-    { value: 50, label: 'элүү' },
-    { value: 60, label: 'алтымыш' },
-    { value: 70, label: 'жетимиш' },
-    { value: 80, label: 'сексен' },
-    { value: 90, label: 'токсон' },
-    { value: 100, label: 'жүз' },
-    { value: 1000, label: 'миң' }
+    { value: 0, label: 'нөл', color: 'green' },
+    { value: 1, label: 'бир', color: 'green' },
+    { value: 2, label: 'эки', color: 'green' },
+    { value: 3, label: 'үч', color: 'green' },
+    { value: 4, label: 'төрт', color: 'green' },
+    { value: 5, label: 'беш', color: 'green' },
+    { value: 6, label: 'алты', color: 'green' },
+    { value: 7, label: 'жети', color: 'green' },
+    { value: 8, label: 'сегиз', color: 'green' },
+    { value: 9, label: 'тогуз', color: 'green' },
+    { value: 10, label: 'он', color: 'green' },
+    { value: 20, label: 'жыйырма', color: 'lime' },
+    { value: 30, label: 'отуз', color: 'lime' },
+    { value: 40, label: 'кырк', color: 'lime' },
+    { value: 50, label: 'элүү', color: 'lime' },
+    { value: 60, label: 'алтымыш', color: 'lime' },
+    { value: 70, label: 'жетимиш', color: 'lime' },
+    { value: 80, label: 'сексен', color: 'lime' },
+    { value: 90, label: 'токсон', color: 'lime' },
+    { value: 100, label: 'жүз', color: 'gold' },
+    { value: 1000, label: 'миң', color: 'gold' }
   ]
 
   return (
     <Space direction={'vertical'}>
-      <Space.Compact>
-        <InputNumber<number> value={targetNumber}
-                             min={0}
-                             max={MAX_TARGET_VALUE}
-                             onChange={(e) => {
-                               if (e != null) {
-                                 setTargetNumber(e)
-                               }
-                             }}/>
-        <Button type={'primary'} onClick={generateHandler}>Генерировать</Button>
-      </Space.Compact>
+      <Space direction={'horizontal'}>
+        <div>
+          Переведите число:
+        </div>
+        <Space.Compact>
+          <InputNumber<number> value={targetNumber}
+                               min={0}
+                               max={MAX_TARGET_VALUE}
+                               onChange={(e) => {
+                                 if (e != null) {
+                                   setTargetNumber(e)
+                                 }
+                               }}/>
+          <Button type={'primary'} onClick={generateHandler}>Генерировать</Button>
+        </Space.Compact>
+        <Space>
+          <Tooltip title={'Показывать подсказку'}>
+            <Checkbox checked={showHint}
+                      onChange={() => {
+                        setShowHint(!showHint)
+                      }}/>
+          </Tooltip>
+          {showHint
+            ? <>
+              Правильный ответ: {rightAnswer}
+            </>
+            : <></>}
+        </Space>
+      </Space>
       {SHOW_DEBUG
         ? <p>
           Отладка: {debug}
-        </p>
-        : null}
-      {SHOW_RIGHT_ANSWER
-        ? <p>
-          Правильный ответ: {rightAnswer}
         </p>
         : null}
       <hr/>
       <Space>
         {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
         <Button type={'primary'} onClick={checkHandler}>Проверить</Button>
-      </Space>
-      <hr/>
-      <Space size={2}>
-        {initNumbersTags.map(value => (<NumberTag key={value.value} data={value} clickCallback={addTag}/>))}
-      </Space>
-      <Space direction={'horizontal'}>
-        <KgInput inputValueCallback={checkResultHandler}/>
         <AnswerStateIcon/>
         <p>
           {answerStateText}
         </p>
+      </Space>
+      <hr/>
+      <Space size={1}>
+        {initNumbersTags.map(value => (<NumberTag key={value.value} data={value} clickCallback={addTag}/>))}
       </Space>
     </Space>
   )

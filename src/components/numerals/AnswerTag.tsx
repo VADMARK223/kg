@@ -14,8 +14,9 @@ interface AnswerTagProps {
 }
 
 const AnswerTag = (props: AnswerTagProps): JSX.Element => {
-  const closeHandler = (): void => {
+  const closeHandler = (e: React.MouseEvent<HTMLElement>): void => {
     props.closeCallback(props.data)
+    e.preventDefault()
   }
   return (
     <Tag closable={true} onClose={closeHandler}>

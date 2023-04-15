@@ -18,7 +18,7 @@ const NumberTag = (props: NumberTagProps): JSX.Element => {
     props.clickCallback(props.data)
   }
   return (
-    <Tag style={{ cursor: 'pointer' }}>
+    <Tag color={props.data.color} style={{ cursor: 'pointer' }}>
           <span onClick={clickHandler}>
             {props.data.label}
           </span>

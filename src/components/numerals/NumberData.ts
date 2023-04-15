@@ -5,4 +5,5 @@
 export interface NumberData {
   value: number
   label: string
+  color: string
 }
