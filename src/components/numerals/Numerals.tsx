@@ -71,17 +71,13 @@ const Numerals = (): JSX.Element => {
     if (value === 90) {
       return 'токсон'
     }
-    if (value === 100) {
-      return 'жүз'
-    }
-
-    // if (value === 200) {
-    //   return 'эки жүз'
+    // if (value === 100) {
+    //   return 'жүз'
     // }
 
-    if (value === 1000) {
-      return 'миң'
-    }
+    // if (value === 1000) {
+    //   return 'миң'
+    // }
     if (value === 1000000) {
       return 'миллион'
     }
@@ -91,7 +87,25 @@ const Numerals = (): JSX.Element => {
     return null
   }
 
-  const tempConvert = (value: number, dig: boolean) => {
+  const countDigits = (value: number): number => {
+    let i = 0
+    for (i; value >= 1; i++) {
+      value /= 10
+    }
+    return i
+  }
+
+  const convertNumberToString1 = (value: number): string | null => {
+    if (value === 3) {
+      return 'жүз'
+    }
+    if (value === 4) {
+      return 'миң'
+    }
+    return null
+  }
+
+  const tempConvert = (value: number) => {
     if (convertNumberToString(value) != null) {
       return convertNumberToString(value)
     } else {
@@ -100,16 +114,8 @@ const Numerals = (): JSX.Element => {
         zero += '0'
       }
       const temp = value / Number(zero)
-      return convertNumberToString(temp) + ' ' + convertNumberToString(Number(zero))
+      return convertNumberToString(temp) + ' ' + convertNumberToString1(countDigits(value))
     }
-  }
-
-  const countDigits = (value: number): number => {
-    let i = 0
-    for (i; value >= 1; i++) {
-      value /= 10
-    }
-    return i
   }
 
   useEffect(() => {
@@ -125,9 +131,9 @@ const Numerals = (): JSX.Element => {
       newTargetNumber = Math.floor(newTargetNumber / 10)
     }
     setDebug(resultNumber.join(' '))
-    const dig = targetNumber / Math.pow(10, cnt - 1)
-    console.log('DIG', dig)
-    setRightAnswer(resultNumber.reverse().map(value => tempConvert(value, dig === 1)).join(' '))
+    setRightAnswer(resultNumber.reverse().map(value => {
+      return tempConvert(value)
+    }).join(' '))
   }, [targetNumber])
 
   const checkResultHandler = (answerString: string): void => {
@@ -146,6 +152,7 @@ const Numerals = (): JSX.Element => {
       <Space.Compact>
         <InputNumber<number> value={targetNumber}
                              min={0}
+                             max={9999}
                              onChange={(e) => {
                                if (e != null) {
                                  setTargetNumber(e)
