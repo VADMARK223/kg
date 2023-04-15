@@ -7,11 +7,17 @@
 import React, { useState, useEffect } from 'react'
 import { Space, Button, InputNumber } from 'antd'
 import KgInput from '../common/KgInput'
+import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
+import { generateRandomInteger } from '../../service/utils'
+
+// const MAX_TARGET_VALUE: number = 9999
+const MAX_TARGET_VALUE: number = 10
 
 const Numerals = (): JSX.Element => {
-  const [targetNumber, setTargetNumber] = useState<number>(101)
+  const [targetNumber, setTargetNumber] = useState<number>(generateRandomInteger(MAX_TARGET_VALUE))
   const [debug, setDebug] = useState<string>('-')
   const [rightAnswer, setRightAnswer] = useState<string>('-')
+  const [answerState, setAnswerState] = useState<boolean | null>(null) // Состояние ответа: null - неизвестно, true - верно, false - неверно
 
   const convertNumberToString = (value: number): string | null => {
     if (value === 0) {
@@ -71,13 +77,6 @@ const Numerals = (): JSX.Element => {
     if (value === 90) {
       return 'токсон'
     }
-    // if (value === 100) {
-    //   return 'жүз'
-    // }
-
-    // if (value === 1000) {
-    //   return 'миң'
-    // }
     if (value === 1000000) {
       return 'миллион'
     }
@@ -87,15 +86,9 @@ const Numerals = (): JSX.Element => {
     return null
   }
 
-  const countDigits = (value: number): number => {
-    let i = 0
-    for (i; value >= 1; i++) {
-      value /= 10
-    }
-    return i
-  }
+  const countDigits = (value: number): number => String(value).length
 
-  const convertNumberToString1 = (value: number): string | null => {
+  const convertNumberByCountDigits = (value: number): string | null => {
     if (value === 3) {
       return 'жүз'
     }
@@ -105,16 +98,12 @@ const Numerals = (): JSX.Element => {
     return null
   }
 
-  const tempConvert = (value: number) => {
+  const deepConvert = (value: number): string | null => {
     if (convertNumberToString(value) != null) {
       return convertNumberToString(value)
     } else {
-      let zero = '1'
-      for (let j = 0; j < value.toString().length - 1; j++) {
-        zero += '0'
-      }
-      const temp = value / Number(zero)
-      return convertNumberToString(temp) + ' ' + convertNumberToString1(countDigits(value))
+      const cntDigits = countDigits(value)
+      return `${convertNumberToString(value / Math.pow(10, cntDigits - 1)) as string} ${convertNumberByCountDigits(cntDigits) as string}`
     }
   }
 
@@ -124,7 +113,7 @@ const Numerals = (): JSX.Element => {
     let newTargetNumber = targetNumber
     for (let i = 0; i < cnt; i++) {
       const current = newTargetNumber % 10 * Math.pow(10, i)
-      if (current !== 0) {
+      if (current !== 0 || cnt === 1) {
         resultNumber.push(current)
       }
 
@@ -132,19 +121,29 @@ const Numerals = (): JSX.Element => {
     }
     setDebug(resultNumber.join(' '))
     setRightAnswer(resultNumber.reverse().map(value => {
-      return tempConvert(value)
+      return deepConvert(value)
     }).join(' '))
+    setAnswerState(null)
   }, [targetNumber])
 
   const checkResultHandler = (answerString: string): void => {
-    // const targetString: string = convertNumberToString(targetNumber)
-    // console.log('Целевое число: ', targetString)
-    // console.log('Введенное число: ', answerString)
-    // if (targetString === answerString) {
-    //   console.log('GOOD')
-    // } else {
-    //   console.log('BAD')
-    // }
+    setAnswerState(rightAnswer.toLowerCase() === answerString.toLowerCase())
+  }
+
+  const generateHandler = (): void => {
+    setTargetNumber(generateRandomInteger(MAX_TARGET_VALUE))
+  }
+
+  const AnswerStateIcon = (): JSX.Element => {
+    if (answerState === null) {
+      return (<QuestionCircleTwoTone twoToneColor={'orange'}/>)
+    }
+
+    if (answerState) {
+      return (<CheckCircleTwoTone twoToneColor="#52c41a"/>)
+    }
+
+    return (<ExclamationCircleTwoTone twoToneColor={'red'}/>)
   }
 
   return (
@@ -152,13 +151,13 @@ const Numerals = (): JSX.Element => {
       <Space.Compact>
         <InputNumber<number> value={targetNumber}
                              min={0}
-                             max={9999}
+                             max={MAX_TARGET_VALUE}
                              onChange={(e) => {
                                if (e != null) {
                                  setTargetNumber(e)
                                }
                              }}/>
-        <Button type={'primary'}>Генерировать</Button>
+        <Button type={'primary'} onClick={generateHandler}>Генерировать</Button>
       </Space.Compact>
       <p>
         Отладка: {debug}
@@ -167,6 +166,7 @@ const Numerals = (): JSX.Element => {
         Правильный ответ: {rightAnswer}
       </p>
       <KgInput inputValueCallback={checkResultHandler}/>
+      <AnswerStateIcon/>
     </Space>
   )
 }
