@@ -15,7 +15,6 @@ const Header = (): JSX.Element => {
   }
 
   const isAuth: boolean = getSetting(LocalStoreKey.TOKEN, '') !== ''
-  console.log('Auth:', isAuth)
 
   return (
     <Space>

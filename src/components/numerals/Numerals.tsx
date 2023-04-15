@@ -9,11 +9,14 @@ import { Space, Button, InputNumber } from 'antd'
 import KgInput from '../common/KgInput'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
 import { generateRandomInteger } from '../../service/utils'
+import NumberTag from './NumberTag'
+import AnswerTag from './AnswerTag'
+import type { NumberData } from './NumberData'
 
 const SHOW_DEBUG: boolean = false
 const SHOW_RIGHT_ANSWER: boolean = false
 // const MAX_TARGET_VALUE: number = 9999
-const MAX_TARGET_VALUE: number = 10
+const MAX_TARGET_VALUE: number = 100
 
 const Numerals = (): JSX.Element => {
   const [targetNumber, setTargetNumber] = useState<number>(generateRandomInteger(MAX_TARGET_VALUE))
@@ -79,12 +82,6 @@ const Numerals = (): JSX.Element => {
     }
     if (value === 90) {
       return 'токсон'
-    }
-    if (value === 1000000) {
-      return 'миллион'
-    }
-    if (value === 1000000) {
-      return 'миллиард'
     }
     return null
   }
@@ -159,6 +156,48 @@ const Numerals = (): JSX.Element => {
     return (<ExclamationCircleTwoTone twoToneColor={'red'}/>)
   }
 
+  const [answerTags, setAnswerTags] = useState<NumberData[]>([])
+  const addTag = (numberData: NumberData): void => {
+    answerTags.push(numberData)
+    setAnswerTags([...answerTags])
+  }
+
+  const removeTag = (data: NumberData): void => {
+    answerTags.splice(answerTags.indexOf(data), 1)
+    // delete answerTags[answerTags.indexOf(data)]
+    // setAnswerTags(answerTags)
+  }
+
+  const checkHandler = (): void => {
+    console.log('answerTags', answerTags)
+    const answerString = answerTags.map(value => value.label)
+    console.log('answerString', answerString)
+    setAnswerState(rightAnswer.toLowerCase() === answerString.join(' ').toLowerCase())
+  }
+
+  const initNumbersTags: NumberData[] = [
+    { value: 0, label: 'нөл' },
+    { value: 1, label: 'бир' },
+    { value: 2, label: 'эки' },
+    { value: 4, label: 'төрт' },
+    { value: 5, label: 'беш' },
+    { value: 6, label: 'алты' },
+    { value: 7, label: 'жети' },
+    { value: 8, label: 'сегиз' },
+    { value: 9, label: 'тогуз' },
+    { value: 10, label: 'он' },
+    { value: 20, label: 'жыйырма' },
+    { value: 30, label: 'отуз' },
+    { value: 40, label: 'кырк' },
+    { value: 50, label: 'элүү' },
+    { value: 60, label: 'алтымыш' },
+    { value: 70, label: 'жетимиш' },
+    { value: 80, label: 'сексен' },
+    { value: 90, label: 'токсон' },
+    { value: 100, label: 'жүз' },
+    { value: 1000, label: 'миң' }
+  ]
+
   return (
     <Space direction={'vertical'}>
       <Space.Compact>
@@ -182,6 +221,15 @@ const Numerals = (): JSX.Element => {
           Правильный ответ: {rightAnswer}
         </p>
         : null}
+      <hr/>
+      <Space>
+        {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
+        <Button type={'primary'} onClick={checkHandler}>Проверить</Button>
+      </Space>
+      <hr/>
+      <Space size={2}>
+        {initNumbersTags.map(value => (<NumberTag key={value.value} data={value} clickCallback={addTag}/>))}
+      </Space>
       <Space direction={'horizontal'}>
         <KgInput inputValueCallback={checkResultHandler}/>
         <AnswerStateIcon/>
