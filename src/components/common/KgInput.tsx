@@ -8,6 +8,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Input, Button, Space } from 'antd'
 
 interface KgInputProps {
+  value?: string
   onChange: (value: string) => void
 }
 
@@ -16,7 +17,8 @@ interface SymbolButtonProps {
 }
 
 const KgInput = (props: KgInputProps): JSX.Element => {
-  const [value, setValue] = useState<string>('')
+  const defValue: string = props.value ?? ''
+  const [value, setValue] = useState<string>(defValue)
   const [cursorPosition, setCursorPosition] = useState<number | null>(0)
   const inputRef = useRef<any>()
 

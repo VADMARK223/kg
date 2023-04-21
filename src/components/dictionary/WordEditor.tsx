@@ -63,7 +63,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
              onChange={(e) => {
                setRuValue(e.target.value)
              }}/>
-      <KgInput onChange={(value) => {
+      <KgInput value={kgValue} onChange={(value) => {
         setKgValue(value)
       }}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
