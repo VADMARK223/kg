@@ -25,20 +25,22 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
   const isEditMode = data !== undefined
   const dispatch = useDispatch()
   const [ruValue, setRuValue] = useState(data?.ru)
-  const [kgValue, setKgValue] = useState(data?.kg)
+  const kgState = useState<string>(data?.kg ?? '')
+  const kgValue = kgState[0]
+  const setKgValue = kgState[1]
   const [type, setType] = useState<number>(data?.type ?? 0)
   const [tags, setTags] = useState<TagDto[]>(data?.tags ?? [])
   const [buttonDisable, setButtonDisable] = useState(true)
 
   useEffect(() => {
-    setButtonDisable(ruValue === undefined || ruValue === '' || kgValue === undefined || kgValue === '')
+    setButtonDisable(ruValue === undefined || ruValue === '' || kgValue === '')
   }, [ruValue, kgValue])
 
   const buttonHandler = (): void => {
     const newWord: WordDto = {
       id: data?.id ?? null,
       ru: ruValue as string,
-      kg: kgValue as string,
+      kg: kgValue,
       type,
       tags
     }
@@ -63,9 +65,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
              onChange={(e) => {
                setRuValue(e.target.value)
              }}/>
-      <KgInput value={kgValue} onChange={(value) => {
-        setKgValue(value)
-      }}/>
+      <KgInput valueState={kgState}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
               defaultValue={type}
               options={dicData.types}

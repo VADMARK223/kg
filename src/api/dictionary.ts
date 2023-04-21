@@ -23,8 +23,8 @@ export const fetchDic = (dispatch: any): void => {
  */
 export const saveWord = (dispatch: any, newWord: WordDto): void => {
   const editMode = newWord.id != null
-  newWord.ru = newWord.ru.charAt(0).toUpperCase() + newWord.ru.slice(1)
-  newWord.kg = newWord.kg.charAt(0).toUpperCase() + newWord.kg.slice(1)
+  newWord.ru = newWord.ru.charAt(0).toUpperCase() + newWord.ru.slice(1).toLowerCase()
+  newWord.kg = newWord.kg.charAt(0).toUpperCase() + newWord.kg.slice(1).toLowerCase()
   commonApi.post('save_word', {
     json: newWord
   }).json<boolean>().then(response => {

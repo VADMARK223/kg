@@ -4,12 +4,11 @@
  * @author Markitanov Vadim
  * @since 14.04.2023
  */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Input, Button, Space } from 'antd'
 
 interface KgInputProps {
-  value?: string
-  onChange: (value: string) => void
+  valueState: [string, React.Dispatch<React.SetStateAction<string>>]
 }
 
 interface SymbolButtonProps {
@@ -17,14 +16,10 @@ interface SymbolButtonProps {
 }
 
 const KgInput = (props: KgInputProps): JSX.Element => {
-  const defValue: string = props.value ?? ''
-  const [value, setValue] = useState<string>(defValue)
+  const value = props.valueState[0]
+  const setValue = props.valueState[1]
   const [cursorPosition, setCursorPosition] = useState<number | null>(0)
   const inputRef = useRef<any>()
-
-  useEffect(() => {
-    props.onChange(value)
-  }, [value])
 
   const SymbolButton = (props: SymbolButtonProps): JSX.Element => {
     return (
