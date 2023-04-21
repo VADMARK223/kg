@@ -12,6 +12,7 @@ import { saveWord } from '../../api/dictionary'
 import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
 import type { DicDto } from '../../models/dto/DicDto'
+import KgInput from '../common/KgInput'
 
 interface WordEditorProps {
   data?: WordDto
@@ -58,14 +59,13 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
     <Space direction={'horizontal'} style={{ width: '100%' }}>
       <Input placeholder={'Русский'}
              value={ruValue}
+             allowClear
              onChange={(e) => {
                setRuValue(e.target.value)
              }}/>
-      <Input placeholder={'Кыргыский'}
-             value={kgValue}
-             onChange={(e) => {
-               setKgValue(e.target.value)
-             }}/>
+      <KgInput onChange={(value) => {
+        setKgValue(value)
+      }}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
               defaultValue={type}
               options={dicData.types}

@@ -28,6 +28,7 @@ module.exports = {
 
         // Type script
         "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки
+        "@typescript-eslint/no-empty-interface": "warn", // Пустой интерфейс эквивалентен `{}`
         "@typescript-eslint/strict-boolean-expressions": "warn", // Неожиданное любое значение в условном выражении. Требуется явное сравнение или приведение типов.
         "@typescript-eslint/no-floating-promises": "warn", // Обещания должны ожидаться, заканчиваться вызовом .catch, заканчиваться вызовом .then с обработчиком отклонения или быть явно помечены как игнорируемые с помощью оператора `void`
         "@typescript-eslint/restrict-plus-operands": "warn", // Операнды операции '+' должны быть либо обеими строками, либо обоими числами. Рассмотрите возможность использования литерала шаблона

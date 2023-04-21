@@ -4,11 +4,11 @@
  * @author Markitanov Vadim
  * @since 14.04.2023
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Input, Button, Space } from 'antd'
 
 interface KgInputProps {
-  inputValueCallback: (value: string) => void
+  onChange: (value: string) => void
 }
 
 interface SymbolButtonProps {
@@ -17,28 +17,26 @@ interface SymbolButtonProps {
 
 const KgInput = (props: KgInputProps): JSX.Element => {
   const [value, setValue] = useState<string>('')
-  const [buttonDisable, setButtonDisable] = useState(true)
+  const [cursorPosition, setCursorPosition] = useState<number | null>(0)
+  const inputRef = useRef<any>()
 
   useEffect(() => {
-    setButtonDisable(value === '')
+    props.onChange(value)
   }, [value])
-
-  const inputSymbolHandler = (symbol: string): void => {
-    const newVal = value + symbol.toLowerCase()
-    setValue(newVal)
-  }
 
   const SymbolButton = (props: SymbolButtonProps): JSX.Element => {
     return (
-      <Button type={'primary'} onClick={() => {
-        inputSymbolHandler(props.symbol)
-      }}>{props.symbol}</Button>
+      <Button type={'primary'}
+              onFocus={() => {
+                inputRef.current.focus()
+              }}
+              onClick={() => {
+                const selectionStart: number = inputRef.current.input.selectionStart
+                setCursorPosition(selectionStart + 1)
+                const newVal = value.slice(0, selectionStart) + props.symbol.toLowerCase() + value.slice(selectionStart)
+                setValue(newVal)
+              }}>{props.symbol}</Button>
     )
-  }
-
-  const doneHandler = (): void => {
-    props.inputValueCallback(value)
-    setValue('')
   }
 
   return (
@@ -46,13 +44,20 @@ const KgInput = (props: KgInputProps): JSX.Element => {
       <SymbolButton key={1} symbol={'Ң'}/>
       <SymbolButton key={2} symbol={'Ү'}/>
       <SymbolButton key={3} symbol={'Ө'}/>
-      <Input placeholder={'Введите ответ'}
+      <Input placeholder={'Кыргыский'}
+             ref={inputRef}
              allowClear
              value={value}
+             onFocus={() => {
+               if (cursorPosition != null) {
+                 inputRef.current.setSelectionRange(cursorPosition, cursorPosition)
+               }
+             }}
              onChange={(e) => {
                setValue(e.target.value)
+               // setCursorPosition(e.target.value.length)
+               setCursorPosition(null)
              }}/>
-      <Button type={'primary'} onClick={doneHandler} disabled={buttonDisable}>Ответить</Button>
     </Space.Compact>
   )
 }

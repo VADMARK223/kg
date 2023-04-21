@@ -166,27 +166,27 @@ const Numerals = (): JSX.Element => {
   }
 
   const initNumbersTags: NumberData[] = [
-    { value: 0, label: 'нөл', color: 'green' },
-    { value: 1, label: 'бир', color: 'green' },
-    { value: 2, label: 'эки', color: 'green' },
-    { value: 3, label: 'үч', color: 'green' },
-    { value: 4, label: 'төрт', color: 'green' },
-    { value: 5, label: 'беш', color: 'green' },
-    { value: 6, label: 'алты', color: 'green' },
-    { value: 7, label: 'жети', color: 'green' },
-    { value: 8, label: 'сегиз', color: 'green' },
-    { value: 9, label: 'тогуз', color: 'green' },
-    { value: 10, label: 'он', color: 'green' },
-    { value: 20, label: 'жыйырма', color: 'lime' },
-    { value: 30, label: 'отуз', color: 'lime' },
-    { value: 40, label: 'кырк', color: 'lime' },
-    { value: 50, label: 'элүү', color: 'lime' },
-    { value: 60, label: 'алтымыш', color: 'lime' },
-    { value: 70, label: 'жетимиш', color: 'lime' },
-    { value: 80, label: 'сексен', color: 'lime' },
-    { value: 90, label: 'токсон', color: 'lime' },
-    { value: 100, label: 'жүз', color: 'gold' },
-    { value: 1000, label: 'миң', color: 'gold' }
+    { value: 0, label: 'нөл', color: '#87d068' },
+    { value: 1, label: 'бир', color: '#87d068' },
+    { value: 2, label: 'эки', color: '#87d068' },
+    { value: 3, label: 'үч', color: '#87d068' },
+    { value: 4, label: 'төрт', color: '#87d068' },
+    { value: 5, label: 'беш', color: '#87d068' },
+    { value: 6, label: 'алты', color: '#87d068' },
+    { value: 7, label: 'жети', color: '#87d068' },
+    { value: 8, label: 'сегиз', color: '#87d068' },
+    { value: 9, label: 'тогуз', color: '#87d068' },
+    { value: 10, label: 'он', color: '#87d068' },
+    { value: 20, label: 'жыйырма', color: '#2db7f5' },
+    { value: 30, label: 'отуз', color: '#2db7f5' },
+    { value: 40, label: 'кырк', color: '#2db7f5' },
+    { value: 50, label: 'элүү', color: '#2db7f5' },
+    { value: 60, label: 'алтымыш', color: '#2db7f5' },
+    { value: 70, label: 'жетимиш', color: '#2db7f5' },
+    { value: 80, label: 'сексен', color: '#2db7f5' },
+    { value: 90, label: 'токсон', color: '#2db7f5' },
+    { value: 100, label: 'жүз', color: '#f50' },
+    { value: 1000, label: 'миң', color: '#f50' }
   ]
 
   return (
