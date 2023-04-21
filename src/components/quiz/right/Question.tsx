@@ -15,7 +15,7 @@ const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответ
 
 interface QuestionData {
   title: string
-  right: number
+  rightPositions: number[]
   answers: string[]
 }
 
@@ -48,7 +48,7 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
         const result: ResultItemProps = {
           success: checkRightAnswer(),
           title: question.title,
-          rightAnswerText: question.answers[question.right],
+          rightAnswerText: question.answers[question.rightPositions[0]],
           wrongAnswerText: question.answers[value]
         }
 
@@ -76,7 +76,7 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
    * Метод проверяет правильность ответа
    * @return {boolean}
    */
-  const checkRightAnswer = (): boolean => question.right === value
+  const checkRightAnswer = (): boolean => question.rightPositions.includes(value)
 
   /**
    * Метод вызывается после нажатия кнопки

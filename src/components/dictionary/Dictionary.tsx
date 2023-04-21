@@ -118,9 +118,10 @@ const Dictionary = (): JSX.Element => {
         <WordEditor/>
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
-          <Button type={'primary'} onClick={(): void => {
-            setIsModalOpen(true)
-          }}>Генерировать быстрый опросник</Button>
+          <Button type={'primary'}
+                  onClick={(): void => {
+                    setIsModalOpen(true)
+                  }}>Генерировать быстрый опросник</Button>
           <ModalQuiz open={isModalOpen} words={words} onClose={(): void => {
             setIsModalOpen(false)
           }}/>

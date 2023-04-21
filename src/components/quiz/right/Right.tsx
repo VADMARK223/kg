@@ -6,7 +6,6 @@
  */
 import React from 'react'
 import { Space, Divider, Button, Tooltip } from 'antd'
-import Question from './Question'
 import data from '../../../assets/data.json'
 
 const Right = (): JSX.Element => {
@@ -15,7 +14,6 @@ const Right = (): JSX.Element => {
       {data.questions.map(question => {
         if (question.hidden !== true) {
           return <span key={question.id}>
-            <Question key={question.id} question={question}/>
             <Divider/>
           </span>
         }
