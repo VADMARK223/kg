@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
-import Quiz from './components/quiz/Quiz'
 import Dictionary from './components/dictionary/Dictionary'
 import {
   QuestionOutlined,
@@ -24,6 +23,7 @@ import NoPage from './components/NoPage'
 import ServicePage from './components/ServicePage'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
+import Phrases from './components/phrases/Phrases'
 
 interface TabData {
   title: string
@@ -39,9 +39,9 @@ const initItems: TabData[] = [
     component: <Dictionary/>
   },
   {
-    title: 'Опросник',
+    title: 'Фразы',
     icon: <QuestionOutlined/>,
-    component: <Quiz/>
+    component: <Phrases/>
   }, {
     title: 'Числительные',
     icon: <FieldBinaryOutlined/>,

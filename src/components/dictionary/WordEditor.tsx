@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 06.04.2023
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import type { WordDto } from '../../models/dto/WordDto'
 import { useDispatch, useSelector } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
@@ -13,6 +13,9 @@ import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
 import type { DicDto } from '../../models/dto/DicDto'
 import KgInput from '../common/KgInput'
+import { useHotkeys } from 'react-hotkeys-hook'
+
+const CTRL_ENTER_HOT_KEY: string = 'Ctrl + Enter'
 
 interface WordEditorProps {
   data?: WordDto
@@ -31,6 +34,18 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
   const [type, setType] = useState<number>(data?.type ?? 0)
   const [tags, setTags] = useState<TagDto[]>(data?.tags ?? [])
   const [buttonDisable, setButtonDisable] = useState(true)
+  const ruInputRef = useRef<any>()
+
+  if (!isEditMode) {
+    useHotkeys(CTRL_ENTER_HOT_KEY, (event) => {
+      if (!buttonDisable) {
+        buttonHandler()
+      }
+      event.preventDefault()
+    }, {
+      enableOnFormTags: ['input', 'INPUT', 'SELECT', 'select']
+    })
+  }
 
   useEffect(() => {
     setButtonDisable(ruValue === undefined || ruValue === '' || kgValue === '')
@@ -55,11 +70,14 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
     if (props.closeCallback !== undefined) {
       props.closeCallback()
     }
+
+    ruInputRef.current.focus()
   }
 
   return (
     <Space direction={'horizontal'} style={{ width: '100%' }}>
       <Input placeholder={'Русский'}
+             ref={ruInputRef}
              value={ruValue}
              allowClear
              onChange={(e) => {
