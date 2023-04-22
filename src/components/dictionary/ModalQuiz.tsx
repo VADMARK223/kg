@@ -18,7 +18,7 @@ interface ModalQuizProps {
 }
 
 const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
-  const words = [...props.words]
+  const words = props.words.map(value => value)
   const [currentAnswer, setCurrentAnswer] = useState(0)
   // Общее кол-во вопросов
   const totalQuestions: number = 2
@@ -37,39 +37,35 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
     setCurrentAnswer(newCurrentAnswer)
   }
 
-  const questionElement = (title: string, rightIndexes: number[], answers: string[]): JSX.Element => (
+  const questionElement = (title: string, rightIndexes: number[], answers: DictionaryData[]): JSX.Element => (
     <Question question={{ title, rightPositions: rightIndexes, answers }} complete={answerComplete}/>
   )
 
-  const getRandomIndex = (value: number): number => {
-    return Math.floor(Math.random() * value)
-  }
-
-  const getRandomWord = (): DictionaryData => {
-    const currentWordIndex = 1//getRandomIndex(words.length)
-    words.splice(currentWordIndex, 1)
-    return words[currentWordIndex]
-  }
-
-  const answers: string[] = []
+  const answers: DictionaryData[] = []
   let currentWord: DictionaryData | null = null
   // Позиции правильных ответов
   const rightIndexes: number[] = []
   if (words.length !== 0) {
-    currentWord = getRandomWord()
+    currentWord = getRandomWord(words)
     // Формируем ответы
     for (let i = 0; i < answersValueCount - 1; i++) {
+      if (words.length === 0) {
+        break
+      }
       const currentAnswerIndex = getRandomIndex(words.length)
       const currentAnswer = words[currentAnswerIndex]
       words.splice(currentAnswerIndex, 1)
-      if (currentAnswer !== undefined) {
-        answers.push(currentAnswer.kg)
-      }
+      answers.push(currentAnswer)
     }
     // Добавляем правильный ответ в случайную позицию
     const rightPosition = getRandomIndex(answersValueCount)
-    answers.splice(rightPosition, 0, currentWord.kg)
-    rightIndexes.push(rightPosition)
+    answers.splice(rightPosition, 0, currentWord)
+    // Определяем правильные позиции для ответов
+    answers.forEach((value, index) => {
+      if (currentWord?.ru === value.ru) {
+        rightIndexes.push(index)
+      }
+    })
   }
 
   const closeHandler = (): void => {
@@ -104,6 +100,17 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
       </Modal>
     </div>
   )
+}
+
+const getRandomIndex = (value: number): number => {
+  return Math.floor(Math.random() * value)
+}
+
+const getRandomWord = (words: DictionaryData[]): DictionaryData => {
+  const currentWordIndex: number = getRandomIndex(words.length)
+  const result = words[currentWordIndex]
+  words.splice(currentWordIndex, 1)
+  return result
 }
 
 export default ModalQuiz

@@ -9,6 +9,7 @@ import type { RadioChangeEvent } from 'antd'
 import { Radio, Space, Button, Tooltip } from 'antd'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
 import type { ResultItemProps } from '../../dictionary/ModalQuizResults'
+import type { DictionaryData } from '../../../models/DictionaryData'
 
 const NEXT_BUTTON_TOOLTIP = 'Следующий вопрос'
 const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответа'
@@ -16,7 +17,7 @@ const NEXT_BUTTON_TOOLTIP_DISABLED = 'Выберите вариант ответ
 interface QuestionData {
   title: string
   rightPositions: number[]
-  answers: string[]
+  answers: DictionaryData[]
 }
 
 interface QuestionProps {
@@ -48,8 +49,8 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
         const result: ResultItemProps = {
           success: checkRightAnswer(),
           title: question.title,
-          rightAnswerText: question.answers[question.rightPositions[0]],
-          wrongAnswerText: question.answers[value]
+          rightAnswerText: question.answers.filter((value1, index) => question.rightPositions.includes(index)).map(value1 => value1.kg).join(' или '),
+          wrongAnswerText: question.answers[value].kg
         }
 
         complete(result)
@@ -110,7 +111,7 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
 
       <Radio.Group onChange={onChange} value={value}>
         <Space direction={'vertical'}>
-          {question.answers.map((value, index) => <Radio key={index} value={index}>{value}</Radio>)}
+          {question.answers.map((value, index) => <Radio key={index} value={index}>{value.kg}</Radio>)}
         </Space>
       </Radio.Group>
       {showNextButton
