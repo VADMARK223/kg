@@ -21,7 +21,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   const words = props.words.map(value => value)
   const [currentAnswer, setCurrentAnswer] = useState(0)
   // Общее кол-во вопросов
-  const totalQuestions: number = 2
+  const totalQuestions: number = 5
   // Кол-во ответов вопросе
   const answersValueCount: number = 4
   const [totalComplete, setTotalComplete] = useState(false)

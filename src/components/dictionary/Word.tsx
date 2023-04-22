@@ -13,6 +13,7 @@ import type { TypeDto } from '../../models/dto/TypeDto'
 import WordEditor from './WordEditor'
 import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { ADMIN_MODE } from '../../api/common'
 
 interface WordProps {
   data: DictionaryData
@@ -50,18 +51,21 @@ const Word = (props: WordProps): JSX.Element => {
           : <div>
             {data.kg} - {data.ru} {typeElement()}
           </div>}
-        <Popover content={<WordEditor data={data} closeCallback={() => {
-          setOpen(false)
-        }}/>}
-                 title={'Редактирование слова'}
-                 trigger={'click'}
-                 open={open}
-                 onOpenChange={handleOpenChange}>
-          <Button icon={<EditOutlined/>}/>
-        </Popover>
-        <Tooltip title={'Удалить слово'}>
-          <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
-        </Tooltip>
+        {ADMIN_MODE && <>
+            <Popover content={<WordEditor data={data} closeCallback={() => {
+              setOpen(false)
+            }}/>}
+                     title={'Редактирование слова'}
+                     trigger={'click'}
+                     open={open}
+                     onOpenChange={handleOpenChange}>
+                <Button icon={<EditOutlined/>}/>
+            </Popover>
+            <Tooltip title={'Удалить слово'}>
+                <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
+            </Tooltip>
+        </>}
+
         <div>
           {tags.map(value => <WordTag key={value.value} label={value.label} color={value.color}/>)}
         </div>

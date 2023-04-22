@@ -18,6 +18,8 @@ import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
 import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
+import { ADMIN_MODE } from '../../api/common'
+// import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -115,7 +117,7 @@ const Dictionary = (): JSX.Element => {
                   selectedCallback={(options) => {
                     setTags(options.map(value => value.value))
                   }}/>
-        <WordEditor/>
+        {ADMIN_MODE && <WordEditor/>}
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
           <Button type={'primary'}
@@ -128,6 +130,24 @@ const Dictionary = (): JSX.Element => {
         </Space>
         <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
+      {/* <div
+        id="scrollableDiv"
+        style={{
+          height: 400,
+          overflow: 'auto',
+          padding: '0 16px',
+          border: '1px solid rgba(140, 140, 140, 0.35)'
+        }}
+      >
+        <InfiniteScroll next={() => false} hasMore={false} loader={<p>Load</p>} dataLength={20} scrollableTarget={'scrollableDiv'}>
+          <List dataSource={words}
+                renderItem={(item) => (
+                  <Word data={item} direction={direction}/>
+                )}
+          />
+        </InfiniteScroll>
+      </div> */}
+
       {words
         .sort(compareFunction)
         .map((item, index) => {

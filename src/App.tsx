@@ -24,6 +24,7 @@ import ServicePage from './components/ServicePage'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
 import Phrases from './components/phrases/Phrases'
+import { ADMIN_MODE } from './api/common'
 
 interface TabData {
   title: string
@@ -97,15 +98,17 @@ function App (): JSX.Element {
     backgroundColor: '#FFF'
   }
 
-  const CustomLayout = (): JSX.Element => (
-    <>
-      <AntHeader style={headerStyle}>
-        <Header/>
-      </AntHeader>
-      <Outlet/>
-    </>
-  )
-
+  const CustomLayout = (): JSX.Element => {
+    if (ADMIN_MODE) {
+      return (<>
+        <AntHeader style={headerStyle}>
+          <Header/>
+        </AntHeader>
+        <Outlet/>
+      </>)
+    }
+    return (<Outlet/>)
+  }
   const routes = createBrowserRouter([
     {
       element: <CustomLayout/>,

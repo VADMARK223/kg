@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 import navigationService from '../service/navigation'
 import { getSetting, LocalStoreKey } from '../service/settings'
 
+export const ADMIN_MODE = false
+
 // const PORT: number = 9000 // Express
 const PORT: number = 8080 // Java
 const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
