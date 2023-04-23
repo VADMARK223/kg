@@ -3,14 +3,21 @@
  * @since 25.03.2023
  */
 import type { HTTPError } from 'ky'
-import { showError, commonApi } from './common'
+import { showError, commonApi, ADMIN_MODE } from './common'
 import type { DicDto } from '../models/dto/DicDto'
 import type { WordDto } from '../models/dto/WordDto'
 import { getDic } from '../store/dicSlice'
 import { toast } from 'react-toastify'
 import type { ResponseDto } from '../models/dto/ResponseDto'
 
+/**
+ * Метод запрашивает весь словарь с частями речи, категориями и словами.
+ * @param dispatch - диспатчер для прокидки словаря в стейт.
+ */
 export const fetchDic = (dispatch: any): void => {
+  if (!ADMIN_MODE) {
+    return
+  }
   commonApi.get('get_dic').json<DicDto>().then(value => {
     dispatch(getDic(value))
   }).catch((reason: HTTPError) => {

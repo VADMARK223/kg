@@ -5,7 +5,7 @@
  * @since 09.03.2023
  */
 import React, { useState, useEffect } from 'react'
-// import data from '../../assets/dictionary.json'
+import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
 import { Button, Space } from 'antd'
@@ -30,11 +30,14 @@ const Dictionary = (): JSX.Element => {
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  // Local
-  // let items: DictionaryData[] = data.words
-  // Remote
-  let words: DictionaryData[] = dic.words
+  let words: DictionaryData[] = []
+  if (ADMIN_MODE) {
+    // Remote
+    words = dic.words
+  } else {
+    // Local
+    words = data.words
+  }
 
   useEffect(() => {
     fetchDic(dispatch)

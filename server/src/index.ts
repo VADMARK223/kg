@@ -10,22 +10,23 @@ import { v4 as uuidv4 } from 'uuid'
 const express = require('express')
 const app = express()
 const port = 9000
-const DIC_PATH: string = __dirname + '\\dict.json'
+const DIC_PATH: string = __dirname + '\\..\\..\\dict.json'
+const CLIENT_ASSETS_DIC = 'C:\\Users\\vmark\\WebstormProjects\\kg\\src\\assets\\dictionary.json'
 
 const cors = require('cors')
 
 app.use(cors())
 
-app.post('/set_dic', function (request: any, response: any) {
+app.post('/export_dic', function (request: any, response: any) {
   let body = ''
   request.on('data', function (data: any) {
     body += data
   })
 
   request.on('end', function () {
-    fs.rm(DIC_PATH, function () {
+    fs.rm(CLIENT_ASSETS_DIC, function () {
       console.log('Словарь перезаписан.')
-      fs.appendFile(DIC_PATH, body, function () {
+      fs.appendFile(CLIENT_ASSETS_DIC, body, function () {
         response.end()
       })
     })

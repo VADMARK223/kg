@@ -44,4 +44,3 @@ export const loginUser = (user: UserDto): void => {
     console.warn('Error fetch user info', reason)
   })
 }
-
