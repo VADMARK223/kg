@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import type { TabsProps } from 'antd'
-import { Tabs } from 'antd'
+import { Tabs, Tag } from 'antd'
 import Dictionary from './components/dictionary/Dictionary'
 import {
   QuestionOutlined,
   ReadOutlined,
   SubnodeOutlined,
   RadarChartOutlined,
-  FieldBinaryOutlined
+  FieldBinaryOutlined,
+  InstagramOutlined,
+  MessageOutlined
 } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUserInfo } from './store/userSlice'
@@ -40,13 +42,13 @@ const initItems: TabData[] = [
     component: <Dictionary/>
   },
   {
-    title: 'Фразы',
-    icon: <QuestionOutlined/>,
-    component: <Phrases/>
-  }, {
     title: 'Числительные',
     icon: <FieldBinaryOutlined/>,
     component: <Numerals/>
+  }, {
+    title: 'Фразы',
+    icon: <QuestionOutlined/>,
+    component: <Phrases/>
   }, {
     title: 'Вопросительный аффикс -бы',
     icon: <SubnodeOutlined/>,
@@ -107,7 +109,21 @@ function App (): JSX.Element {
         <Outlet/>
       </>)
     }
-    return (<Outlet/>)
+    return (
+      <>
+        <div style={{ margin: '15px' }}>
+          <Tag icon={<InstagramOutlined/>} color="#55acee">
+            <a href={'https://www.instagram.com/vadmark_in_kyrgyzstan/'} target={'_blank'}
+               rel={'noopener noreferrer'}>Автор</a><br/>
+          </Tag>
+          <Tag icon={<MessageOutlined/>} color="#55acee">
+            <a href={'https://t.me/kyrgyztili_2023'} target={'_blank'}
+               rel={'noopener noreferrer'}>Источник канал в телеграм: Кыргыз Тили</a><br/>
+          </Tag>
+        </div>
+        <Outlet/>
+      </>
+    )
   }
   const routes = createBrowserRouter([
     {

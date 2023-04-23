@@ -23,6 +23,13 @@ const Numerals = (): JSX.Element => {
   const [answerStateText, setAnswerStateText] = useState<string>('')
   const [answerTags, setAnswerTags] = useState<NumberData[]>([]) // Теги ответов
   const [showHint, setShowHint] = useState<boolean>(false)
+  const [checkAnswerButtonDisabled, setCheckAnswerButtonDisabled] = useState<boolean>(true)
+  const [checkAnswerButtonTooltip, setCheckAnswerButtonTooltip] = useState<string>('Введите ответ кнопками ниже')
+
+  useEffect(() => {
+    setCheckAnswerButtonDisabled(answerTags.length === 0)
+    setCheckAnswerButtonTooltip(answerTags.length === 0 ? 'Введите ответ кнопками ниже' : 'Проверить ответ')
+  }, [answerTags])
 
   const convertNumberToString = (value: number): string | null => {
     if (value === 0) {
@@ -204,7 +211,7 @@ const Numerals = (): JSX.Element => {
                                    setTargetNumber(e)
                                  }
                                }}/>
-          <Button type={'primary'} onClick={generateHandler}>Генерировать</Button>
+          <Button type={'primary'} onClick={generateHandler}>Генерировать число</Button>
         </Space.Compact>
         <Space>
           <Tooltip title={'Показывать подсказку'}>
@@ -228,7 +235,9 @@ const Numerals = (): JSX.Element => {
       <hr/>
       <Space>
         {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
-        <Button type={'primary'} onClick={checkHandler}>Проверить</Button>
+        <Tooltip title={checkAnswerButtonTooltip}>
+          <Button type={'primary'} onClick={checkHandler} disabled={checkAnswerButtonDisabled}>Проверить</Button>
+        </Tooltip>
         <AnswerStateIcon/>
         <p>
           {answerStateText}

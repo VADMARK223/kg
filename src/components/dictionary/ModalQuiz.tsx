@@ -15,15 +15,14 @@ interface ModalQuizProps {
   open: boolean
   words: DictionaryData[]
   onClose: () => void
+  totalQuestions: number // Общее кол-во вопросов
+  answersValueCount: number // Кол-во ответов вопросе
 }
 
 const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   const words = props.words.map(value => value)
   const [currentAnswer, setCurrentAnswer] = useState(0)
-  // Общее кол-во вопросов
-  const totalQuestions: number = 5
-  // Кол-во ответов вопросе
-  const answersValueCount: number = 4
+  const { totalQuestions, answersValueCount } = props
   const [totalComplete, setTotalComplete] = useState(false)
   const [results, setResult] = useState<ResultItemProps[]>([])
 
@@ -76,7 +75,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
 
   const getTitle = (): string => {
     if (currentAnswer === totalQuestions) {
-      return 'Результаты'
+      return 'Результаты быстрого опроса:'
     } else {
       return `Быстрый опросник (${currentAnswer}/${totalQuestions})`
     }

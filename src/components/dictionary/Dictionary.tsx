@@ -8,8 +8,8 @@ import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Space } from 'antd'
-import { SwapOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Tooltip } from 'antd'
+import { InfoCircleTwoTone, SwapOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,7 +19,9 @@ import WordEditor from './WordEditor'
 import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
 import { ADMIN_MODE } from '../../api/common'
+import { getDic } from '../../store/dicSlice'
 // import InfiniteScroll from 'react-infinite-scroll-component';
+const TOTAL_QUESTIONS_MAX = 50
 
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
@@ -30,14 +32,20 @@ const Dictionary = (): JSX.Element => {
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [totalQuestions, setTotalQuestions] = useState<number>(5)
+  const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   let words: DictionaryData[] = []
   if (ADMIN_MODE) {
-    // Remote
     words = dic.words
   } else {
-    // Local
     words = data.words
   }
+
+  useEffect(() => {
+    if (!ADMIN_MODE) {
+      dispatch(getDic(data as DicDto))
+    }
+  }, words)
 
   useEffect(() => {
     fetchDic(dispatch)
@@ -123,15 +131,51 @@ const Dictionary = (): JSX.Element => {
         {ADMIN_MODE && <WordEditor/>}
         <Space direction={'horizontal'}>
           <p>Всего слов: {words?.length}</p>
+          <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
+            <InfoCircleTwoTone twoToneColor={'blue'}/>
+          </Tooltip>
           <Button type={'primary'}
                   onClick={(): void => {
                     setIsModalOpen(true)
-                  }}>Генерировать быстрый опросник</Button>
-          <ModalQuiz open={isModalOpen} words={words} onClose={(): void => {
-            setIsModalOpen(false)
-          }}/>
+                  }}>Генерировать быстрый опросник
+          </Button>
+
+          <Space direction={'horizontal'}>
+            <div>
+              Кол-во вопросов:
+            </div>
+            <InputNumber<number> value={totalQuestions}
+                                 min={1}
+                                 max={TOTAL_QUESTIONS_MAX}
+                                 onChange={(e) => {
+                                   if (e != null) {
+                                     setTotalQuestions(e)
+                                   }
+                                 }}/>
+          </Space>
+          <Space direction={'horizontal'}>
+            <div>
+              Кол-во ответов в вопросе:
+            </div>
+            <InputNumber<number> value={answersValueCount}
+                                 min={2}
+                                 max={10}
+                                 onChange={(e) => {
+                                   if (e != null) {
+                                     setAnswersValueCount(e)
+                                   }
+                                 }}/>
+          </Space>
+
+          <ModalQuiz open={isModalOpen}
+                     words={words}
+                     totalQuestions={totalQuestions}
+                     answersValueCount={answersValueCount}
+                     onClose={(): void => {
+                       setIsModalOpen(false)
+                     }}/>
         </Space>
-        <Button type={'primary'} icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+        <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
       {/* <div
         id="scrollableDiv"
