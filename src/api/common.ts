@@ -13,9 +13,8 @@ import { getSetting, LocalStoreKey } from '../service/settings'
 
 export const ADMIN_MODE = false
 
-// const PORT: number = 9000 // Express
 const PORT: number = 8080 // Java
-const BASE_API_URL: string = `http://localhost:${PORT}/` // Express
+const BASE_API_URL: string = `http://localhost:${PORT}/`
 
 export const commonApi = ky.create({
   prefixUrl: BASE_API_URL, // Префикс, который следует добавлять перед входным URL-адресом при выполнении запроса. Это может быть любой допустимый URL-адрес, относительный или абсолютный.

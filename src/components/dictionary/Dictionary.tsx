@@ -8,8 +8,8 @@ import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip } from 'antd'
-import { InfoCircleTwoTone, SwapOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Tooltip, FloatButton } from 'antd'
+import { InfoCircleTwoTone, SwapOutlined, CaretUpOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -211,6 +211,9 @@ const Dictionary = (): JSX.Element => {
             return <Word key={index} data={item} direction={direction}/>
           }
         })}
+      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={event => {
+        window.scroll(0, 0)
+      }}/>
     </>
   )
 }
