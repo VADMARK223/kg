@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, FloatButton } from 'antd'
+import { Button, Space, InputNumber, Tooltip, FloatButton, Divider } from 'antd'
 import { InfoCircleTwoTone, SwapOutlined, CaretUpOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
@@ -34,6 +34,7 @@ const Dictionary = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [totalQuestions, setTotalQuestions] = useState<number>(5)
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
+  const [favorIds, setFavorIds] = useState<number[]>(localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string))
   let words: DictionaryData[] = []
   if (ADMIN_MODE) {
     words = dic.words
@@ -175,7 +176,6 @@ const Dictionary = (): JSX.Element => {
                        setIsModalOpen(false)
                      }}/>
         </Space>
-        <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
       {/* <div
         id="scrollableDiv"
@@ -194,7 +194,18 @@ const Dictionary = (): JSX.Element => {
           />
         </InfiniteScroll>
       </div> */}
-
+      <Space>
+        {favorIds.length === 0
+          ? <>Добавьте галочками слова, какие хотите выучить</>
+          : <>Слов в избранном: {favorIds.length}</>}
+        <Button type={'primary'}
+                disabled={favorIds.length === 0}
+                onClick={() => {
+                  console.log('Gen')
+                }}>Генерировать опросник из избранных слов</Button>
+      </Space>
+      <Divider/>
+      <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       {words
         .sort(compareFunction)
         .map((item, index) => {
@@ -202,16 +213,28 @@ const Dictionary = (): JSX.Element => {
           const prev = words[index - 1]
           const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
           const firstSymbol = (item[locale] as string).substring(0, 1)
-          if (needShowSymbol) {
-            return <div key={firstSymbol.charCodeAt(0)}>
-              <h4>{firstSymbol}</h4>
-              <Word data={item} direction={direction}/>
+          return (
+            <div key={item.id}>
+              {needShowSymbol && <h4>{firstSymbol}</h4>}
+              <Word isFavor={favorIds.includes(item.id as number)}
+                    data={item}
+                    direction={direction}
+                    changeFavorCallback={(id, add) => {
+                      if (add) {
+                        favorIds.push(id)
+                        localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                        setFavorIds([...favorIds])
+                      } else {
+                        favorIds.splice(favorIds.indexOf(id), 1)
+                        localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                        setFavorIds([...favorIds])
+                      }
+                    }}
+              />
             </div>
-          } else {
-            return <Word key={index} data={item} direction={direction}/>
-          }
+          )
         })}
-      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={event => {
+      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={() => {
         window.scroll(0, 0)
       }}/>
     </>
