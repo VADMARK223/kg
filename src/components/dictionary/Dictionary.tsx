@@ -36,11 +36,16 @@ const Dictionary = (): JSX.Element => {
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   const [favorIds, setFavorIds] = useState<number[]>(localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string))
   let words: DictionaryData[] = []
+  let initWords: DictionaryData[] = []
   if (ADMIN_MODE) {
     words = dic.words
+    initWords = dic.words
   } else {
     words = data.words
+    initWords = data.words
   }
+
+  const [wordsForQuiz, setWordsForQuiz] = useState<DictionaryData[]>([])
 
   useEffect(() => {
     if (!ADMIN_MODE) {
@@ -137,6 +142,7 @@ const Dictionary = (): JSX.Element => {
           </Tooltip>
           <Button type={'primary'}
                   onClick={(): void => {
+                    setWordsForQuiz(words)
                     setIsModalOpen(true)
                   }}>Генерировать быстрый опросник
           </Button>
@@ -169,7 +175,7 @@ const Dictionary = (): JSX.Element => {
           </Space>
 
           <ModalQuiz open={isModalOpen}
-                     words={words}
+                     words={wordsForQuiz}
                      totalQuestions={totalQuestions}
                      answersValueCount={answersValueCount}
                      onClose={(): void => {
@@ -201,7 +207,14 @@ const Dictionary = (): JSX.Element => {
         <Button type={'primary'}
                 disabled={favorIds.length === 0}
                 onClick={() => {
-                  console.log('Gen')
+                  const newWordsForQuiz: DictionaryData[] = []
+                  initWords.forEach(value => {
+                    if (favorIds.includes(value.id as number)) {
+                      newWordsForQuiz.push(value)
+                    }
+                  })
+                  setWordsForQuiz(newWordsForQuiz)
+                  setIsModalOpen(true)
                 }}>Генерировать опросник из избранных слов</Button>
       </Space>
       <Divider/>
