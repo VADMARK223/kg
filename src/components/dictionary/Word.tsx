@@ -5,7 +5,6 @@
  * @since 16.03.2023
  */
 import React, { useState } from 'react'
-import type { DictionaryData } from '../../models/DictionaryData'
 import { Button, Space, Popover, Tooltip, Checkbox } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,9 +14,10 @@ import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ADMIN_MODE } from '../../api/common'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
+import type { WordDto } from '../../models/dto/WordDto'
 
 interface WordProps {
-  data: DictionaryData
+  data: WordDto
   direction: boolean
   isFavor: boolean
   changeFavorCallback: (id: number, add: boolean) => void

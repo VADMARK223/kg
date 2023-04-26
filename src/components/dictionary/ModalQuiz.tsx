@@ -6,14 +6,14 @@
  */
 import React, { useState, useEffect } from 'react'
 import Question from '../quiz/right/Question'
-import type { DictionaryData } from '../../models/DictionaryData'
 import { Modal } from 'antd'
 import type { ResultItemProps } from './ModalQuizResults'
 import ModalQuizResults from './ModalQuizResults'
+import type { WordDto } from '../../models/dto/WordDto'
 
 interface ModalQuizProps {
   open: boolean
-  words: DictionaryData[]
+  words: WordDto[]
   onClose: () => void
   totalQuestions: number // Общее кол-во вопросов
   answersValueCount: number // Кол-во ответов вопросе
@@ -36,12 +36,12 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
     setCurrentAnswer(newCurrentAnswer)
   }
 
-  const questionElement = (title: string, rightIndexes: number[], answers: DictionaryData[]): JSX.Element => (
+  const questionElement = (title: string, rightIndexes: number[], answers: WordDto[]): JSX.Element => (
     <Question question={{ title, rightPositions: rightIndexes, answers }} complete={answerComplete}/>
   )
 
-  const answers: DictionaryData[] = []
-  let currentWord: DictionaryData | null = null
+  const answers: WordDto[] = []
+  let currentWord: WordDto | null = null
   // Позиции правильных ответов
   const rightIndexes: number[] = []
   if (words.length !== 0) {
@@ -105,7 +105,7 @@ const getRandomIndex = (value: number): number => {
   return Math.floor(Math.random() * value)
 }
 
-const getRandomWord = (words: DictionaryData[]): DictionaryData => {
+const getRandomWord = (words: WordDto[]): WordDto => {
   const currentWordIndex: number = getRandomIndex(words.length)
   const result = words[currentWordIndex]
   words.splice(currentWordIndex, 1)

@@ -6,10 +6,9 @@
  */
 import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
-import type { DictionaryData } from '../../models/DictionaryData'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, FloatButton, Divider } from 'antd'
-import { InfoCircleTwoTone, SwapOutlined, CaretUpOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Tooltip, FloatButton, Divider, Popover } from 'antd'
+import { InfoCircleTwoTone, SwapOutlined, CaretUpOutlined, SettingOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +19,7 @@ import type { TagDto } from '../../models/dto/TagDto'
 import Selector from '../common/Selector'
 import { ADMIN_MODE } from '../../api/common'
 import { getDic } from '../../store/dicSlice'
+import type { WordDto } from '../../models/dto/WordDto'
 // import InfiniteScroll from 'react-infinite-scroll-component';
 const TOTAL_QUESTIONS_MAX = 50
 
@@ -35,8 +35,9 @@ const Dictionary = (): JSX.Element => {
   const [totalQuestions, setTotalQuestions] = useState<number>(5)
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   const [favorIds, setFavorIds] = useState<number[]>(localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string))
-  let words: DictionaryData[] = []
-  let initWords: DictionaryData[] = []
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  let words: WordDto[] = []
+  let initWords: WordDto[] = []
   if (ADMIN_MODE) {
     words = dic.words
     initWords = dic.words
@@ -45,7 +46,7 @@ const Dictionary = (): JSX.Element => {
     initWords = data.words
   }
 
-  const [wordsForQuiz, setWordsForQuiz] = useState<DictionaryData[]>([])
+  const [wordsForQuiz, setWordsForQuiz] = useState<WordDto[]>([])
 
   useEffect(() => {
     if (!ADMIN_MODE) {
@@ -66,7 +67,7 @@ const Dictionary = (): JSX.Element => {
     }
   }
 
-  const compareFunction = (a: DictionaryData, b: DictionaryData): number => {
+  const compareFunction = (a: WordDto, b: WordDto): number => {
     return (a[locale] as string).localeCompare(b[locale] as string)
   }
 
@@ -112,6 +113,10 @@ const Dictionary = (): JSX.Element => {
     return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
   })
 
+  const handlerSettingsOpen = (newOpen: boolean): void => {
+    setSettingsOpen(newOpen)
+  }
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -147,32 +152,37 @@ const Dictionary = (): JSX.Element => {
           </Tooltip>
           <p>Слов: {words?.length}</p>
 
-          <Space direction={'horizontal'}>
-            <div>
-              Кол-во вопросов:
-            </div>
-            <InputNumber<number> value={totalQuestions}
-                                 min={1}
-                                 max={TOTAL_QUESTIONS_MAX}
-                                 onChange={(e) => {
-                                   if (e != null) {
-                                     setTotalQuestions(e)
-                                   }
-                                 }}/>
-          </Space>
-          <Space direction={'horizontal'}>
-            <div>
-              Кол-во ответов в вопросе:
-            </div>
-            <InputNumber<number> value={answersValueCount}
-                                 min={2}
-                                 max={10}
-                                 onChange={(e) => {
-                                   if (e != null) {
-                                     setAnswersValueCount(e)
-                                   }
-                                 }}/>
-          </Space>
+          <Popover title={'Настройки опросников'}
+                   open={settingsOpen}
+                   trigger={'click'}
+                   onOpenChange={handlerSettingsOpen}
+                   content={<Space direction={'horizontal'}>
+                     <div>
+                       Кол-во вопросов:
+                     </div>
+                     <InputNumber<number> value={totalQuestions}
+                                          min={1}
+                                          max={TOTAL_QUESTIONS_MAX}
+                                          onChange={(e) => {
+                                            if (e != null) {
+                                              setTotalQuestions(e)
+                                            }
+                                          }}/>
+                     <div>
+                       Кол-во ответов в вопросе:
+                     </div>
+                     <InputNumber<number> value={answersValueCount}
+                                          min={2}
+                                          max={10}
+                                          onChange={(e) => {
+                                            if (e != null) {
+                                              setAnswersValueCount(e)
+                                            }
+                                          }}/>
+                   </Space>}
+          >
+            <Button icon={<SettingOutlined/>}/>
+          </Popover>
 
           <ModalQuiz open={isModalOpen}
                      words={wordsForQuiz}
@@ -204,7 +214,7 @@ const Dictionary = (): JSX.Element => {
         <Button type={'primary'}
                 disabled={favorIds.length === 0}
                 onClick={() => {
-                  const newWordsForQuiz: DictionaryData[] = []
+                  const newWordsForQuiz: WordDto[] = []
                   initWords.forEach(value => {
                     if (favorIds.includes(value.id as number)) {
                       newWordsForQuiz.push(value)
