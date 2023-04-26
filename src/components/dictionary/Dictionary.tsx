@@ -27,9 +27,9 @@ const TOTAL_QUESTIONS_MAX = 50
 const Dictionary = (): JSX.Element => {
   const [direction, setDirection] = useState(true)
   const [locale, setLocale] = useState(direction ? 'ru' : 'kg')
-  const [search, setSearch] = useState('')
-  const [tags, setTags] = useState<number[]>([])
-  const [types, setTypes] = useState<number[]>([])
+  const [search, setSearch] = useState('') // Строка поиска
+  const [tags, setTags] = useState<number[]>([]) // Категории
+  const [types, setTypes] = useState<number[]>([]) // Часть речи
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -37,15 +37,11 @@ const Dictionary = (): JSX.Element => {
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   const [favorIds, setFavorIds] = useState<number[]>(localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string))
   const [settingsOpen, setSettingsOpen] = useState(false)
-  let words: WordDto[] = []
-  let initWords: WordDto[] = []
-  if (ADMIN_MODE) {
-    words = dic.words
-    initWords = dic.words
-  } else {
-    words = data.words
-    initWords = data.words
+  const compareFunction = (a: WordDto, b: WordDto): number => {
+    return (a[locale] as string).localeCompare(b[locale] as string)
   }
+  const [words, setWords] = useState<WordDto[]>(ADMIN_MODE ? dic.words : [...data.words].sort(compareFunction))
+  const initWords: WordDto[] = words
 
   const [wordsForQuiz, setWordsForQuiz] = useState<WordDto[]>([])
 
@@ -66,10 +62,6 @@ const Dictionary = (): JSX.Element => {
     } else {
       setLocale('ru')
     }
-  }
-
-  const compareFunction = (a: WordDto, b: WordDto): number => {
-    return (a[locale] as string).localeCompare(b[locale] as string)
   }
 
   const onSearch = (value: string): void => {
@@ -106,13 +98,21 @@ const Dictionary = (): JSX.Element => {
     return types.includes(wordType)
   }
 
-  words = words.filter(value => {
+  const filterFn = (value: WordDto): boolean => {
     if (search === '' && tags.length === 0 && types.length === 0) {
       return true
     }
 
     return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
-  })
+  }
+
+  // words = words.filter(value => {
+  //   if (search === '' && tags.length === 0 && types.length === 0) {
+  //     return true
+  //   }
+  //
+  //   return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
+  // })
 
   const handlerSettingsOpen = (newOpen: boolean): void => {
     setSettingsOpen(newOpen)
@@ -122,14 +122,25 @@ const Dictionary = (): JSX.Element => {
   // const [displayWords, setDisplayWords] = useState<WordDto[]>(words.slice(0, PAGE_SIZE))
   const [displayWords, setDisplayWords] = useState<WordDto[]>([])
   const loadMoreWords = (): void => {
-    console.log('Load more words.', displayWords.length)
-    setDisplayWords([...displayWords, ...words.splice(displayWords.length, displayWords.length + PAGE_SIZE)])
+    console.log('loadMoreWords')
+    const newWords = [...words].slice(displayWords.length, displayWords.length + PAGE_SIZE)
+    console.log('new words', newWords)
+    setDisplayWords([...displayWords, ...newWords])
   }
   useEffect(() => {
-    console.log('Words change.')
-    // setDisplayWords(words.slice(0, PAGE_SIZE))
-    setDisplayWords(words.sort(compareFunction).slice(0, PAGE_SIZE))
+    // setDisplayWords(words.sort(compareFunction).slice(0, PAGE_SIZE))
+    console.log('words.length', words.length)
+    setDisplayWords([...words].sort(compareFunction).slice(0, PAGE_SIZE))
   }, [words.length, direction])
+
+  useEffect(() => {
+    setWords([...words].sort(compareFunction))
+    console.log('AAAAAAAAA', words)
+  }, [words.length, direction])
+
+  useEffect(() => {
+    // setDisplayWords([...words].filter(filterFn))
+  }, [search, types, tags])
 
   return (
     <>
@@ -234,7 +245,7 @@ const Dictionary = (): JSX.Element => {
           border: '1px solid rgba(140, 140, 140, 0.35)'
         }}
       >
-        <InfiniteScroll next={loadMoreWords} hasMore={displayWords.length < words.length} loader={<p>Load</p>}
+        <InfiniteScroll next={loadMoreWords} hasMore={displayWords.length < words.length} loader={<>Есть еще слова</>}
                         dataLength={displayWords.length}
                         scrollableTarget={'scrollableDiv'}>
           <List dataSource={displayWords}
@@ -261,7 +272,7 @@ const Dictionary = (): JSX.Element => {
         </InfiniteScroll>
       </div>
       {words
-        .sort(compareFunction)
+        // .sort(compareFunction)
         .map((item, index) => {
           const current = words[index]
           const prev = words[index - 1]
