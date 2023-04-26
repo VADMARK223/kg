@@ -73,11 +73,10 @@ const Word = (props: WordProps): JSX.Element => {
             <Tooltip title={'Удалить слово'}>
                 <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
             </Tooltip>
+            <div>
+              {tags.map(value => <WordTag key={value.value} label={value.label} color={value.color}/>)}
+            </div>
         </>}
-
-        <div>
-          {tags.map(value => <WordTag key={value.value} label={value.label} color={value.color}/>)}
-        </div>
       </Space>
       <br/>
     </>

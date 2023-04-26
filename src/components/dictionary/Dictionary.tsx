@@ -51,7 +51,7 @@ const Dictionary = (): JSX.Element => {
     if (!ADMIN_MODE) {
       dispatch(getDic(data as DicDto))
     }
-  }, words)
+  }, [words])
 
   useEffect(() => {
     fetchDic(dispatch)
@@ -136,16 +136,16 @@ const Dictionary = (): JSX.Element => {
                   }}/>
         {ADMIN_MODE && <WordEditor/>}
         <Space direction={'horizontal'}>
-          <p>Всего слов: {words?.length}</p>
-          <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
-            <InfoCircleTwoTone twoToneColor={'blue'}/>
-          </Tooltip>
           <Button type={'primary'}
                   onClick={(): void => {
                     setWordsForQuiz(words)
                     setIsModalOpen(true)
-                  }}>Генерировать быстрый опросник
+                  }}>Быстрый опросник
           </Button>
+          <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
+            <InfoCircleTwoTone twoToneColor={'blue'}/>
+          </Tooltip>
+          <p>Слов: {words?.length}</p>
 
           <Space direction={'horizontal'}>
             <div>
@@ -201,9 +201,6 @@ const Dictionary = (): JSX.Element => {
         </InfiniteScroll>
       </div> */}
       <Space>
-        {favorIds.length === 0
-          ? <>Добавьте галочками слова, какие хотите выучить</>
-          : <>Слов в избранном: {favorIds.length}</>}
         <Button type={'primary'}
                 disabled={favorIds.length === 0}
                 onClick={() => {
@@ -215,7 +212,10 @@ const Dictionary = (): JSX.Element => {
                   })
                   setWordsForQuiz(newWordsForQuiz)
                   setIsModalOpen(true)
-                }}>Генерировать опросник из избранных слов</Button>
+                }}>Опросник из избранных слов</Button>
+        {favorIds.length === 0
+          ? <>Добавьте слова галочками</>
+          : <>Слов: {favorIds.length}</>}
       </Space>
       <Divider/>
       <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
