@@ -7,8 +7,8 @@
 import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, FloatButton, Divider, Popover } from 'antd'
-import { InfoCircleTwoTone, SwapOutlined, CaretUpOutlined, SettingOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Tooltip, Popover, List } from 'antd'
+import { InfoCircleTwoTone, SwapOutlined, SettingOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,7 +20,8 @@ import Selector from '../common/Selector'
 import { ADMIN_MODE } from '../../api/common'
 import { getDic } from '../../store/dicSlice'
 import type { WordDto } from '../../models/dto/WordDto'
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component'
+
 const TOTAL_QUESTIONS_MAX = 50
 
 const Dictionary = (): JSX.Element => {
@@ -117,6 +118,19 @@ const Dictionary = (): JSX.Element => {
     setSettingsOpen(newOpen)
   }
 
+  const PAGE_SIZE: number = 50
+  // const [displayWords, setDisplayWords] = useState<WordDto[]>(words.slice(0, PAGE_SIZE))
+  const [displayWords, setDisplayWords] = useState<WordDto[]>([])
+  const loadMoreWords = (): void => {
+    console.log('Load more words.', displayWords.length)
+    setDisplayWords([...displayWords, ...words.splice(displayWords.length, displayWords.length + PAGE_SIZE)])
+  }
+  useEffect(() => {
+    console.log('Words change.')
+    // setDisplayWords(words.slice(0, PAGE_SIZE))
+    setDisplayWords(words.sort(compareFunction).slice(0, PAGE_SIZE))
+  }, [words.length, direction])
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -192,8 +206,26 @@ const Dictionary = (): JSX.Element => {
                        setIsModalOpen(false)
                      }}/>
         </Space>
+        <Space direction={'horizontal'}>
+          <Button type={'primary'}
+                  disabled={favorIds.length === 0}
+                  onClick={() => {
+                    const newWordsForQuiz: WordDto[] = []
+                    initWords.forEach(value => {
+                      if (favorIds.includes(value.id as number)) {
+                        newWordsForQuiz.push(value)
+                      }
+                    })
+                    setWordsForQuiz(newWordsForQuiz)
+                    setIsModalOpen(true)
+                  }}>Опросник из избранных слов</Button>
+          {favorIds.length === 0
+            ? <>Добавьте слова галочками</>
+            : <>Слов: {favorIds.length}</>}
+        </Space>
+        <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
-      {/* <div
+      <div
         id="scrollableDiv"
         style={{
           height: 400,
@@ -202,33 +234,32 @@ const Dictionary = (): JSX.Element => {
           border: '1px solid rgba(140, 140, 140, 0.35)'
         }}
       >
-        <InfiniteScroll next={() => false} hasMore={false} loader={<p>Load</p>} dataLength={20} scrollableTarget={'scrollableDiv'}>
-          <List dataSource={words}
-                renderItem={(item) => (
-                  <Word data={item} direction={direction}/>
-                )}
+        <InfiniteScroll next={loadMoreWords} hasMore={displayWords.length < words.length} loader={<p>Load</p>}
+                        dataLength={displayWords.length}
+                        scrollableTarget={'scrollableDiv'}>
+          <List dataSource={displayWords}
+                renderItem={(item) => {
+                  return (
+                    <Word isFavor={favorIds.includes(item.id as number)}
+                          data={item}
+                          direction={direction}
+                          changeFavorCallback={(id, add) => {
+                            if (add) {
+                              favorIds.push(id)
+                              localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                              setFavorIds([...favorIds])
+                            } else {
+                              favorIds.splice(favorIds.indexOf(id), 1)
+                              localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                              setFavorIds([...favorIds])
+                            }
+                          }}
+                    />
+                  )
+                }}
           />
         </InfiniteScroll>
-      </div> */}
-      <Space>
-        <Button type={'primary'}
-                disabled={favorIds.length === 0}
-                onClick={() => {
-                  const newWordsForQuiz: WordDto[] = []
-                  initWords.forEach(value => {
-                    if (favorIds.includes(value.id as number)) {
-                      newWordsForQuiz.push(value)
-                    }
-                  })
-                  setWordsForQuiz(newWordsForQuiz)
-                  setIsModalOpen(true)
-                }}>Опросник из избранных слов</Button>
-        {favorIds.length === 0
-          ? <>Добавьте слова галочками</>
-          : <>Слов: {favorIds.length}</>}
-      </Space>
-      <Divider/>
-      <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+      </div>
       {words
         .sort(compareFunction)
         .map((item, index) => {
@@ -257,9 +288,9 @@ const Dictionary = (): JSX.Element => {
             </div>
           )
         })}
-      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={() => {
-        window.scroll(0, 0)
-      }}/>
+      {/*<FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={() => {*/}
+      {/*  window.scroll(0, 0)*/}
+      {/*}}/>*/}
     </>
   )
 }
