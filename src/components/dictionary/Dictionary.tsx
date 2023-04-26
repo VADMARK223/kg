@@ -122,20 +122,15 @@ const Dictionary = (): JSX.Element => {
   // const [displayWords, setDisplayWords] = useState<WordDto[]>(words.slice(0, PAGE_SIZE))
   const [displayWords, setDisplayWords] = useState<WordDto[]>([])
   const loadMoreWords = (): void => {
-    console.log('loadMoreWords')
-    const newWords = [...words].slice(displayWords.length, displayWords.length + PAGE_SIZE)
-    console.log('new words', newWords)
+    const newWords = [...words].filter(filterFn).slice(displayWords.length, displayWords.length + PAGE_SIZE)
     setDisplayWords([...displayWords, ...newWords])
   }
   useEffect(() => {
-    // setDisplayWords(words.sort(compareFunction).slice(0, PAGE_SIZE))
-    console.log('words.length', words.length)
-    setDisplayWords([...words].sort(compareFunction).slice(0, PAGE_SIZE))
-  }, [words.length, direction])
+    setDisplayWords([...words].filter(filterFn).sort(compareFunction).slice(0, PAGE_SIZE))
+  }, [words.length, direction, search, types, tags])
 
   useEffect(() => {
     setWords([...words].sort(compareFunction))
-    console.log('AAAAAAAAA', words)
   }, [words.length, direction])
 
   useEffect(() => {
@@ -239,13 +234,15 @@ const Dictionary = (): JSX.Element => {
       <div
         id="scrollableDiv"
         style={{
-          height: 400,
+          height: 300,
           overflow: 'auto',
           padding: '0 16px',
           border: '1px solid rgba(140, 140, 140, 0.35)'
         }}
       >
-        <InfiniteScroll next={loadMoreWords} hasMore={displayWords.length < words.length} loader={<>Есть еще слова</>}
+        <InfiniteScroll next={loadMoreWords}
+                        hasMore={displayWords.length < words.length}
+                        loader={<>Есть еще слова</>}
                         dataLength={displayWords.length}
                         scrollableTarget={'scrollableDiv'}>
           <List dataSource={displayWords}
