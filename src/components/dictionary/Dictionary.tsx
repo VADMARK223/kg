@@ -57,7 +57,7 @@ const Dictionary = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    setWords(dic.words)
+    setWords([...dic.words].sort(compareFunction))
   }, [dic.words])
 
   const directionHandler = (): void => {
@@ -111,20 +111,11 @@ const Dictionary = (): JSX.Element => {
     return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
   }
 
-  // words = words.filter(value => {
-  //   if (search === '' && tags.length === 0 && types.length === 0) {
-  //     return true
-  //   }
-  //
-  //   return getCheckSearch(value.ru, value.kg) && getCheckTagForWord(value.tags) && getCheckTypeForWord(value.type)
-  // })
-
   const handlerSettingsOpen = (newOpen: boolean): void => {
     setSettingsOpen(newOpen)
   }
 
   const PAGE_SIZE: number = 50
-  // const [displayWords, setDisplayWords] = useState<WordDto[]>(words.slice(0, PAGE_SIZE))
   const [displayWords, setDisplayWords] = useState<WordDto[]>([])
   const loadMoreWords = (): void => {
     const newWords = [...words].filter(filterFn).slice(displayWords.length, displayWords.length + PAGE_SIZE)
@@ -247,27 +238,34 @@ const Dictionary = (): JSX.Element => {
       >
         <InfiniteScroll next={loadMoreWords}
                         hasMore={displayWords.length < words.length}
-                        loader={<>Есть еще слова</>}
+                        loader={<p>...</p>}
                         dataLength={displayWords.length}
                         scrollableTarget={'scrollableDiv'}>
           <List dataSource={displayWords}
-                renderItem={(item) => {
+                renderItem={(item, index) => {
+                  const current = words[index]
+                  const prev = words[index - 1]
+                  const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
+                  const firstSymbol = (item[locale] as string).substring(0, 1)
                   return (
-                    <Word isFavor={favorIds.includes(item.id as number)}
-                          data={item}
-                          direction={direction}
-                          changeFavorCallback={(id, add) => {
-                            if (add) {
-                              favorIds.push(id)
-                              localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                              setFavorIds([...favorIds])
-                            } else {
-                              favorIds.splice(favorIds.indexOf(id), 1)
-                              localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                              setFavorIds([...favorIds])
-                            }
-                          }}
-                    />
+                    <div key={item.id}>
+                      {needShowSymbol && <h4>{firstSymbol}</h4>}
+                      <Word isFavor={favorIds.includes(item.id as number)}
+                            data={item}
+                            direction={direction}
+                            changeFavorCallback={(id, add) => {
+                              if (add) {
+                                favorIds.push(id)
+                                localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                                setFavorIds([...favorIds])
+                              } else {
+                                favorIds.splice(favorIds.indexOf(id), 1)
+                                localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
+                                setFavorIds([...favorIds])
+                              }
+                            }}
+                      />
+                    </div>
                   )
                 }}
           />
