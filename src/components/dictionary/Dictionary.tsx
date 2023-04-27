@@ -41,6 +41,7 @@ const Dictionary = (): JSX.Element => {
     return (a[locale] as string).localeCompare(b[locale] as string)
   }
   const [words, setWords] = useState<WordDto[]>(ADMIN_MODE ? dic.words : [...data.words].sort(compareFunction))
+
   const initWords: WordDto[] = words
 
   const [wordsForQuiz, setWordsForQuiz] = useState<WordDto[]>([])
@@ -54,6 +55,10 @@ const Dictionary = (): JSX.Element => {
   useEffect(() => {
     fetchDic(dispatch)
   }, [])
+
+  useEffect(() => {
+    setWords(dic.words)
+  }, [dic.words])
 
   const directionHandler = (): void => {
     setDirection(!direction)
@@ -234,7 +239,7 @@ const Dictionary = (): JSX.Element => {
       <div
         id="scrollableDiv"
         style={{
-          height: 300,
+          height: 'calc(50vh - 80px)',
           overflow: 'auto',
           padding: '0 16px',
           border: '1px solid rgba(140, 140, 140, 0.35)'
@@ -268,8 +273,7 @@ const Dictionary = (): JSX.Element => {
           />
         </InfiniteScroll>
       </div>
-      {words
-        // .sort(compareFunction)
+     {/* {words
         .map((item, index) => {
           const current = words[index]
           const prev = words[index - 1]
@@ -295,7 +299,7 @@ const Dictionary = (): JSX.Element => {
               />
             </div>
           )
-        })}
+        })}*/}
       {/*<FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={() => {*/}
       {/*  window.scroll(0, 0)*/}
       {/*}}/>*/}
