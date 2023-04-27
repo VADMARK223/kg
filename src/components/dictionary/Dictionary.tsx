@@ -221,9 +221,10 @@ const Dictionary = (): JSX.Element => {
                     setWordsForQuiz(newWordsForQuiz)
                     setIsModalOpen(true)
                   }}>Опросник из избранных слов</Button>
-          {favorIds.length === 0
-            ? <>Добавьте слова галочками</>
-            : <>Слов: {favorIds.length}</>}
+          <Tooltip title={'Добавьте слова звездочкой'}>
+            <InfoCircleTwoTone twoToneColor={'blue'}/>
+          </Tooltip>
+          <p>Слов: {favorIds?.length}</p>
         </Space>
         <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>

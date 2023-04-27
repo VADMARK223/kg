@@ -5,7 +5,7 @@
  * @since 16.03.2023
  */
 import React, { useState } from 'react'
-import { Button, Space, Popover, Tooltip, Checkbox } from 'antd'
+import { Button, Space, Popover, Tooltip, Rate } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
@@ -13,7 +13,6 @@ import WordEditor from './WordEditor'
 import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ADMIN_MODE } from '../../api/common'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import type { WordDto } from '../../models/dto/WordDto'
 
 interface WordProps {
@@ -47,18 +46,18 @@ const Word = (props: WordProps): JSX.Element => {
     setOpen(newOpen)
   }
 
-  const onChange = (e: CheckboxChangeEvent): void => {
-    const checked = e.target.checked
-    setChecked(e.target.checked)
+  const onChange = (value: number): void => {
+    const checked = value === 1
+    setChecked(checked)
     changeFavorCallback(data.id as number, checked)
   }
 
   return (
     <>
       <Space direction={'horizontal'}>
+        <Rate count={1} defaultValue={checked ? 1 : undefined} onChange={onChange}/>
         <div>
-          <Checkbox onChange={onChange}
-                              checked={checked}/> {props.direction ? (<>{data.ru} - {data.kg}</>) : (<>{data.kg} - {data.ru}</>)} {typeElement()}
+          {props.direction ? (<>{data.ru} - {data.kg}</>) : (<>{data.kg} - {data.ru}</>)} {typeElement()}
         </div>
         {ADMIN_MODE && <>
             <Popover content={<WordEditor data={data} closeCallback={() => {
