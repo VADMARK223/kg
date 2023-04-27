@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, Popover, List } from 'antd'
+import { Button, Space, InputNumber, Tooltip, Popover, List, Empty } from 'antd'
 import { InfoCircleTwoTone, SwapOutlined, SettingOutlined } from '@ant-design/icons'
 import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
@@ -243,6 +243,7 @@ const Dictionary = (): JSX.Element => {
                         dataLength={displayWords.length}
                         scrollableTarget={'scrollableDiv'}>
           <List dataSource={displayWords}
+                locale={{ emptyText: <Empty description={'Слов по вашим фильтрам не найдено'}/> }}
                 renderItem={(item, index) => {
                   const current = words[index]
                   const prev = words[index - 1]
@@ -272,7 +273,7 @@ const Dictionary = (): JSX.Element => {
           />
         </InfiniteScroll>
       </div>
-     {/* {words
+      {/* {words
         .map((item, index) => {
           const current = words[index]
           const prev = words[index - 1]
