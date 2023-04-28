@@ -14,5 +14,6 @@ export interface UserInfo {
   regionId?: string
   locale?: string
   // TODO: Temp
-  tabIndex: number
+  tabIndex: number,
+  favoriteWordIds: number[] // Список идентификаторов избранных слов
 }

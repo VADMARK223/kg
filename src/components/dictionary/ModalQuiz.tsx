@@ -21,6 +21,7 @@ interface ModalQuizProps {
 
 const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
   const words = props.words.map(value => value)
+  console.log('MODAL QUIZ', words)
   const [currentAnswer, setCurrentAnswer] = useState(0)
   const { totalQuestions, answersValueCount } = props
   const [totalComplete, setTotalComplete] = useState(false)
@@ -36,8 +37,8 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
     setCurrentAnswer(newCurrentAnswer)
   }
 
-  const questionElement = (title: string, rightIndexes: number[], answers: WordDto[]): JSX.Element => (
-    <Question question={{ title, rightPositions: rightIndexes, answers }} complete={answerComplete}/>
+  const questionElement = (wordId: number, title: string, rightIndexes: number[], answers: WordDto[]): JSX.Element => (
+    <Question question={{ wordId, title, rightPositions: rightIndexes, answers }} complete={answerComplete}/>
   )
 
   const answers: WordDto[] = []
@@ -94,7 +95,7 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
       >
         {totalComplete
           ? <ModalQuizResults data={results}/>
-          : questionElement(`Как перевести слово: "${currentWord?.ru ?? ''}"?`, rightIndexes, answers)
+          : questionElement(currentWord?.id as number, `Как перевести слово: "${currentWord?.ru ?? ''}"?`, rightIndexes, answers)
         }
       </Modal>
     </div>

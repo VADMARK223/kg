@@ -5,7 +5,7 @@
  * @since 16.03.2023
  */
 import React, { useState } from 'react'
-import { Button, Space, Popover, Tooltip, Rate } from 'antd'
+import { Button, Space, Popover, Tooltip } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
@@ -14,19 +14,16 @@ import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ADMIN_MODE } from '../../api/common'
 import type { WordDto } from '../../models/dto/WordDto'
+import Favorite from '../common/Favorite'
 
 interface WordProps {
   data: WordDto
   direction: boolean
-  isFavor: boolean
-  changeFavorCallback: (id: number, add: boolean) => void
 }
 
 const Word = (props: WordProps): JSX.Element => {
   const types = useSelector((state: any): TypeDto[] => state.dic.types)
 
-  const { isFavor, changeFavorCallback } = props
-  const [checked, setChecked] = useState(isFavor)
   const data = props.data
   const tags = data.tags
   const currentType = types.find(value => {
@@ -46,16 +43,10 @@ const Word = (props: WordProps): JSX.Element => {
     setOpen(newOpen)
   }
 
-  const onChange = (value: number): void => {
-    const checked = value === 1
-    setChecked(checked)
-    changeFavorCallback(data.id as number, checked)
-  }
-
   return (
     <>
       <Space direction={'horizontal'}>
-        <Rate count={1} defaultValue={checked ? 1 : undefined} onChange={onChange}/>
+        <Favorite wordId={data.id as number}/>
         <div>
           {props.direction ? (<>{data.ru} - {data.kg}</>) : (<>{data.kg} - {data.ru}</>)} {typeElement()}
         </div>

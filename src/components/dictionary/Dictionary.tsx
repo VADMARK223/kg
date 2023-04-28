@@ -32,10 +32,10 @@ const Dictionary = (): JSX.Element => {
   const [types, setTypes] = useState<number[]>([]) // Часть речи
   const dispatch = useDispatch()
   const dic = useSelector((state: any): DicDto => state.dic)
+  const favoriteWordIds = useSelector((state: any): number[] => state.user.favoriteWordIds)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [totalQuestions, setTotalQuestions] = useState<number>(5)
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
-  const [favorIds, setFavorIds] = useState<number[]>(localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string))
   const [settingsOpen, setSettingsOpen] = useState(false)
   const compareFunction = (a: WordDto, b: WordDto): number => {
     return (a[locale] as string).localeCompare(b[locale] as string)
@@ -210,11 +210,11 @@ const Dictionary = (): JSX.Element => {
         </Space>
         <Space direction={'horizontal'}>
           <Button type={'primary'}
-                  disabled={favorIds.length === 0}
+                  disabled={favoriteWordIds.length === 0}
                   onClick={() => {
                     const newWordsForQuiz: WordDto[] = []
                     initWords.forEach(value => {
-                      if (favorIds.includes(value.id as number)) {
+                      if (favoriteWordIds.includes(value.id as number)) {
                         newWordsForQuiz.push(value)
                       }
                     })
@@ -224,7 +224,7 @@ const Dictionary = (): JSX.Element => {
           <Tooltip title={'Добавьте слова звездочкой'}>
             <InfoCircleTwoTone twoToneColor={'blue'}/>
           </Tooltip>
-          <p>Слов: {favorIds?.length}</p>
+          <p>Слов: {favoriteWordIds?.length}</p>
         </Space>
         <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
       </Space>
@@ -252,20 +252,7 @@ const Dictionary = (): JSX.Element => {
                   return (
                     <div key={item.id}>
                       {needShowSymbol && <h4>{firstSymbol}</h4>}
-                      <Word isFavor={favorIds.includes(item.id as number)}
-                            data={item}
-                            direction={direction}
-                            changeFavorCallback={(id, add) => {
-                              if (add) {
-                                favorIds.push(id)
-                                localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                                setFavorIds([...favorIds])
-                              } else {
-                                favorIds.splice(favorIds.indexOf(id), 1)
-                                localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                                setFavorIds([...favorIds])
-                              }
-                            }}
+                      <Word data={item} direction={direction}
                       />
                     </div>
                   )

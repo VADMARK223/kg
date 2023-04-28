@@ -85,7 +85,8 @@ function App (): JSX.Element {
   useEffect(() => {
     dispatch(updateUserInfo({
       lastName: 'Vadmark',
-      tabIndex: 1
+      tabIndex: 1,
+      favoriteWordIds: localStorage.getItem('kg_favor_ids') == null ? [] : JSON.parse(localStorage.getItem('kg_favor_ids') as string)
     }))
   }, [])
 
