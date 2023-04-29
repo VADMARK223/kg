@@ -2,6 +2,7 @@ import type { HTTPError } from 'ky'
 import ky from 'ky'
 import { showError } from './common'
 import type { DicDto } from '../models/dto/DicDto'
+import { toast } from 'react-toastify'
 
 /**
  * API для работы с Express JS
@@ -19,11 +20,10 @@ const expressApi = ky.create({
 })
 
 export const exportDic = (dto: DicDto): void => {
-  console.log('dto', dto)
   expressApi.post('export_dic', {
     json: dto
   }).json<DicDto>().then(value => {
-    console.log('value', value)
+    toast.success('Словарь успешно экспортирован.')
   }).catch((reason: HTTPError) => {
     showError(reason)
   })

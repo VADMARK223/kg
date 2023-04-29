@@ -37,6 +37,7 @@ const Dictionary = (): JSX.Element => {
   const [totalQuestions, setTotalQuestions] = useState<number>(5)
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [emptyFilter, setEmptyFilter] = useState<boolean>(true)
   const compareFunction = (a: WordDto, b: WordDto): number => {
     return (a[locale] as string).localeCompare(b[locale] as string)
   }
@@ -130,7 +131,7 @@ const Dictionary = (): JSX.Element => {
   }, [words.length, direction])
 
   useEffect(() => {
-    // setDisplayWords([...words].filter(filterFn))
+    setEmptyFilter(search === '' && tags.length === 0 && types.length === 0)
   }, [search, types, tags])
 
   return (
@@ -159,14 +160,18 @@ const Dictionary = (): JSX.Element => {
         <Space direction={'horizontal'}>
           <Button type={'primary'}
                   onClick={(): void => {
-                    setWordsForQuiz(displayWords)
+                    if (emptyFilter) {
+                      setWordsForQuiz(initWords)
+                    } else {
+                      setWordsForQuiz(displayWords)
+                    }
                     setIsModalOpen(true)
                   }}>Быстрый опросник
           </Button>
           <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
             <InfoCircleTwoTone twoToneColor={'blue'}/>
           </Tooltip>
-          <p>Слов: {displayWords?.length}</p>
+          <p>Слов: {emptyFilter ? initWords.length : displayWords?.length}</p>
 
           <Popover title={'Настройки опросников'}
                    open={settingsOpen}
