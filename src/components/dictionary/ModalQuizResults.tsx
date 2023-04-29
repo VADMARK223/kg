@@ -6,6 +6,8 @@
  */
 import React from 'react'
 import { CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
+import Favorite from '../common/Favorite'
+import { Space } from 'antd'
 
 interface ModalQuizResultsProps {
   data: ResultItemProps[]
@@ -13,6 +15,7 @@ interface ModalQuizResultsProps {
 
 export interface ResultItemProps {
   success: boolean
+  wordId: number
   title: string
   rightAnswerText: string
   wrongAnswerText: string
@@ -34,7 +37,7 @@ const ResultItem = (props: ResultItemProps): JSX.Element => {
     }
   }
   return (
-    <p> {getIcon()} {props.title} Ответ: {props.rightAnswerText}. {getWrongAnswer()}</p>
+    <Space size={3}> {getIcon()} <Favorite wordId={props.wordId}/> {props.title} Ответ: {props.rightAnswerText}. {getWrongAnswer()}</Space>
   )
 }
 
@@ -42,7 +45,7 @@ const ModalQuizResults = (props: ModalQuizResultsProps): JSX.Element => {
   return (
     <div>
       {props.data.map((value: ResultItemProps, index) => {
-        return <ResultItem key={index} success={value.success} title={value.title}
+        return <ResultItem key={index} success={value.success} wordId={value.wordId} title={value.title}
                            rightAnswerText={value.rightAnswerText} wrongAnswerText={value.wrongAnswerText}/>
       })}
     </div>

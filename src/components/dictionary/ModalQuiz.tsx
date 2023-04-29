@@ -19,9 +19,8 @@ interface ModalQuizProps {
   answersValueCount: number // Кол-во ответов вопросе
 }
 
-const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
+const ModalQuiz = React.memo((props: ModalQuizProps) => {
   const words = props.words.map(value => value)
-  console.log('MODAL QUIZ', words)
   const [currentAnswer, setCurrentAnswer] = useState(0)
   const { totalQuestions, answersValueCount } = props
   const [totalComplete, setTotalComplete] = useState(false)
@@ -95,12 +94,20 @@ const ModalQuiz = (props: ModalQuizProps): JSX.Element => {
       >
         {totalComplete
           ? <ModalQuizResults data={results}/>
-          : questionElement(currentWord?.id as number, `Как перевести слово: "${currentWord?.ru ?? ''}"?`, rightIndexes, answers)
+          : questionElement(currentWord?.id as number, `Перевод слова: "${currentWord?.ru ?? ''}"?`, rightIndexes, answers)
         }
       </Modal>
     </div>
   )
-}
+}, (prevProps: ModalQuizProps, nextProps: ModalQuizProps) => {
+  if (prevProps.open && !nextProps.open) {
+    return false
+  }
+
+  return !(!prevProps.open && nextProps.open)
+})
+
+ModalQuiz.displayName = 'ModalQuiz'
 
 const getRandomIndex = (value: number): number => {
   return Math.floor(Math.random() * value)

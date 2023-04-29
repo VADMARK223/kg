@@ -159,14 +159,14 @@ const Dictionary = (): JSX.Element => {
         <Space direction={'horizontal'}>
           <Button type={'primary'}
                   onClick={(): void => {
-                    setWordsForQuiz(words)
+                    setWordsForQuiz(displayWords)
                     setIsModalOpen(true)
                   }}>Быстрый опросник
           </Button>
           <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
             <InfoCircleTwoTone twoToneColor={'blue'}/>
           </Tooltip>
-          <p>Слов: {words?.length}</p>
+          <p>Слов: {displayWords?.length}</p>
 
           <Popover title={'Настройки опросников'}
                    open={settingsOpen}
@@ -226,7 +226,10 @@ const Dictionary = (): JSX.Element => {
           </Tooltip>
           <p>Слов: {favoriteWordIds?.length}</p>
         </Space>
-        <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+        <Space direction={'horizontal'}>
+          <Button icon={<SwapOutlined/>} onClick={directionHandler}>Обратный перевод</Button>
+          <p>Всего слов: {words?.length}</p>
+        </Space>
       </Space>
       <div
         id="scrollableDiv"

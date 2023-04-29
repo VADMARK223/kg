@@ -7,7 +7,6 @@
 import React, { useState, useEffect } from 'react'
 import type { RadioChangeEvent } from 'antd'
 import { Radio, Space, Button, Tooltip } from 'antd'
-import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
 import type { ResultItemProps } from '../../dictionary/ModalQuizResults'
 import type { WordDto } from '../../../models/dto/WordDto'
 import Favorite from '../../common/Favorite'
@@ -29,7 +28,6 @@ interface QuestionProps {
 }
 
 const Question = ({ showNextButton = false, question, complete }: QuestionProps): JSX.Element => {
-  const [titleIconState, setTitleIconState] = useState<boolean | null>(null)
   const [value, setValue] = useState(-1)
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true)
   const [nextButtonTooltip, setNextButtonTooltip] = useState('')
@@ -40,16 +38,11 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
   useEffect(() => {
     if (value !== -1) {
       setNextButtonDisabled(false)
-      if (checkRightAnswer()) {
-        setTitleIconState(true)
-      } else {
-        setTitleIconState(false)
-      }
       if (complete !== undefined) {
         setValue(-1)
-        setTitleIconState(null)
         const result: ResultItemProps = {
           success: checkRightAnswer(),
+          wordId: question.wordId,
           title: question.title,
           rightAnswerText: question.answers.filter((value1, index) => question.rightPositions.includes(index)).map(value1 => value1.kg).join(' или '),
           wrongAnswerText: question.answers[value].kg
@@ -92,24 +85,11 @@ const Question = ({ showNextButton = false, question, complete }: QuestionProps)
     }
   }
 
-  const getIcon = (): JSX.Element => {
-    if (titleIconState === null) {
-      return <QuestionCircleTwoTone twoToneColor={'orange'}/>
-    }
-
-    if (titleIconState) {
-      return <CheckCircleTwoTone twoToneColor="#52c41a"/>
-    }
-
-    return <ExclamationCircleTwoTone twoToneColor={'red'}/>
-  }
-
   return (
     <Space direction={'vertical'}>
       <Space>
-        {getIcon()}
-        <b>{question.title}</b>
         <Favorite wordId={question.wordId}/>
+        <b>{question.title}</b>
       </Space>
 
       <Radio.Group onChange={onChange} value={value}>
