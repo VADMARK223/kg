@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Space, Button } from 'antd'
+import { Space, Button, Drawer, Tag } from 'antd'
 import navigationService from '../service/navigation'
 import { LocalStoreKey, getSetting } from '../service/settings'
 import store from '../store'
 import type { DicDto } from '../models/dto/DicDto'
 import { exportDic } from '../api/express'
+import { ADMIN_MODE } from '../api/common'
+import { InstagramOutlined, MessageOutlined } from '@ant-design/icons'
+import { RoutePath } from '../service/router'
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate()
+  const [openSideMenu, setOpenSideMenu] = useState(false)
+
   useEffect(() => {
     navigationService.setNavigation(navigate)
   }, [])
@@ -28,15 +33,46 @@ const Header = (): JSX.Element => {
     }
   }
 
+  const onCloseSideMenuHandler = (): void => {
+    setOpenSideMenu(false)
+  }
+
   return (
-    <Space>
-      <Link key={'1'} to={'/'}>Дом</Link>
-      <Link key={'2'} to={'/service'}>Сервис</Link>
-      {!isAuth ? <Link key={'4'} to={'/register'}>Регистрация</Link> : null}
-      {!isAuth ? <Link key={'5'} to={'/login'}>Логин</Link> : null}
-      {isAuth ? <Button onClick={logoutHandler}>Разголиниться</Button> : null}
-      <Button type={'primary'} onClick={exportHandler}>Экспортировать словарь</Button>
-    </Space>
+    <>
+      <Drawer title={'Меню'}
+              open={openSideMenu}
+              onClose={onCloseSideMenuHandler}
+              placement={'left'}
+              closable={false}
+      >
+        <Space direction={'vertical'}>
+          <Link to={RoutePath.DIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
+          <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Числительные</Button></Link>
+          <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Разговорник</Button></Link>
+          <Link to={RoutePath.AFFIXES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Аффиксы</Button></Link>
+          {ADMIN_MODE && <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}
+        </Space>
+      </Drawer>
+      <Space>
+        <Button type={'primary'} onClick={() => {
+          setOpenSideMenu(true)
+        }}>Меню</Button>
+        <Tag icon={<InstagramOutlined/>} color="#55acee">
+          <a href={'https://www.instagram.com/vadmark_in_kyrgyzstan/'} target={'_blank'}
+             rel={'noopener noreferrer'}>Автор</a><br/>
+        </Tag>
+        <Tag icon={<MessageOutlined/>} color="#55acee">
+          <a href={'https://t.me/kyrgyztili_2023'} target={'_blank'}
+             rel={'noopener noreferrer'}>Источник канал в телеграм: Кыргыз Тили</a><br/>
+        </Tag>
+        {ADMIN_MODE && <>
+          {!isAuth ? <Link key={'4'} to={'/register'}>Регистрация</Link> : null}
+          {!isAuth ? <Link key={'5'} to={'/login'}>Логин</Link> : null}
+          {isAuth ? <Button onClick={logoutHandler}>Разголиниться</Button> : null}
+            <Button type={'primary'} onClick={exportHandler}>Экспортировать словарь</Button>
+        </>}
+      </Space>
+    </>
   )
 }
 

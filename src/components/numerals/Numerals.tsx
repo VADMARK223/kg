@@ -197,7 +197,7 @@ const Numerals = (): JSX.Element => {
   ]
 
   return (
-    <Space direction={'vertical'}>
+    <Space direction={'vertical'} style={{ width: '100vw' }}>
       <Space direction={'horizontal'}>
         <div>
           Переведите число:
@@ -233,7 +233,7 @@ const Numerals = (): JSX.Element => {
         </p>
         : null}
       <hr/>
-      <Space>
+      <Space wrap>
         {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
         <Tooltip title={checkAnswerButtonTooltip}>
           <Button type={'primary'} onClick={checkHandler} disabled={checkAnswerButtonDisabled}>Проверить</Button>
@@ -244,7 +244,7 @@ const Numerals = (): JSX.Element => {
         </p>
       </Space>
       <hr/>
-      <Space size={1}>
+      <Space size={1} wrap>
         {initNumbersTags.map(value => (<NumberTag key={value.value} data={value} clickCallback={addTag}/>))}
       </Space>
     </Space>

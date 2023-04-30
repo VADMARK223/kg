@@ -7,16 +7,24 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { ConfigProvider } from 'antd'
+import ruRU from 'antd/locale/ru_RU'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 root.render(
   <>
-    <Provider store={store}>
-      <App/>
-    </Provider>
-    <ToastContainer position={'bottom-right'}/>
+    <ConfigProvider locale={ruRU} theme={{
+      token: {
+        colorPrimary: '#3c7405'
+      }
+    }}>
+      <Provider store={store}>
+        <App/>
+      </Provider>
+      <ToastContainer position={'bottom-right'}/>
+    </ConfigProvider>
   </>
 )
 
