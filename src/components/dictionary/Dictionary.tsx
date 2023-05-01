@@ -9,18 +9,18 @@ import data from '../../assets/dictionary.json'
 import Word from './Word'
 import { Button, Space, InputNumber, Tooltip, Popover, List, Empty } from 'antd'
 import { InfoCircleTwoTone, SwapOutlined, SettingOutlined } from '@ant-design/icons'
-import Search from 'antd/es/input/Search'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { DicDto } from '../../models/dto/DicDto'
 import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
 import type { TagDto } from '../../models/dto/TagDto'
-import Selector from '../common/Selector'
 import { ADMIN_MODE } from '../../api/common'
 import { getDic } from '../../store/dicSlice'
 import type { WordDto } from '../../models/dto/WordDto'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Filter from './Filter'
+import type { SelectorDto } from '../../models/dto/SelectorDto'
 
 const TOTAL_QUESTIONS_MAX = 50
 
@@ -72,6 +72,14 @@ const Dictionary = (): JSX.Element => {
 
   const onSearch = (value: string): void => {
     setSearch(value)
+  }
+
+  const typesSelectCallback = (options: SelectorDto[]): void => {
+    setTypes(options.map(value => value.value))
+  }
+
+  const tagsSelectCallback = (options: SelectorDto[]): void => {
+    setTags(options.map(value => value.value))
   }
 
   const getCheckSearch = (ruValue: string, kgValue: string): boolean => {
@@ -137,25 +145,11 @@ const Dictionary = (): JSX.Element => {
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
-        <Search
-          placeholder={'Введите слово для поиска'}
-          allowClear
-          enterButton={'Поиск'}
-          size={'middle'}
-          onSearch={onSearch}
-        />
-        <Selector placeholder={'Части речи'}
-                  mode={'multiple'}
-                  options={dic.types}
-                  selectedCallback={(options) => {
-                    setTypes(options.map(value => value.value))
-                  }}/>
-        <Selector placeholder={'Категории'}
-                  mode={'multiple'}
-                  options={dic.tags}
-                  selectedCallback={(options) => {
-                    setTags(options.map(value => value.value))
-                  }}/>
+        <Filter types={dic.types}
+                tags={dic.tags}
+                onSearch={onSearch}
+                typesSelectCallback={typesSelectCallback}
+                tagsSelectCallback={tagsSelectCallback}/>
         {ADMIN_MODE && <WordEditor/>}
         <Space direction={'horizontal'}>
           <Button type={'primary'}
@@ -268,36 +262,6 @@ const Dictionary = (): JSX.Element => {
           />
         </InfiniteScroll>
       </div>
-      {/* {words
-        .map((item, index) => {
-          const current = words[index]
-          const prev = words[index - 1]
-          const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
-          const firstSymbol = (item[locale] as string).substring(0, 1)
-          return (
-            <div key={item.id}>
-              {needShowSymbol && <h4>{firstSymbol}</h4>}
-              <Word isFavor={favorIds.includes(item.id as number)}
-                    data={item}
-                    direction={direction}
-                    changeFavorCallback={(id, add) => {
-                      if (add) {
-                        favorIds.push(id)
-                        localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                        setFavorIds([...favorIds])
-                      } else {
-                        favorIds.splice(favorIds.indexOf(id), 1)
-                        localStorage.setItem('kg_favor_ids', JSON.stringify(favorIds))
-                        setFavorIds([...favorIds])
-                      }
-                    }}
-              />
-            </div>
-          )
-        })}*/}
-      {/*<FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 24 }} onClick={() => {*/}
-      {/*  window.scroll(0, 0)*/}
-      {/*}}/>*/}
     </>
   )
 }
