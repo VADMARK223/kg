@@ -19,10 +19,11 @@ const AnswerTag = (props: AnswerTagProps): JSX.Element => {
     e.preventDefault()
   }
   return (
-    <Tag closable={true} onClose={closeHandler}>
-          <span>
+    <Tag closable={true}
+         onClose={closeHandler}>
+          <b style={{fontSize: '20px'}}>
             {props.data.label}
-          </span>
+          </b>
     </Tag>
   )
 }

@@ -13,6 +13,7 @@ import ServicePage from './components/ServicePage'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
 import Phrases from './components/phrases/Phrases'
+import Phonetics from './components/phonetics/Phonetics'
 
 function App (): JSX.Element {
   const dispatch = useDispatch()
@@ -75,6 +76,9 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.AFFIXES,
           element: <WordEndings/>
+        }, {
+          path: RoutePath.PHONETICS ,
+          element: <Phonetics/>
         },
         {
           path: RoutePath.ALL,

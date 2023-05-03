@@ -7,5 +7,6 @@ export enum RoutePath {
   NUMBERS = 'numbers', // Страница числительных
   PHRASES = 'phrases', // Страница фраз
   AFFIXES = 'affixes', // Страница аффиксов
+  PHONETICS = 'phonetics', // Вводно-фонетический курс
   ALL = '*' // Шаблон для всех страниц
 }

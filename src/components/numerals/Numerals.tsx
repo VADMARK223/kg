@@ -213,19 +213,17 @@ const Numerals = (): JSX.Element => {
                                }}/>
           <Button type={'primary'} onClick={generateHandler}>Генерировать число</Button>
         </Space.Compact>
-        <Space>
-          <Tooltip title={'Показывать подсказку'}>
-            <Checkbox checked={showHint}
-                      onChange={() => {
-                        setShowHint(!showHint)
-                      }}/>
-          </Tooltip>
-          {showHint
-            ? <>
-              Правильный ответ: {rightAnswer}
-            </>
-            : <></>}
-        </Space>
+      </Space>
+      <Space>
+        <Checkbox checked={showHint}
+                  onChange={() => {
+                    setShowHint(!showHint)
+                  }}>Показывать подсказку</Checkbox>
+        {showHint
+          ? <>
+            Правильный ответ: {rightAnswer}
+          </>
+          : <></>}
       </Space>
       {SHOW_DEBUG
         ? <p>
@@ -234,7 +232,9 @@ const Numerals = (): JSX.Element => {
         : null}
       <hr/>
       <Space wrap>
-        {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
+        Ответ: {answerTags.map((value, index) => (<AnswerTag key={index} data={value} closeCallback={removeTag}/>))}
+      </Space>
+      <Space>
         <Tooltip title={checkAnswerButtonTooltip}>
           <Button type={'primary'} onClick={checkHandler} disabled={checkAnswerButtonDisabled}>Проверить</Button>
         </Tooltip>
