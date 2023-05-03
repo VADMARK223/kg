@@ -7,8 +7,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, Popover, List, Empty } from 'antd'
-import { InfoCircleTwoTone, SwapOutlined, SettingOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Tooltip, Popover, List, Empty, FloatButton } from 'antd'
+import { InfoCircleTwoTone, SwapOutlined, SettingOutlined, CaretUpOutlined } from '@ant-design/icons'
 import { fetchDic } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { DicDto } from '../../models/dto/DicDto'
@@ -148,6 +148,10 @@ const Dictionary = (): JSX.Element => {
     distanceFromTop = (scrollableDivRef.current as unknown as HTMLDivElement).offsetTop;
   }
 
+  const scrollUpHandler = (): void => {
+    (scrollableDivRef.current as unknown as HTMLDivElement).scroll(0, 0)
+  }
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -269,6 +273,7 @@ const Dictionary = (): JSX.Element => {
           />
         </InfiniteScroll>
       </div>
+      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 54 }} onClick={scrollUpHandler}/>
     </>
   )
 }
