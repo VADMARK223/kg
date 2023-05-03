@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 09.03.2023
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
 import { Button, Space, InputNumber, Tooltip, Popover, List, Empty } from 'antd'
@@ -142,6 +142,12 @@ const Dictionary = (): JSX.Element => {
     setEmptyFilter(search === '' && tags.length === 0 && types.length === 0)
   }, [search, types, tags])
 
+  const scrollableDivRef = useRef<any>()
+  let distanceFromTop: number = 0
+  if (scrollableDivRef.current !== undefined) {
+    distanceFromTop = (scrollableDivRef.current as unknown as HTMLDivElement).offsetTop;
+  }
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -231,9 +237,10 @@ const Dictionary = (): JSX.Element => {
         </Space>
       </Space>
       <div
+        ref={scrollableDivRef}
         id="scrollableDiv"
         style={{
-          height: 'calc(50vh - 80px)',
+          height: `calc(100vh - ${distanceFromTop}px - 5px)`,
           overflow: 'auto',
           padding: '0 16px',
           border: '1px solid rgba(140, 140, 140, 0.35)'
