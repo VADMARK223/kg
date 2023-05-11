@@ -11,6 +11,28 @@ import { generateRandomInteger, countDigitsInNumber } from '../../service/utils'
 import NumberTag from './NumberTag'
 import AnswerTag from './AnswerTag'
 import type { NumberData } from './NumberData'
+import number_0 from '../../assets/audio/0.mp3'
+import number_1 from '../../assets/audio/1.mp3'
+import number_2 from '../../assets/audio/2.mp3'
+import number_3 from '../../assets/audio/3.mp3'
+import number_4 from '../../assets/audio/4.mp3'
+import number_5 from '../../assets/audio/5.mp3'
+import number_6 from '../../assets/audio/6.mp3'
+import number_7 from '../../assets/audio/7.mp3'
+import number_8 from '../../assets/audio/8.mp3'
+import number_9 from '../../assets/audio/9.mp3'
+import number_10 from '../../assets/audio/10.mp3'
+import number_20 from '../../assets/audio/20.mp3'
+import number_30 from '../../assets/audio/30.mp3'
+import number_40 from '../../assets/audio/40.mp3'
+import number_50 from '../../assets/audio/50.mp3'
+import number_60 from '../../assets/audio/60.mp3'
+import number_70 from '../../assets/audio/70.mp3'
+import number_80 from '../../assets/audio/80.mp3'
+import number_90 from '../../assets/audio/90.mp3'
+import number_100 from '../../assets/audio/100.mp3'
+import number_1000 from '../../assets/audio/1000.mp3'
+import NumberAudio from './NumberAudio'
 
 const SHOW_DEBUG: boolean = false
 const MAX_TARGET_VALUE: number = 9999
@@ -198,6 +220,31 @@ const Numerals = (): JSX.Element => {
 
   return (
     <Space direction={'vertical'} style={{ width: '100vw' }}>
+      <Space direction={'vertical'} size={2}>
+        <NumberAudio src={number_0} kg={'Нөл'} ru={'Ноль'}/>
+        <NumberAudio src={number_1} kg={'Бир'} ru={'Один'}/>
+        <NumberAudio src={number_2} kg={'Эки'} ru={'Два'}/>
+        <NumberAudio src={number_3} kg={'Үч'} ru={'Три'}/>
+        <NumberAudio src={number_4} kg={'Төрт'} ru={'Четыре'}/>
+        <NumberAudio src={number_5} kg={'Беш'} ru={'Пять'}/>
+        <NumberAudio src={number_6} kg={'Алты'} ru={'Шесть'}/>
+        <NumberAudio src={number_7} kg={'Жети'} ru={'Семь'}/>
+        <NumberAudio src={number_8} kg={'Сегиз'} ru={'Восемь'}/>
+        <NumberAudio src={number_9} kg={'Тогуз'} ru={'Девять'}/>
+        <NumberAudio src={number_10} kg={'Он'} ru={'Десять'}/>
+        <NumberAudio src={number_20} kg={'Жыйырма'} ru={'Двадцать'}/>
+        <NumberAudio src={number_30} kg={'Отуз'} ru={'Тридцать'}/>
+        <NumberAudio src={number_40} kg={'Кырк'} ru={'Сорок'}/>
+        <NumberAudio src={number_50} kg={'Элүү'} ru={'Пятьдесят'}/>
+        <NumberAudio src={number_60} kg={'Алтымыш'} ru={'Шестьдесят'}/>
+        <NumberAudio src={number_70} kg={'Жетимиш'} ru={'Семьдесят'}/>
+        <NumberAudio src={number_80} kg={'Сексен'} ru={'Восемьдесят'}/>
+        <NumberAudio src={number_90} kg={'Токсон'} ru={'Девяносто'}/>
+        <NumberAudio src={number_100} kg={'Жүз'} ru={'Сто'}/>
+        <NumberAudio src={number_1000} kg={'Миң'} ru={'Тысяча'}/>
+
+      </Space>
+
       <Space direction={'horizontal'}>
         <div>
           Переведите число:
