@@ -258,8 +258,8 @@ const Dictionary = (): JSX.Element => {
           <List dataSource={displayWords}
                 locale={{ emptyText: <Empty description={'Слов по вашим фильтрам не найдено'}/> }}
                 renderItem={(item, index) => {
-                  const current = words[index]
-                  const prev = words[index - 1]
+                  const current = displayWords[index]
+                  const prev = displayWords[index - 1]
                   const needShowSymbol = prev === undefined || (current[locale] as string).charCodeAt(0) !== (prev[locale] as string).charCodeAt(0)
                   const firstSymbol = (item[locale] as string).substring(0, 1)
                   return (
