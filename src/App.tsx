@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
-import Dictionary from './components/dictionary/Dictionary'
+import React, { useEffect, Suspense } from 'react'
+
 import { useDispatch } from 'react-redux'
 import { updateUserInfo } from './store/userSlice'
-import Numerals from './components/numerals/Numerals'
-import WordEndings from './components/wordEndings/WordEndings'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
 import Header from './components/Header'
@@ -12,8 +10,17 @@ import NoPage from './components/NoPage'
 import ServicePage from './components/ServicePage'
 import LoginPage from './components/LoginPage'
 import RegisterPage from './components/RegisterPage'
-import Phrases from './components/phrases/Phrases'
-import Phonetics from './components/phonetics/Phonetics'
+
+// Словарь
+import Dictionary from './components/dictionary/Dictionary'
+// Числительные
+const Numerals = React.lazy(async () => await import('./components/numerals/Numerals'))
+// Разговорник
+const Phrases = React.lazy(async () => await import('./components/phrases/Phrases'))
+// Аффиксы
+const WordEndings = React.lazy(async () => await import('./components/wordEndings/WordEndings'))
+// Вводно-фонетический курс
+const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
 
 function App (): JSX.Element {
   const dispatch = useDispatch()
@@ -69,16 +76,16 @@ function App (): JSX.Element {
           element: <Dictionary/>
         }, {
           path: RoutePath.NUMBERS,
-          element: <Numerals/>
+          element: <Suspense fallback={<div>Загрузка...</div>}><Numerals/></Suspense>
         }, {
           path: RoutePath.PHRASES,
-          element: <Phrases/>
+          element: <Suspense fallback={<div>Загрузка...</div>}><Phrases/></Suspense>
         }, {
           path: RoutePath.AFFIXES,
-          element: <WordEndings/>
+          element: <Suspense fallback={<div>Загрузка...</div>}><WordEndings/></Suspense>
         }, {
-          path: RoutePath.PHONETICS ,
-          element: <Phonetics/>
+          path: RoutePath.PHONETICS,
+          element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>
         },
         {
           path: RoutePath.ALL,
