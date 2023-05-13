@@ -12,7 +12,8 @@ const app = express()
 const port = 9000
 const DIC_PATH: string = __dirname + '\\..\\..\\dict.json'
 const CLIENT_ASSETS_DIC = 'C:\\Users\\vmark\\WebstormProjects\\kg\\src\\assets\\dictionary.json'
-const BUILD_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg_build_temp'
+const BUILD_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg\\build\\'
+const BUILD_PROJECT_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg_build'
 
 const cors = require('cors')
 app.use(cors())
@@ -35,27 +36,18 @@ app.post('/export_dic', function (request: any, response: any) {
 })
 
 app.post('/build', (req: any, response: any) => {
-  shell.echo('Start')
+  shell.echo('Start build...')
   shell.cd('..')
-  // console.log(shell.pwd().stdout)
-  // shell.exec('npm run build')
-  shell.cd(BUILD_PATH)
-  console.log(shell.pwd().stdout)
-  // exec('./build.sh',
-  //   (error: ExecException | null, stdout: string, stderr: string) => {
-  //     console.log(stdout);
-  //     console.log(stderr);
-  //     if (error !== null) {
-  //       console.log(`exec error: ${error}`);
-  //     }
-  //   })
-  // shell.exec('bash build.sh', (error: any, stdout: any, stderr: any) => {
-  //   shell.echo('Error', error)
-  //   if (error !== null) {
-  //     console.log(`exec error: ${error}`);
-  //   }
-  // })
-  shell.echo('End')
+  shell.exec('npm run build')
+  shell.cd(BUILD_PROJECT_PATH)
+  shell.echo('Clear build folder.')
+  shell.exec('for /f "tokens=*" %A in (\'dir /b /a-d /s ^| findstr /v /i "\\.git" ^& dir /b /ad /s ^| findstr /v /i "\\.git" \') do @del /q "%A"');
+  shell.echo('Copy folder..')
+  shell.cp('-R', `${BUILD_PATH}/*`, BUILD_PROJECT_PATH)
+  shell.exec('git add .')
+  shell.exec('git commit -m "Auto-commit"')
+  shell.exec('git push')
+  shell.echo('End build.')
   response.end()
 })
 
