@@ -12,10 +12,11 @@ const app = express()
 const port = 9000
 const DIC_PATH: string = __dirname + '\\..\\..\\dict.json'
 const CLIENT_ASSETS_DIC = 'C:\\Users\\vmark\\WebstormProjects\\kg\\src\\assets\\dictionary.json'
+const BUILD_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg_build_temp'
 
 const cors = require('cors')
-
 app.use(cors())
+const shell = require('shelljs')
 
 app.post('/export_dic', function (request: any, response: any) {
   let body = ''
@@ -31,6 +32,31 @@ app.post('/export_dic', function (request: any, response: any) {
       })
     })
   })
+})
+
+app.post('/build', (req: any, response: any) => {
+  shell.echo('Start')
+  shell.cd('..')
+  // console.log(shell.pwd().stdout)
+  // shell.exec('npm run build')
+  shell.cd(BUILD_PATH)
+  console.log(shell.pwd().stdout)
+  // exec('./build.sh',
+  //   (error: ExecException | null, stdout: string, stderr: string) => {
+  //     console.log(stdout);
+  //     console.log(stderr);
+  //     if (error !== null) {
+  //       console.log(`exec error: ${error}`);
+  //     }
+  //   })
+  // shell.exec('bash build.sh', (error: any, stdout: any, stderr: any) => {
+  //   shell.echo('Error', error)
+  //   if (error !== null) {
+  //     console.log(`exec error: ${error}`);
+  //   }
+  // })
+  shell.echo('End')
+  response.end()
 })
 
 app.get('/dic_get', function (request: any, response: any, next: any) {

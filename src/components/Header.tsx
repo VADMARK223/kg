@@ -5,7 +5,7 @@ import navigationService from '../service/navigation'
 import { LocalStoreKey, getSetting } from '../service/settings'
 import store from '../store'
 import type { DicDto } from '../models/dto/DicDto'
-import { exportDic } from '../api/express'
+import { exportDic, runBuild } from '../api/express'
 import { ADMIN_MODE } from '../api/common'
 import { InstagramOutlined, MessageOutlined, InfoCircleTwoTone } from '@ant-design/icons'
 import { RoutePath } from '../service/router'
@@ -33,6 +33,10 @@ const Header = (): JSX.Element => {
     }
   }
 
+  const buildHandler = ():void => {
+    runBuild()
+  }
+
   const onCloseSideMenuHandler = (): void => {
     setOpenSideMenu(false)
   }
@@ -47,12 +51,16 @@ const Header = (): JSX.Element => {
       >
         <Space direction={'vertical'}>
           <Link to={RoutePath.DIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
-          <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Числительные</Button></Link>
-          <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Разговорник</Button></Link>
+          <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
+            type={'primary'}>Числительные</Button></Link>
+          <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button
+            type={'primary'}>Разговорник</Button></Link>
           <Link to={RoutePath.AFFIXES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Аффиксы</Button></Link>
           <hr/>
-          <Link to={RoutePath.PHONETICS} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический курс</Button></Link>
-          {ADMIN_MODE && <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}
+          <Link to={RoutePath.PHONETICS} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический
+            курс</Button></Link>
+          {ADMIN_MODE &&
+          <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}
         </Space>
       </Drawer>
       <Space>
@@ -75,6 +83,7 @@ const Header = (): JSX.Element => {
           {!isAuth ? <Link key={'5'} to={'/login'}>Логин</Link> : null}
           {isAuth ? <Button onClick={logoutHandler}>Разголиниться</Button> : null}
             <Button type={'primary'} onClick={exportHandler}>Экспортировать словарь</Button>
+            <Button type={'primary'} onClick={buildHandler}>Собрать</Button>
         </>}
       </Space>
     </>

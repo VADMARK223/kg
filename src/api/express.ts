@@ -28,3 +28,11 @@ export const exportDic = (dto: DicDto): void => {
     showError(reason)
   })
 }
+
+export const runBuild = (): void => {
+  expressApi.post('build').json<boolean>().then(value => {
+    toast.success('Проект собран.' + value)
+  }).catch((reason: HTTPError) => {
+    showError(reason)
+  })
+}
