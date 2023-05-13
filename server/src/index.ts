@@ -35,6 +35,17 @@ app.post('/export_dic', function (request: any, response: any) {
   })
 })
 
+const getCurrentTime = (): string => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
 app.post('/build', (req: any, response: any) => {
   shell.echo('Start build...')
   shell.cd('..')
@@ -45,7 +56,7 @@ app.post('/build', (req: any, response: any) => {
   shell.echo('Copy folder..')
   shell.cp('-R', `${BUILD_PATH}/*`, BUILD_PROJECT_PATH)
   shell.exec('git add .')
-  shell.exec('git commit -m "Auto-commit"')
+  shell.exec(`git commit -m "Auto-commit ${getCurrentTime()}"`)
   shell.exec('git push')
   shell.echo('End build.')
   response.end()
