@@ -18,14 +18,14 @@ import { useHotkeys } from 'react-hotkeys-hook'
 const CTRL_ENTER_HOT_KEY: string = 'Ctrl + Enter'
 
 interface WordEditorProps {
-  data?: WordDto
-  closeCallback?: () => void
+  data: WordDto | null
+  cancelCallback: () => void
 }
 
 const WordEditor = (props: WordEditorProps): JSX.Element => {
   const dicData = useSelector((state: any): DicDto => state.dic)
   const data = props.data
-  const isEditMode = data !== undefined
+  const isEditMode = data !== null
   const dispatch = useDispatch()
   const [ruValue, setRuValue] = useState(data?.ru)
   const kgState = useState<string>(data?.kg ?? '')
@@ -34,18 +34,25 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
   const [type, setType] = useState<number>(data?.type ?? 0)
   const [tags, setTags] = useState<TagDto[]>(data?.tags ?? [])
   const [buttonDisable, setButtonDisable] = useState(true)
+  useEffect(() => {
+    setRuValue(data?.ru)
+    kgState[1](data?.kg ?? '')
+    setType(data?.type ?? 0)
+    setTags(data?.tags ?? [])
+  }, [data])
   const ruInputRef = useRef<any>()
 
-  if (!isEditMode) {
-    useHotkeys(CTRL_ENTER_HOT_KEY, (event) => {
-      if (!buttonDisable) {
-        buttonHandler()
-      }
-      event.preventDefault()
-    }, {
-      enableOnFormTags: ['input', 'INPUT', 'SELECT', 'select']
-    })
-  }
+  useHotkeys(CTRL_ENTER_HOT_KEY, (event) => {
+    if (isEditMode) {
+      return
+    }
+    if (!buttonDisable) {
+      buttonHandler()
+    }
+    event.preventDefault()
+  }, {
+    enableOnFormTags: ['input', 'INPUT', 'SELECT', 'select']
+  })
 
   useEffect(() => {
     setButtonDisable(ruValue === undefined || ruValue === '' || kgValue === '')
@@ -66,12 +73,15 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       setRuValue('')
       setKgValue('')
     }
-
-    if (props.closeCallback !== undefined) {
-      props.closeCallback()
+    if (isEditMode) {
+      props.cancelCallback()
     }
 
     ruInputRef.current.focus()
+  }
+
+  const cancelHandler = (): void => {
+    props.cancelCallback()
   }
 
   return (
@@ -85,7 +95,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
              }}/>
       <KgInput valueState={kgState}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
-              defaultValue={type}
+              value={type}
               options={dicData.types}
               onChange={(e) => {
                 setType(e)
@@ -106,6 +116,7 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       />
       <Button type={'primary'} onClick={buttonHandler}
               disabled={buttonDisable}>{isEditMode ? 'Изменить' : 'Добавить'}</Button>
+      {isEditMode && <Button onClick={cancelHandler}>Отмена</Button>}
     </Space>
   )
 }

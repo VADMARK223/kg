@@ -4,12 +4,11 @@
  * @author Markitanov Vadim
  * @since 16.03.2023
  */
-import React, { useState } from 'react'
-import { Button, Space, Popover, Tooltip } from 'antd'
+import React from 'react'
+import { Button, Space, Tooltip } from 'antd'
 import { removeWord } from '../../api/dictionary'
 import { useDispatch, useSelector } from 'react-redux'
 import type { TypeDto } from '../../models/dto/TypeDto'
-import WordEditor from './WordEditor'
 import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ADMIN_MODE } from '../../api/common'
@@ -19,9 +18,11 @@ import Favorite from '../common/Favorite'
 interface WordProps {
   data: WordDto
   direction: boolean
+  editWordCallback: (value: WordDto) => void
 }
 
 const Word = (props: WordProps): JSX.Element => {
+  const { editWordCallback } = props
   const types = useSelector((state: any): TypeDto[] => state.dic.types)
 
   const data = props.data
@@ -37,10 +38,8 @@ const Word = (props: WordProps): JSX.Element => {
 
   const typeElement = (): JSX.Element => (<b>{currentType?.label}</b>)
 
-  const [open, setOpen] = useState(false)
-
-  const handleOpenChange = (newOpen: boolean): void => {
-    setOpen(newOpen)
+  const editWordHandler = (): void => {
+    editWordCallback(data)
   }
 
   return (
@@ -51,15 +50,7 @@ const Word = (props: WordProps): JSX.Element => {
           {props.direction ? (<>{data.ru} - {data.kg}</>) : (<>{data.kg} - {data.ru}</>)} {typeElement()}
         </div>
         {ADMIN_MODE && <>
-            <Popover content={<WordEditor data={data} closeCallback={() => {
-              setOpen(false)
-            }}/>}
-                     title={'Редактирование слова'}
-                     trigger={'click'}
-                     open={open}
-                     onOpenChange={handleOpenChange}>
-                <Button icon={<EditOutlined/>}/>
-            </Popover>
+            <Button icon={<EditOutlined/>} onClick={editWordHandler}/>
             <Tooltip title={'Удалить слово'}>
                 <Button danger onClick={wordRemoveHandler} icon={<DeleteOutlined/>}/>
             </Tooltip>

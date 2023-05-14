@@ -38,6 +38,7 @@ const Dictionary = (): JSX.Element => {
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [emptyFilter, setEmptyFilter] = useState<boolean>(true)
+  const [editWord, setEditWord] = useState<WordDto | null>(null)
   const compareFunction = (a: WordDto, b: WordDto): number => {
     return (a[locale] as string).localeCompare(b[locale] as string)
   }
@@ -145,7 +146,7 @@ const Dictionary = (): JSX.Element => {
   const scrollableDivRef = useRef<any>()
   let distanceFromTop: number = 0
   if (scrollableDivRef.current !== undefined) {
-    distanceFromTop = (scrollableDivRef.current as unknown as HTMLDivElement).offsetTop;
+    distanceFromTop = (scrollableDivRef.current as unknown as HTMLDivElement).offsetTop
   }
 
   const scrollUpHandler = (): void => {
@@ -160,7 +161,9 @@ const Dictionary = (): JSX.Element => {
                 onSearch={onSearch}
                 typesSelectCallback={typesSelectCallback}
                 tagsSelectCallback={tagsSelectCallback}/>
-        {ADMIN_MODE && <WordEditor/>}
+        {ADMIN_MODE && <WordEditor data={editWord} cancelCallback={() => {
+          setEditWord(null)
+        }}/>}
         <Space direction={'horizontal'}>
           <Button type={'primary'}
                   onClick={(): void => {
@@ -265,7 +268,9 @@ const Dictionary = (): JSX.Element => {
                   return (
                     <div key={item.id}>
                       {needShowSymbol && <h4>{firstSymbol}</h4>}
-                      <Word data={item} direction={direction}
+                      <Word data={item} direction={direction} editWordCallback={value => {
+                        setEditWord(value)
+                      }}
                       />
                     </div>
                   )

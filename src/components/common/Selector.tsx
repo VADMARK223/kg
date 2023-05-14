@@ -32,7 +32,7 @@ const Selector = (props: SelectorProps): JSX.Element => {
       style={{ minWidth }}
       mode={props.mode}
       options={props.options}
-      defaultValue={props.defaultOption}
+      value={props.defaultOption}
       filterOption={(inputValue, option) => {
         return option?.label.toLowerCase().includes(inputValue.toLowerCase()) ?? true
       }}
