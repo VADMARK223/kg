@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
 import { saveWord } from '../../api/dictionary'
 import type { TagDto } from '../../models/dto/TagDto'
-import Selector from '../common/Selector'
 import type { DicDto } from '../../models/dto/DicDto'
 import KgInput from '../common/KgInput'
 import { useHotkeys } from 'react-hotkeys-hook'
@@ -100,19 +99,16 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
               onChange={(e) => {
                 setType(e)
               }}/>
-      <Selector placeholder={'Категории'}
-                mode={'multiple'}
-                defaultOption={data?.tags.map(value => {
-                  return { value: value.value, label: value.label }
-                })}
-                options={dicData.tags}
-                selectedCallback={(options) => {
-                  setTags(options.map(value => {
-                    const result: TagDto = { value: value.value, label: value.label, color: null }
-                    return result
-                  }))
-                }}
-                minWidth={'170px'}
+      <Select placeholder={'Категории'}
+              style={{ minWidth: '175px' }}
+              options={dicData.tags}
+              mode={'multiple'}
+              value={tags}
+              onChange={(value, option: TagDto[] | TagDto) => {
+                if (Array.isArray(option)) {
+                  setTags(option)
+                }
+              }}
       />
       <Button type={'primary'} onClick={buttonHandler}
               disabled={buttonDisable}>{isEditMode ? 'Изменить' : 'Добавить'}</Button>

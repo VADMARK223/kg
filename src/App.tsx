@@ -18,7 +18,7 @@ const Numerals = React.lazy(async () => await import('./components/numerals/Nume
 // Разговорник
 const Phrases = React.lazy(async () => await import('./components/phrases/Phrases'))
 // Аффиксы
-const WordEndings = React.lazy(async () => await import('./components/wordEndings/WordEndings'))
+const Affixes = React.lazy(async () => await import('./components/affixes/Affixes'))
 // Вводно-фонетический курс
 const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
 
@@ -82,7 +82,7 @@ function App (): JSX.Element {
           element: <Suspense fallback={<div>Загрузка...</div>}><Phrases/></Suspense>
         }, {
           path: RoutePath.AFFIXES,
-          element: <Suspense fallback={<div>Загрузка...</div>}><WordEndings/></Suspense>
+          element: <Suspense fallback={<div>Загрузка...</div>}><Affixes/></Suspense>
         }, {
           path: RoutePath.PHONETICS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>

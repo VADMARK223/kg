@@ -5,7 +5,7 @@
  * @since 22.04.2023
  */
 import React from 'react'
-import PhraseItem from './PhraseItem'
+import PhraseItem from '../common/PhraseItem'
 
 const Phrases = (): JSX.Element => {
   return (
