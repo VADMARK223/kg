@@ -5,12 +5,12 @@
  * @since 01.05.2023
  */
 import React from 'react'
-import { Col, Row } from 'antd'
 import Search from 'antd/es/input/Search'
 import Selector from '../common/Selector'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
 import type { TypeDto } from '../../models/dto/TypeDto'
 import type { TagDto } from '../../models/dto/TagDto'
+import { Space } from 'antd'
 
 interface FilterProps {
   types: TypeDto[]
@@ -23,32 +23,27 @@ interface FilterProps {
 const Filter = (props: FilterProps): JSX.Element => {
   const { types, tags, onSearch, typesSelectCallback, tagsSelectCallback } = props
   return (
-    <Row>
-      <Col flex="auto">
+    <Space wrap>
+      <div style={{ maxWidth: '300px' }}>
         <Search
           placeholder={'Введите слово для поиска'}
-          style={{ minWidth: '100%' }}
           allowClear
           enterButton={'Поиск'}
           size={'middle'}
           onSearch={onSearch}
         />
-      </Col>
-      <Col flex="200px">
-        <Selector placeholder={'Части речи'}
-                  minWidth={'200px'}
-                  mode={'multiple'}
-                  options={types}
-                  selectedCallback={typesSelectCallback}/>
-      </Col>
-      <Col flex="200px">
-        <Selector placeholder={'Категории'}
-                  minWidth={'200px'}
-                  mode={'multiple'}
-                  options={tags}
-                  selectedCallback={tagsSelectCallback}/>
-      </Col>
-    </Row>
+      </div>
+      <Selector placeholder={'Части речи'}
+                minWidth={'200px'}
+                mode={'multiple'}
+                options={types}
+                selectedCallback={typesSelectCallback}/>
+      <Selector placeholder={'Категории'}
+                minWidth={'200px'}
+                mode={'multiple'}
+                options={tags}
+                selectedCallback={tagsSelectCallback}/>
+    </Space>
   )
 }
 
