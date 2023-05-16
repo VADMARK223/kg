@@ -7,7 +7,7 @@
 import React from 'react'
 import './QuestionAffix.css'
 import PhraseItem from '../../common/PhraseItem'
-import { Button } from 'antd'
+import MultiAffix from '../multiAffix/MultiAffix'
 
 const QuestionAffix = (): JSX.Element => {
   return (
@@ -90,6 +90,7 @@ const QuestionAffix = (): JSX.Element => {
           </tr>
           </tbody>
         </table>
+        <MultiAffix/>
       </div>
     </>
   )

@@ -5,8 +5,8 @@
  * @since 14.05.2023
  */
 import React from 'react'
-import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
+import { Tabs } from 'antd'
 import QuestionAffix from './questionAffix/QuestionAffix'
 
 const Affixes = (): JSX.Element => {
