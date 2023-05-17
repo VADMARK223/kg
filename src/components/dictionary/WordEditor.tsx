@@ -108,6 +108,9 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
                   setTags(option)
                 }
               }}
+              filterOption={(inputValue, option) => {
+                return option?.label.toLowerCase().includes(inputValue.toLowerCase()) ?? true
+              }}
       />
       <Button type={'primary'} onClick={buttonHandler}
               disabled={buttonDisable}>{isEditMode ? 'Изменить' : 'Добавить'}</Button>
