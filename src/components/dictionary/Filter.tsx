@@ -8,20 +8,19 @@ import React from 'react'
 import Search from 'antd/es/input/Search'
 import Selector from '../common/Selector'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
-import type { TypeDto } from '../../models/dto/TypeDto'
-import type { TagDto } from '../../models/dto/TagDto'
 import { Space } from 'antd'
+import { useAppSelector } from '../../store/hooks'
 
 interface FilterProps {
-  types: TypeDto[]
-  tags: TagDto[]
   onSearch: (value: string) => void
   typesSelectCallback: (options: SelectorDto[]) => void
   tagsSelectCallback: (options: SelectorDto[]) => void
 }
 
-const Filter = (props: FilterProps): JSX.Element => {
-  const { types, tags, onSearch, typesSelectCallback, tagsSelectCallback } = props
+const Filter = React.memo((props: FilterProps): JSX.Element => {
+  const types = useAppSelector(state => state.dic.types)
+  const tags = useAppSelector(state => state.dic.tags)
+  const { onSearch, typesSelectCallback, tagsSelectCallback } = props
   return (
     <Space wrap>
       <div style={{ maxWidth: '300px' }}>
@@ -37,14 +36,18 @@ const Filter = (props: FilterProps): JSX.Element => {
                 minWidth={'200px'}
                 mode={'multiple'}
                 options={types}
-                selectedCallback={typesSelectCallback}/>
+                selectedCallback={typesSelectCallback}
+      />
       <Selector placeholder={'Категории'}
                 minWidth={'200px'}
                 mode={'multiple'}
                 options={tags}
-                selectedCallback={tagsSelectCallback}/>
+                selectedCallback={tagsSelectCallback}
+      />
     </Space>
   )
-}
+})
+
+Filter.displayName = 'Filter'
 
 export default Filter

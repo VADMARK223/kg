@@ -12,6 +12,7 @@ const app = express()
 const port = 9000
 const DIC_PATH: string = __dirname + '\\..\\..\\dict.json'
 const CLIENT_ASSETS_DIC = 'C:\\Users\\vmark\\WebstormProjects\\kg\\src\\assets\\dictionary.json'
+const ROOT_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg\\'
 const BUILD_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg\\build\\'
 const BUILD_PROJECT_PATH = 'C:\\Users\\vmark\\WebstormProjects\\kg_build'
 
@@ -48,7 +49,8 @@ const getCurrentTime = (): string => {
 
 app.post('/build', (req: any, response: any) => {
   shell.echo('Start build...')
-  shell.cd('..')
+  shell.echo('>>>>' + __dirname)
+  shell.cd(ROOT_PATH)
   shell.exec('npm run build')
   shell.cd(BUILD_PROJECT_PATH)
   shell.echo('Clear build folder.')

@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 09.03.2023
  */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
 import { Button, Space, InputNumber, Tooltip, Popover, List, Empty, FloatButton } from 'antd'
@@ -71,17 +71,17 @@ const Dictionary = (): JSX.Element => {
     }
   }
 
-  const onSearch = (value: string): void => {
+  const onSearch = useCallback((value: string): void => {
     setSearch(value)
-  }
+  }, [])
 
-  const typesSelectCallback = (options: SelectorDto[]): void => {
+  const typesSelectCallback = useCallback((options: SelectorDto[]): void => {
     setTypes(options.map(value => value.value))
-  }
+  }, [])
 
-  const tagsSelectCallback = (options: SelectorDto[]): void => {
+  const tagsSelectCallback = useCallback((options: SelectorDto[]): void => {
     setTags(options.map(value => value.value))
-  }
+  }, [])
 
   const getCheckSearch = (ruValue: string, kgValue: string): boolean => {
     if (search === '') {
@@ -156,11 +156,11 @@ const Dictionary = (): JSX.Element => {
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
-        <Filter types={dic.types}
-                tags={dic.tags}
-                onSearch={onSearch}
-                typesSelectCallback={typesSelectCallback}
-                tagsSelectCallback={tagsSelectCallback}/>
+        <Filter
+          onSearch={onSearch}
+          typesSelectCallback={typesSelectCallback}
+          tagsSelectCallback={tagsSelectCallback}
+        />
         {ADMIN_MODE && <WordEditor data={editWord} cancelCallback={() => {
           setEditWord(null)
         }}/>}
