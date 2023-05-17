@@ -1,50 +1,57 @@
-# Eslint
+# Клиент
 
-`npm init @eslint/config` - начальная настройка конфигурации eslint.
+## Соглашения стилистики кода
 
-# Getting Started with Create React App
+Секция настроек форматирования Type Script в Idea: Editor -> Code Style -> Type Script
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Для быстрого рефакторинга горячие клавиши в Idea (Windows): Ctrl+Alt+O, Ctrl+Alt+L
 
-## Available Scripts
+### Tabs and Idents
 
-In the project directory, you can run:
+- Indent: 2
 
-### `npm start`
+- Continuation indent: 2
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Spaces
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Within
 
-### `npm test`
+- ES6 import/export braces (Пробелы вокруг скобок в импортах/экспортах)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Object literal braces (Пробелы вокруг скобок в объектах)
 
-### `npm run build`
+#### Before parentheses
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Function declaration parentheses (Пробел между названием функции и скобкой)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Blank Lines
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Keep maximum blank lines
 
-### `npm run eject`
+- In code: 1 (Максимальное количество пустых строк)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Punctuation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Don't use semicolon to terminate statements always (Никогда не использовать точку с запятой для завершения операторов)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Use single quotes always (Всегда использовать одинарные кавычки)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Trailing comma Remove (Удалять лишние запятые в конце)
 
-## Learn More
+### Code Generation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Comments
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Include types in JSDoc (Добавляет типы в комментарии документации)
+
+## Инспектор
+
+Предупреждение о замене на сокращение: Editor -> Inspections -> JavaScript and TypesScript -> General -> Property can replaced with shorthand
+
+# NPM
+
+`npm -v` - версия
+
+`npm install` - установка всех зависимостей из `package.json`.
+
+`npm install -g npm@latest` - установить глобально последнюю версию

@@ -11,4 +11,7 @@ const store = configureStore({
   reducer: { user, common, dic }
 })
 
+export type CommonState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 export default store

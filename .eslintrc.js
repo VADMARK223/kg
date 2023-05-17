@@ -43,9 +43,9 @@ module.exports = {
         "@typescript-eslint/comma-spacing": "warn", // Пробел обязателен после ','
         "@typescript-eslint/no-unnecessary-type-assertion": "warn", // Это утверждение не нужно, так как оно не меняет тип выражения
         "@typescript-eslint/no-confusing-void-expression": "warn", // Возврат выражения void из сокращенной записи функции стрелки запрещен. Пожалуйста, добавьте фигурные скобки к функции стрелки
-        "@typescript-eslint/consistent-type-imports": // Типы в импортах
+        "@typescript-eslint/consistent-type-imports": // Типы в импортах (После версии TypeScript 3.8) не требуется
             [
-                "warn", // Сделать предупреждением
+                "off", // Отключаем
                 {fixStyle: "separate-type-imports"} // Выносить тип за фигурную скобку
             ]
     }

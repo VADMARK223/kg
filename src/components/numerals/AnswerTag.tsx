@@ -21,9 +21,9 @@ const AnswerTag = (props: AnswerTagProps): JSX.Element => {
   return (
     <Tag closable={true}
          onClose={closeHandler}>
-          <b style={{fontSize: '20px'}}>
-            {props.data.label}
-          </b>
+      <b style={{ fontSize: '20px' }}>
+        {props.data.label}
+      </b>
     </Tag>
   )
 }

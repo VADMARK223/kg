@@ -31,7 +31,7 @@ export const exportDic = (dto: DicDto): void => {
 
 export const runBuild = (): void => {
   expressApi.post('build', { timeout: false }).json<boolean>().then(value => {
-    toast.success('Проект собран.' + value)
+    toast.success('Проект собран.')
   }).catch((reason: HTTPError) => {
     showError(reason)
   })

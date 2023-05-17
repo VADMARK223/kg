@@ -6,13 +6,12 @@
  */
 import React, { useState, useEffect, useRef } from 'react'
 import type { WordDto } from '../../models/dto/WordDto'
-import { useDispatch, useSelector } from 'react-redux'
 import { Input, Select, Button, Space } from 'antd'
 import { saveWord } from '../../api/dictionary'
 import type { TagDto } from '../../models/dto/TagDto'
-import type { DicDto } from '../../models/dto/DicDto'
 import KgInput from '../common/KgInput'
 import { useHotkeys } from 'react-hotkeys-hook'
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
 
 const CTRL_ENTER_HOT_KEY: string = 'Ctrl + Enter'
 
@@ -22,10 +21,10 @@ interface WordEditorProps {
 }
 
 const WordEditor = (props: WordEditorProps): JSX.Element => {
-  const dicData = useSelector((state: any): DicDto => state.dic)
+  const dic = useAppSelector(state => state.dic)
   const data = props.data
   const isEditMode = data !== null
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [ruValue, setRuValue] = useState(data?.ru)
   const kgState = useState<string>(data?.kg ?? '')
   const kgValue = kgState[0]
@@ -95,13 +94,13 @@ const WordEditor = (props: WordEditorProps): JSX.Element => {
       <KgInput valueState={kgState}/>
       <Select placeholder={'Часть речи'} style={{ width: '170px' }}
               value={type}
-              options={dicData.types}
+              options={dic.types}
               onChange={(e) => {
                 setType(e)
               }}/>
       <Select placeholder={'Категории'}
               style={{ minWidth: '175px' }}
-              options={dicData.tags}
+              options={dic.tags}
               mode={'multiple'}
               value={tags}
               onChange={(value, option: TagDto[] | TagDto) => {

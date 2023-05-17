@@ -10,7 +10,6 @@ import Word from './Word'
 import { Button, Space, InputNumber, Tooltip, Popover, List, Empty, FloatButton } from 'antd'
 import { InfoCircleTwoTone, SwapOutlined, SettingOutlined, CaretUpOutlined } from '@ant-design/icons'
 import { fetchDic } from '../../api/dictionary'
-import { useDispatch, useSelector } from 'react-redux'
 import type { DicDto } from '../../models/dto/DicDto'
 import ModalQuiz from './ModalQuiz'
 import WordEditor from './WordEditor'
@@ -21,6 +20,7 @@ import type { WordDto } from '../../models/dto/WordDto'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Filter from './Filter'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
 
 const TOTAL_QUESTIONS_MAX = 50
 
@@ -30,9 +30,9 @@ const Dictionary = (): JSX.Element => {
   const [search, setSearch] = useState('') // Строка поиска
   const [tags, setTags] = useState<number[]>([]) // Категории
   const [types, setTypes] = useState<number[]>([]) // Часть речи
-  const dispatch = useDispatch()
-  const dic = useSelector((state: any): DicDto => state.dic)
-  const favoriteWordIds = useSelector((state: any): number[] => state.user.favoriteWordIds)
+  const dispatch = useAppDispatch()
+  const dic = useAppSelector(state => state.dic)
+  const favoriteWordIds = useAppSelector(state => state.user.favoriteWordIds)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [totalQuestions, setTotalQuestions] = useState<number>(5)
   const [answersValueCount, setAnswersValueCount] = useState<number>(4)

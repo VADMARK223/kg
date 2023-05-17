@@ -1,6 +1,4 @@
 import React, { useEffect, Suspense } from 'react'
-
-import { useDispatch } from 'react-redux'
 import { updateUserInfo } from './store/userSlice'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
@@ -13,6 +11,7 @@ import RegisterPage from './components/RegisterPage'
 
 // Словарь
 import Dictionary from './components/dictionary/Dictionary'
+import { useAppDispatch } from './store/hooks'
 // Числительные
 const Numerals = React.lazy(async () => await import('./components/numerals/Numerals'))
 // Разговорник
@@ -23,7 +22,7 @@ const Affixes = React.lazy(async () => await import('./components/affixes/Affixe
 const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
 
 function App (): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(updateUserInfo({
       lastName: 'Vadmark',

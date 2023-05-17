@@ -33,7 +33,7 @@ const Header = (): JSX.Element => {
     }
   }
 
-  const buildHandler = ():void => {
+  const buildHandler = (): void => {
     runBuild()
   }
 

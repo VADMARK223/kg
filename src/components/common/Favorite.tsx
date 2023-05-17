@@ -6,8 +6,8 @@
  */
 import React, { useState, useEffect } from 'react'
 import { Rate } from 'antd'
-import { useSelector, useDispatch } from 'react-redux'
 import { addFavoriteWordId, removeFavoriteWordId } from '../../store/userSlice'
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
 
 interface FavoriteProps {
   wordId: number
@@ -15,8 +15,8 @@ interface FavoriteProps {
 
 const Favorite = (props: FavoriteProps): JSX.Element => {
   const { wordId } = props
-  const favoriteWordIds = useSelector((state: any): number[] => state.user.favoriteWordIds)
-  const dispatch = useDispatch()
+  const favoriteWordIds = useAppSelector(state => state.user.favoriteWordIds)
+  const dispatch = useAppDispatch()
   const [checked, setChecked] = useState(favoriteWordIds.includes(wordId))
 
   useEffect(() => {

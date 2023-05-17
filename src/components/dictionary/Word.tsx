@@ -7,13 +7,12 @@
 import React from 'react'
 import { Button, Space, Tooltip } from 'antd'
 import { removeWord } from '../../api/dictionary'
-import { useDispatch, useSelector } from 'react-redux'
-import type { TypeDto } from '../../models/dto/TypeDto'
 import WordTag from './WordTag'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { ADMIN_MODE } from '../../api/common'
 import type { WordDto } from '../../models/dto/WordDto'
 import Favorite from '../common/Favorite'
+import { useAppSelector, useAppDispatch } from '../../store/hooks'
 
 interface WordProps {
   data: WordDto
@@ -23,7 +22,7 @@ interface WordProps {
 
 const Word = (props: WordProps): JSX.Element => {
   const { editWordCallback } = props
-  const types = useSelector((state: any): TypeDto[] => state.dic.types)
+  const types = useAppSelector(state => state.dic.types)
 
   const data = props.data
   const tags = data.tags
@@ -31,7 +30,7 @@ const Word = (props: WordProps): JSX.Element => {
     return value.value === data.type
   })
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const wordRemoveHandler = (): void => {
     removeWord(dispatch, data.id as number)
   }
