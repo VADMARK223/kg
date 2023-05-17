@@ -153,6 +153,10 @@ const Dictionary = (): JSX.Element => {
     (scrollableDivRef.current as unknown as HTMLDivElement).scroll(0, 0)
   }
 
+  const modalQuizCloseHandler = useCallback((): void => {
+    setIsModalOpen(false)
+  },[])
+
   return (
     <>
       <Space direction={'vertical'} style={{ width: '100%' }}>
@@ -213,12 +217,11 @@ const Dictionary = (): JSX.Element => {
           </Popover>
 
           <ModalQuiz open={isModalOpen}
-                     words={wordsForQuiz}
+                     outWords={wordsForQuiz}
                      totalQuestions={totalQuestions}
                      answersValueCount={answersValueCount}
-                     onClose={(): void => {
-                       setIsModalOpen(false)
-                     }}/>
+                     onClose={modalQuizCloseHandler}
+          />
         </Space>
         <Space direction={'horizontal'}>
           <Button type={'primary'}
