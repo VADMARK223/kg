@@ -218,7 +218,7 @@ const Dictionary = (): JSX.Element => {
 
           <ModalQuiz open={isModalOpen}
                      outWords={wordsForQuiz}
-                     totalQuestions={totalQuestions}
+                     outTotalQuestions={totalQuestions}
                      answersValueCount={answersValueCount}
                      onClose={modalQuizCloseHandler}
           />

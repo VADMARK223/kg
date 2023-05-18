@@ -14,23 +14,64 @@ import type { WordDto } from '../../models/dto/WordDto'
 interface ModalQuizProps {
   open: boolean
   outWords: WordDto[]
-  totalQuestions: number // Общее кол-во вопросов
+  outTotalQuestions: number // Общее кол-во вопросов
   answersValueCount: number // Кол-во ответов вопросе
   onClose: () => void
 }
 
 const ModalQuiz = React.memo((props: ModalQuizProps) => {
-    const { open, outWords, totalQuestions, answersValueCount, onClose } = props
-    console.log('ModalQuiz REND', outWords.length)
-    const words = [...outWords]
-    console.log('words', words.length)
-    const [currentAnswer, setCurrentAnswer] = useState(0)
+    const { open, outWords, outTotalQuestions, answersValueCount, onClose } = props
+    const totalQuestions = Math.min(outWords.length, outTotalQuestions)
+    const [words, setWords] = useState<WordDto[]>([])
+    const [targetWord, setTargetWord] = useState<WordDto | null>(null) // Слово вопроса
+    const [currentAnswer, setCurrentAnswer] = useState(-1)
     const [totalComplete, setTotalComplete] = useState(false)
     const [results, setResult] = useState<ResultItemProps[]>([])
+    const [rightIndexes, setRightIndexes] = useState<number[]>([]) // Позиции правильных ответов
+    const [answers, setAnswers] = useState<WordDto[]>([])// Правильные ответы
+    useEffect(() => {
+      if (open) {
+        setWords([...outWords])
+        setCurrentAnswer(0)
+      } else {
+        setCurrentAnswer(-1)
+      }
+    }, [open])
 
     useEffect(() => {
+      if (currentAnswer >= 0) {
+        if (words.length !== 0) {
+          setTargetWord(getRandomWord(words))
+        }
+      }
       setTotalComplete(currentAnswer === totalQuestions)
     }, [currentAnswer])
+
+    useEffect(() => {
+      if (targetWord != null) {
+        const tempAnswer: WordDto[] = []
+        const tempRightIndexes: number[] = []
+        // Формируем ответы из входящих слов и исключаем целевое слово
+        const currentAnswersWord = [...outWords].filter(value => value !== targetWord)
+        for (let i = 0; i < Math.min(answersValueCount - 1, currentAnswersWord.length + 1); i++) {
+          const currentAnswerIndex = getRandomIndex(currentAnswersWord.length)
+          const currentAnswer = currentAnswersWord[currentAnswerIndex]
+          currentAnswersWord.splice(currentAnswerIndex, 1)
+          tempAnswer.push(currentAnswer)
+        }
+        // Добавляем правильный ответ в случайную позицию
+        const rightPosition = getRandomIndex(answersValueCount)
+        tempAnswer.splice(rightPosition, 0, targetWord)
+        // Определяем правильные позиции для ответов
+        tempAnswer.forEach((value, index) => {
+          if (targetWord?.ru === value.ru) {
+            tempRightIndexes.push(index)
+          }
+        })
+        setRightIndexes(tempRightIndexes)
+        setAnswers(tempAnswer)
+      }
+    }, [targetWord])
 
     const answerComplete = (resultItemProps: ResultItemProps): void => {
       results.push(resultItemProps)
@@ -41,33 +82,6 @@ const ModalQuiz = React.memo((props: ModalQuizProps) => {
     const questionElement = (wordId: number, title: string, rightIndexes: number[], answers: WordDto[]): JSX.Element => (
       <Question question={{ wordId, title, rightPositions: rightIndexes, answers }} complete={answerComplete}/>
     )
-
-    const answers: WordDto[] = []
-    let currentWord: WordDto | null = null
-    // Позиции правильных ответов
-    const rightIndexes: number[] = []
-    if (words.length !== 0) {
-      currentWord = getRandomWord(words)
-      // Формируем ответы
-      for (let i = 0; i < answersValueCount - 1; i++) {
-        if (words.length === 0) {
-          break
-        }
-        const currentAnswerIndex = getRandomIndex(words.length)
-        const currentAnswer = words[currentAnswerIndex]
-        words.splice(currentAnswerIndex, 1)
-        answers.push(currentAnswer)
-      }
-      // Добавляем правильный ответ в случайную позицию
-      const rightPosition = getRandomIndex(answersValueCount)
-      answers.splice(rightPosition, 0, currentWord)
-      // Определяем правильные позиции для ответов
-      answers.forEach((value, index) => {
-        if (currentWord?.ru === value.ru) {
-          rightIndexes.push(index)
-        }
-      })
-    }
 
     const closeHandler = (): void => {
       setCurrentAnswer(0)
@@ -96,7 +110,7 @@ const ModalQuiz = React.memo((props: ModalQuizProps) => {
         >
           {totalComplete
             ? <ModalQuizResults data={results}/>
-            : questionElement(currentWord?.id as number, `Перевод слова: "${currentWord?.ru ?? ''}"?`, rightIndexes, answers)
+            : questionElement(targetWord?.id as number, `Перевод слова: "${targetWord?.ru ?? ''}"?`, rightIndexes, answers)
           }
         </Modal>
       </div>
