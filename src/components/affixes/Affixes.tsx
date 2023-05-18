@@ -8,6 +8,7 @@ import React from 'react'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import QuestionAffix from './questionAffix/QuestionAffix'
+import PredicateAffix from './predicateAffix/PredicateAffix'
 
 const Affixes = (): JSX.Element => {
   const items: TabsProps['items'] = [
@@ -17,6 +18,10 @@ const Affixes = (): JSX.Element => {
       children: (<QuestionAffix/>)
     }, {
       key: '2',
+      label: 'Сказ',
+      children: (<PredicateAffix/>)
+    }, {
+      key: '3',
       label: 'Множ',
       children: 'В разработке',
       disabled: true

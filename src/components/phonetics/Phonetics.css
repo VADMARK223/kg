@@ -1,0 +1,14 @@
+.center-content-border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px gray solid;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

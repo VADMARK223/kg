@@ -20,6 +20,8 @@ const Phrases = React.lazy(async () => await import('./components/phrases/Phrase
 const Affixes = React.lazy(async () => await import('./components/affixes/Affixes'))
 // Вводно-фонетический курс
 const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
+// Местоимения
+const Pronouns = React.lazy(async () => await import('./components/pronouns/Pronouns'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
@@ -85,6 +87,9 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.PHONETICS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>
+        }, {
+          path: RoutePath.PRONOUNS,
+          element: <Suspense fallback={<div>Загрузка...</div>}><Pronouns/></Suspense>
         },
         {
           path: RoutePath.ALL,

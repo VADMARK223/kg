@@ -8,5 +8,6 @@ export enum RoutePath {
   PHRASES = 'phrases', // Страница фраз
   AFFIXES = 'affixes', // Страница аффиксов
   PHONETICS = 'phonetics', // Вводно-фонетический курс
+  PRONOUNS = 'pronouns', // Местоимения
   ALL = '*' // Шаблон для всех страниц
 }
