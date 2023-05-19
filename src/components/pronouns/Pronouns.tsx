@@ -5,50 +5,63 @@
  * @since 18.05.2023
  */
 import React from 'react';
-import { Col, Row, Space } from 'antd'
 
 const Pronouns = (): JSX.Element => {
   return (
     <>
       <h3>Личные местоимения</h3>
-      <Row>
-        <Col span={8} className={'center-content-border'}/>
-        <Col span={8} className={'center-content-border'}>Ед. ч.</Col>
-        <Col span={8} className={'center-content-border'}>Мн. ч.</Col>
-      </Row>
-      <Row>
-        <Col span={8} className={'center-content-border'}>1-е лицо</Col>
-        <Col span={8} className={'center-content-border'}><b>мен</b>(я)</Col>
-        <Col span={8} className={'center-content-border'}><b>биз</b>(мы)</Col>
-      </Row>
-      <Row>
-        <Col span={8} className={'center-content-border'}>2-е лицо</Col>
-        <Col span={8} className={'center-content-border'}>
-          <Space direction={'vertical'}>
-            <span>
-              <b>сен</b>(ты)
-            </span>
-            <span>
-              <b>Сиз</b>(Вы)
-            </span>
-          </Space>
-        </Col>
-        <Col span={8} className={'center-content-border'}>
-          <Space direction={'vertical'}>
-            <span>
-              <b>силер</b>(вы, простая форма)
-            </span>
-            <span>
-              <b>Сиздер</b>(Вы, уважительная форма)
-            </span>
-          </Space>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={8} className={'center-content-border'}>3-е лицо</Col>
-        <Col span={8} className={'center-content-border'}><b>ал</b>(он, она, оно)</Col>
-        <Col span={8} className={'center-content-border'}><b>алар</b>(они)</Col>
-      </Row>
+      <table style={{ height: '10px' }}>
+        <thead>
+        <tr>
+          <th/>
+          <th>Ед. ч.</th>
+          <th>Мн. ч.</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1-е лицо</td>
+          <td><b>Мен</b> - <i>я</i></td>
+          <td><b>Биз</b> - <i>мы</i></td>
+        </tr>
+        <tr>
+          <td>2-е лицо</td>
+          <td className={'no-padding'}>
+            <table className={'full-size'}>
+              <tbody>
+              <tr>
+                <td>Пр. фр.:</td>
+                <td><b>Сен</b> - <i>ты</i></td>
+              </tr>
+              <tr>
+                <td>Ув. фр.:</td>
+                <td><b>Сиз</b> - <i>вы</i></td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+          <td className={'no-padding'}>
+            <table className={'full-size'}>
+              <tbody>
+              <tr>
+                <td>Пр. фр.:</td>
+                <td><b>Силер</b> - <i>вы</i></td>
+              </tr>
+              <tr>
+                <td>Ув. фр.:</td>
+                <td><b>Сиздер</b> - <i>вы</i></td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>3-е лицо</td>
+          <td><b>Ал</b> - <i>он, она, оно</i></td>
+          <td><b>Алар</b> - <i>они</i></td>
+        </tr>
+        </tbody>
+      </table>
     </>
   );
 }

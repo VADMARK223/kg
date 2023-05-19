@@ -9,15 +9,21 @@ import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import QuestionAffix from './questionAffix/QuestionAffix'
 import PredicateAffix from './predicateAffix/PredicateAffix'
+import AboutAffix from './AboutAffix'
 
 const Affixes = (): JSX.Element => {
   const items: TabsProps['items'] = [
     {
-      key: '1',
+      key: 'AboutAffix',
+      label: 'Общ',
+      children: (<AboutAffix/>)
+    },
+    {
+      key: 'QuestionAffix',
       label: 'Вопр',
       children: (<QuestionAffix/>)
     }, {
-      key: '2',
+      key: 'PredicateAffix',
       label: 'Сказ',
       children: (<PredicateAffix/>)
     }, {
@@ -29,12 +35,7 @@ const Affixes = (): JSX.Element => {
   ]
   return (
     <>
-      <b>Аффикс</b> (лат. affixis – прикрепленный) (Мүчө) – служебная
-      морфема, которая самостоятельно без корня не употребляется, служит
-      для образования различных форм одного и того же слова или
-      образования другого однокоренного слова. Таким образом, аффиксы
-      делятся на формообразующие и словообразовательные.
-      <Tabs tabPosition={'left'} items={items}/>
+      <Tabs tabPosition={'top'} items={items}/>
     </>
   )
 }
