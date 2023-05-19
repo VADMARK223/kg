@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 18.05.2023
  */
-import React from 'react';
+import React from 'react'
 
 const PredicateAffix = (): JSX.Element => {
   return (
@@ -27,7 +27,7 @@ const PredicateAffix = (): JSX.Element => {
         <tr>
           <td>2-е лицо</td>
           <td className={'no-padding'}>
-            <table className={'full-size'}>
+            <table className={'inner-table'}>
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
@@ -41,7 +41,7 @@ const PredicateAffix = (): JSX.Element => {
             </table>
           </td>
           <td className={'no-padding'}>
-            <table className={'full-size'}>
+            <table className={'inner-table'}>
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
@@ -80,7 +80,7 @@ const PredicateAffix = (): JSX.Element => {
         <tr>
           <td>2-е лицо</td>
           <td className={'no-padding'}>
-            <table className={'full-size'}>
+            <table className={'inner-table'}>
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
@@ -94,7 +94,7 @@ const PredicateAffix = (): JSX.Element => {
             </table>
           </td>
           <td className={'no-padding'}>
-            <table className={'full-size'}>
+            <table className={'inner-table'}>
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
@@ -116,7 +116,7 @@ const PredicateAffix = (): JSX.Element => {
         </tbody>
       </table>
     </>
-  );
+  )
 }
 
 export default PredicateAffix

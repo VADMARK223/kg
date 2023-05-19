@@ -155,7 +155,7 @@ const Dictionary = (): JSX.Element => {
 
   const modalQuizCloseHandler = useCallback((): void => {
     setIsModalOpen(false)
-  },[])
+  }, [])
 
   return (
     <>
