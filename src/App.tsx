@@ -73,9 +73,6 @@ function App (): JSX.Element {
           path: RoutePath.REGISTER,
           element: <RegisterPage/>
         }, {
-          path: RoutePath.DIC,
-          element: <Dictionary/>
-        }, {
           path: RoutePath.NUMBERS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Numerals/></Suspense>
         }, {

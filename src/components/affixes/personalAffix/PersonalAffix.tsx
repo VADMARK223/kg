@@ -1,17 +1,18 @@
 /**
- * Компонент
+ * Компонент личных аффиксов
  *
  * @author Markitanov Vadim
- * @since 18.05.2023
+ * @since 19.05.2023
  */
-import React from 'react'
+import React from 'react';
 import Pronouns from '../../pronouns/Pronouns'
 
-const PredicateAffix = (): JSX.Element => {
+const PersonalAffix = (): JSX.Element => {
   return (
     <>
       <Pronouns/>
-      <h2>Аффиксы сказуемости</h2>
+      <h2>I тип личных аффиксов</h2>
+      Участвуют в образовании глаголов простого настоящего
       <table style={{ height: '10px' }}>
         <thead>
         <tr>
@@ -23,8 +24,8 @@ const PredicateAffix = (): JSX.Element => {
         <tbody>
         <tr>
           <td>1-е лицо</td>
-          <td><b>мен</b> -мын (-мин, -мун, -мүн)</td>
-          <td><b>биз</b> -быз (-биз, -буз, -бүз)</td>
+          <td><b>-мын</b></td>
+          <td><b>-быз</b></td>
         </tr>
         <tr>
           <td>2-е лицо</td>
@@ -33,11 +34,11 @@ const PredicateAffix = (): JSX.Element => {
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
-                <td><b>сен</b> -сын (-сиң, -суң, -сүң)</td>
+                <td><b>-сың</b></td>
               </tr>
               <tr>
                 <td>Ув. фр.:</td>
-                <td><b>Сиз</b> -сыз (-сиз, -суз, -сүз)</td>
+                <td><b>-сыз</b></td>
               </tr>
               </tbody>
             </table>
@@ -47,11 +48,11 @@ const PredicateAffix = (): JSX.Element => {
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
-                <td><b>силер</b> -сыңар (-сиңер, -суңар, -сүңөр)</td>
+                <td><b>-сыңар</b></td>
               </tr>
               <tr>
                 <td>Ув. фр.:</td>
-                <td><b>Сиздер</b> -сыздар (-сиздер, -суздар, -сүздөр)</td>
+                <td><b>-сыздар</b></td>
               </tr>
               </tbody>
             </table>
@@ -59,12 +60,14 @@ const PredicateAffix = (): JSX.Element => {
         </tr>
         <tr>
           <td>3-е лицо</td>
-          <td><b>ал</b> (нулевой аффикс)</td>
-          <td><b>алар</b> (нулевой аффикс)</td>
+          <td><b>-т</b></td>
+          <td><b>-шат</b></td>
         </tr>
         </tbody>
       </table>
-      <h3>Примеры:</h3>
+
+      <h2>II тип личных аффиксов</h2>
+      Это форма прошедшего определенного времени глагола
       <table style={{ height: '10px' }}>
         <thead>
         <tr>
@@ -76,8 +79,8 @@ const PredicateAffix = (): JSX.Element => {
         <tbody>
         <tr>
           <td>1-е лицо</td>
-          <td>Мен окуучу<u>мун</u>. <i>Я ученик.</i></td>
-          <td>Биз окуучу<u>буз</u>. <i>Мы ученики.</i></td>
+          <td><b>-м</b></td>
+          <td><b>-к</b></td>
         </tr>
         <tr>
           <td>2-е лицо</td>
@@ -86,11 +89,11 @@ const PredicateAffix = (): JSX.Element => {
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
-                <td>Cен окуучу<u>cуң</u>. <i>Ты ученик.</i></td>
+                <td><b>-ң</b></td>
               </tr>
               <tr>
                 <td>Ув. фр.:</td>
-                <td>Cиз окуучу<u>cуз</u>. <i>Вы ученик.</i></td>
+                <td><b>-ңыз</b></td>
               </tr>
               </tbody>
             </table>
@@ -100,11 +103,11 @@ const PredicateAffix = (): JSX.Element => {
               <tbody>
               <tr>
                 <td>Пр. фр.:</td>
-                <td>Силер окуучу<u>суңар</u>. <i>Вы ученики.</i></td>
+                <td><b>-ңар</b></td>
               </tr>
               <tr>
                 <td>Ув. фр.:</td>
-                <td>Сиздер окуучу<u>суздар</u>. <i>Вы ученики.</i></td>
+                <td><b>-ңыздар</b></td>
               </tr>
               </tbody>
             </table>
@@ -112,13 +115,13 @@ const PredicateAffix = (): JSX.Element => {
         </tr>
         <tr>
           <td>3-е лицо</td>
-          <td>Ал окуучу. <i> Он ученик.</i></td>
-          <td>Алар окуучу. <i> Они ученики.</i></td>
+          <td><b>-</b></td>
+          <td><b>-</b></td>
         </tr>
         </tbody>
       </table>
     </>
-  )
+  );
 }
 
-export default PredicateAffix
+export default PersonalAffix

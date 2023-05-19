@@ -50,7 +50,7 @@ const Header = (): JSX.Element => {
               closable={false}
       >
         <Space direction={'vertical'}>
-          <Link to={RoutePath.DIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
+          <Link to={RoutePath.HOME} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
           <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
             type={'primary'}>Числительные</Button></Link>
           <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button

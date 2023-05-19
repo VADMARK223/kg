@@ -10,25 +10,30 @@ import { Tabs } from 'antd'
 import QuestionAffix from './questionAffix/QuestionAffix'
 import PredicateAffix from './predicateAffix/PredicateAffix'
 import AboutAffix from './AboutAffix'
+import PersonalAffix from './personalAffix/PersonalAffix'
 
 const Affixes = (): JSX.Element => {
   const items: TabsProps['items'] = [
     {
       key: 'AboutAffix',
-      label: 'Общ',
+      label: 'Общее',
       children: (<AboutAffix/>)
     },
     {
       key: 'QuestionAffix',
-      label: 'Вопр',
+      label: 'Вопросительные',
       children: (<QuestionAffix/>)
     }, {
+      key: 'PersonalAffix',
+      label: 'Личные',
+      children: (<PersonalAffix/>)
+    },{
       key: 'PredicateAffix',
-      label: 'Сказ',
+      label: 'Сказуемости',
       children: (<PredicateAffix/>)
     }, {
       key: '3',
-      label: 'Множ',
+      label: 'Множественные',
       children: 'В разработке',
       disabled: true
     }
