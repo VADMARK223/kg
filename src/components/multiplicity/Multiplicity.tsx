@@ -7,11 +7,9 @@
 import React from 'react'
 import WordAffix from '../common/WordAffix'
 import AffixItem from '../common/AffixItem'
-import Letter from '../common/Letter'
+import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
 import Letters from './Letters'
-
-const VOICED_CONSONANT = 'Звонкая согласная'
-const VOICELESS_CONSONANT = 'Глухая согласная'
+import PhraseItem from '../common/PhraseItem'
 
 const Multiplicity = (): JSX.Element => {
   return (
@@ -32,7 +30,7 @@ const Multiplicity = (): JSX.Element => {
         <tr>
           <td rowSpan={5} colSpan={2}>а, я, ы</td>
           <td>
-            Гласная
+            {VOWELS_NAME}
           </td>
           <td rowSpan={3}>
             <AffixItem value={'лар'}/>
@@ -68,7 +66,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICED_CONSONANT}
+            {VOICED_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'дар'}/>
@@ -82,7 +80,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICELESS_CONSONANT}
+            {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'тар'}/>
@@ -97,7 +95,7 @@ const Multiplicity = (): JSX.Element => {
         <tr>
           <td rowSpan={5} colSpan={2}>э, е, и</td>
           <td>
-            Гласная
+            {VOWELS_NAME}
           </td>
           <td rowSpan={3}>
             <AffixItem value={'лер'}/>
@@ -133,7 +131,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICED_CONSONANT}
+            {VOICED_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'дер'}/>
@@ -147,7 +145,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICELESS_CONSONANT}
+            {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'тер'}/>
@@ -162,7 +160,7 @@ const Multiplicity = (): JSX.Element => {
         <tr>
           <td rowSpan={5} colSpan={2}>ө ү</td>
           <td>
-            Гласная
+            {VOWELS_NAME}
           </td>
           <td rowSpan={3}>
             <AffixItem value={'лөр'}/>
@@ -198,7 +196,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICED_CONSONANT}
+            {VOICED_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'дөр'}/>
@@ -212,7 +210,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICELESS_CONSONANT}
+            {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'төр'}/>
@@ -228,7 +226,7 @@ const Multiplicity = (): JSX.Element => {
           <td rowSpan={10}>о ё у ю</td>
           <td rowSpan={5}>о ё</td>
           <td>
-            Гласная
+            {VOWELS_NAME}
           </td>
           <td rowSpan={3}>
             <AffixItem value={'лор'}/>
@@ -264,7 +262,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICED_CONSONANT}
+            {VOICED_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'дор'}/>
@@ -278,7 +276,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICELESS_CONSONANT}
+            {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'тор'}/>
@@ -293,7 +291,7 @@ const Multiplicity = (): JSX.Element => {
         <tr>
           <td rowSpan={5}>у ю</td>
           <td>
-            Гласная
+            {VOWELS_NAME}
           </td>
           <td rowSpan={3}>
             <AffixItem value={'лар'}/>
@@ -329,7 +327,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICED_CONSONANT}
+            {VOICED_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'дар'}/>
@@ -343,7 +341,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            {VOICELESS_CONSONANT}
+            {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
             <AffixItem value={'тар'}/>
@@ -357,6 +355,43 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
+      Место аффикса множественного числа - всегда после корня.<br/>
+      Аффиксы множественного числа универсальны, обслуживают не только имена существительные:
+      <table>
+        <tbody>
+        <tr>
+          <td><WordAffix root={'чоң'} affix={'дор'}/></td>
+          <td>большие; взрослые</td>
+        </tr>
+        <tr>
+          <td><WordAffix root={'жар'} affix={'таш'}/></td>
+          <td>молодые</td>
+        </tr>
+        <tr>
+          <td><WordAffix root={'кичинекей'} affix={'лер'}/></td>
+          <td>маленькие, малыши</td>
+        </tr>
+        <tr>
+          <td><WordAffix root={'тиги'} affix={'лер'}/></td>
+          <td>те</td>
+        </tr>
+        <tr>
+          <td><WordAffix root={'бу'} affix={'лар'}/></td>
+          <td>эти</td>
+        </tr><tr>
+          <td><WordAffix root={'булар ким'} affix={'дер'}/></td>
+          <td>кто это? (по отношению к группе лиц)</td>
+        </tr>
+        </tbody>
+      </table>
+      <br/>
+      2. В роли подлежащего, сказуемого или дополнения в предложениях иногда выступают <b>собирательные</b> числительные, которые отвечают на вопрос <b>канчоо?</b> (сколько?). <br/>
+      Из всего семь: <br/>
+      бирөө, экөө (двое), үчөө (трое), төртөө (четверо), бешөө (пятеро), алтоо (шестеро), жетөө (семеро). <br/>
+      <PhraseItem kg={'Китепканада он адам:'} ru={'В библиотеке десять человек:'}/>
+      <PhraseItem kg={'бирөө - окутуучу,'} ru={'один - преподователь,'}/>
+      <PhraseItem kg={'үчөө - аспирант,'} ru={'трое - аспиранты,'}/>
+      <PhraseItem kg={'алтоо - студент,'} ru={'шестеро - студенты.'}/>
     </>
   )
 }

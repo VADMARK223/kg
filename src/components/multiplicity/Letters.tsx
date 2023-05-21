@@ -4,9 +4,9 @@
  * @author Markitanov Vadim
  * @since 22.05.2023
  */
-import React from 'react';
+import React from 'react'
 import { Space } from 'antd'
-import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS, VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
+import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS } from '../common/Letter'
 
 const Letters = (): JSX.Element => {
   return (
@@ -21,7 +21,7 @@ const Letters = (): JSX.Element => {
         <span>Глухие согласные:</span> {VOICELESS_CONSONANTS.map(value => (<Letter key={value} value={value} bold/>))}
       </Space>
     </Space>
-  );
+  )
 }
 
 export default Letters
