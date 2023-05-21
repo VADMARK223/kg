@@ -62,3 +62,14 @@ code {
 .no-padding {
     padding: 0;
 }
+
+/*Окугула*/
+.green-block {
+    background-color: #07bc0c;
+    color: white;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin: auto;
+    max-width: 500px;
+}
