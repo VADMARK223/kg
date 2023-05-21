@@ -7,6 +7,7 @@
 import React from 'react'
 import WordAffix from '../common/WordAffix'
 import AffixItem from '../common/AffixItem'
+import Letter from '../common/Letter'
 
 const VOICED_CONSONANT = 'Звонкая согласная'
 const VOICELESS_CONSONANT = 'Глухая согласная'
@@ -35,7 +36,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'лар'}/>
           </td>
           <td>
-            <WordAffix root={'китепкан'} affix={'а'}/> - <WordAffix root={'китепкана'} affix={'лар'}/>
+            <WordAffix root={'китепкан'} affix={<Letter value={'а'}/>}/> - <WordAffix root={'китепкана'} affix={'лар'}/>
           </td>
           <td>
             библиотека - библиотеки
@@ -43,7 +44,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            й
+            <Letter value={'й'}/>
           </td>
           <td>
             -
@@ -54,10 +55,10 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            р
+            <Letter value={'р'}/>
           </td>
           <td>
-            <WordAffix root={'шаа'} affix={'р'}/> - <WordAffix root={'шаар'} affix={'лар'}/>
+            <WordAffix root={'шаа'} affix={<Letter value={'р'}/>}/> - <WordAffix root={'шаар'} affix={'лар'}/>
           </td>
           <td>
             город - города
@@ -71,7 +72,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'дар'}/>
           </td>
           <td>
-            <WordAffix root={'ада'} affix={'м'}/> - <WordAffix root={'адам'} affix={'дар'}/>
+            <WordAffix root={'ада'} affix={<Letter value={'м'}/>}/> - <WordAffix root={'адам'} affix={'дар'}/>
           </td>
           <td>
             человек - люди
@@ -85,7 +86,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'тар'}/>
           </td>
           <td>
-            <WordAffix root={'мышы'} affix={'к'}/> - <WordAffix root={'мышык'} affix={'тар'}/>
+            <WordAffix root={'мышы'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'мышык'} affix={'тар'}/>
           </td>
           <td>
             кот - коты
@@ -100,7 +101,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'лер'}/>
           </td>
           <td>
-            <WordAffix root={'кем'} affix={'е'}/> - <WordAffix root={'кеме'} affix={'лер'}/><br/>
+            <WordAffix root={'кем'} affix={<Letter value={'е'}/>}/> - <WordAffix root={'кеме'} affix={'лер'}/><br/>
           </td>
           <td>
             корабль - корабли
@@ -108,10 +109,10 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            й
+            <Letter value={'й'}/>
           </td>
           <td>
-            <WordAffix root={'музе'} affix={'й'}/> - <WordAffix root={'музей'} affix={'лер'}/>
+            <WordAffix root={'музе'} affix={<Letter value={'й'}/>}/> - <WordAffix root={'музей'} affix={'лер'}/>
           </td>
           <td>
             музей - музеи
@@ -119,7 +120,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            р
+            <Letter value={'р'}/>
           </td>
           <td>
             -
@@ -136,7 +137,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'дер'}/>
           </td>
           <td>
-            <WordAffix root={'мугали'} affix={'м'}/> - <WordAffix root={'мугалим'} affix={'дер'}/>
+            <WordAffix root={'мугали'} affix={<Letter value={'м'}/>}/> - <WordAffix root={'мугалим'} affix={'дер'}/>
           </td>
           <td>
             учитель - учителя
@@ -150,7 +151,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'тер'}/>
           </td>
           <td>
-            <WordAffix root={'ките'} affix={'п'}/> - <WordAffix root={'китеп'} affix={'тер'}/>
+            <WordAffix root={'ките'} affix={<Letter value={'п'}/>}/> - <WordAffix root={'китеп'} affix={'тер'}/>
           </td>
           <td>
             книга - книги
@@ -165,7 +166,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'лөр'}/>
           </td>
           <td>
-            <WordAffix root={'сүрөтч'} affix={'ү'}/> - <WordAffix root={'сүрөтчү'} affix={'лөр'}/>
+            <WordAffix root={'сүрөтч'} affix={<Letter value={'ү'}/>}/> - <WordAffix root={'сүрөтчү'} affix={'лөр'}/>
           </td>
           <td>
             художник - художники
@@ -173,10 +174,10 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            й
+            <Letter value={'й'}/>
           </td>
           <td>
-            <WordAffix root={'ү'} affix={'й'}/> - <WordAffix root={'үй'} affix={'лөр'}/>
+            <WordAffix root={'ү'} affix={<Letter value={'й'}/>}/> - <WordAffix root={'үй'} affix={'лөр'}/>
           </td>
           <td>
             дом - дома
@@ -184,7 +185,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            р
+            <Letter value={'р'}/>
           </td>
           <td>
             -
@@ -201,7 +202,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'дөр'}/>
           </td>
           <td>
-            <WordAffix root={'кө'} affix={'л'}/> - <WordAffix root={'көл'} affix={'дөр'}/>
+            <WordAffix root={'кө'} affix={<Letter value={'л'}/>}/> - <WordAffix root={'көл'} affix={'дөр'}/>
           </td>
           <td>
             озеро - озера
@@ -215,7 +216,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'төр'}/>
           </td>
           <td>
-            <WordAffix root={'көйнө'} affix={'к'}/> - <WordAffix root={'көйнөк'} affix={'төр'}/>
+            <WordAffix root={'көйнө'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'көйнөк'} affix={'төр'}/>
           </td>
           <td>
             платье - платья
@@ -231,7 +232,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'лор'}/>
           </td>
           <td>
-            <WordAffix root={'коро'} affix={'о'}/> - <WordAffix root={'короо'} affix={'лор'}/>
+            <WordAffix root={'коро'} affix={<Letter value={'о'}/>}/> - <WordAffix root={'короо'} affix={'лор'}/>
           </td>
           <td>
             двор - дворы
@@ -239,10 +240,10 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            й
+            <Letter value={'й'}/>
           </td>
           <td>
-            <WordAffix root={'то'} affix={'й'}/> - <WordAffix root={'той'} affix={'лор'}/>
+            <WordAffix root={'то'} affix={<Letter value={'й'}/>}/> - <WordAffix root={'той'} affix={'лор'}/>
           </td>
           <td>
             пиршество - пиршества
@@ -250,7 +251,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            р
+            <Letter value={'р'}/>
           </td>
           <td>
             -
@@ -267,7 +268,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'дор'}/>
           </td>
           <td>
-            <WordAffix root={'ко'} affix={'л'}/> - <WordAffix root={'кол'} affix={'дор'}/>
+            <WordAffix root={'ко'} affix={<Letter value={'л'}/>}/> - <WordAffix root={'кол'} affix={'дор'}/>
           </td>
           <td>
             рука - руки
@@ -281,7 +282,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'тор'}/>
           </td>
           <td>
-            <WordAffix root={'коно'} affix={'к'}/> - <WordAffix root={'конок'} affix={'тор'}/>
+            <WordAffix root={'коно'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'конок'} affix={'тор'}/>
           </td>
           <td>
             гость - гости
@@ -296,7 +297,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'лар'}/>
           </td>
           <td>
-            <WordAffix root={'окууч'} affix={'у'}/> - <WordAffix root={'окуучу'} affix={'лар'}/>
+            <WordAffix root={'окууч'} affix={<Letter value={'у'}/>}/> - <WordAffix root={'окуучу'} affix={'лар'}/>
           </td>
           <td>
             ученик - ученики
@@ -304,7 +305,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            й
+            <Letter value={'й'}/>
           </td>
           <td>
             -
@@ -315,7 +316,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            р
+            <Letter value={'р'}/>
           </td>
           <td>
             -
@@ -332,7 +333,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'дар'}/>
           </td>
           <td>
-            <WordAffix root={'буй'} affix={'м'}/> - <WordAffix root={'буйм'} affix={'дар'}/>
+            <WordAffix root={'буй'} affix={<Letter value={'м'}/>}/> - <WordAffix root={'буйм'} affix={'дар'}/>
           </td>
           <td>
             -
@@ -346,7 +347,7 @@ const Multiplicity = (): JSX.Element => {
             <AffixItem value={'тар'}/>
           </td>
           <td>
-            <WordAffix root={'жоолу'} affix={'к'}/> - <WordAffix root={'жоолук'} affix={'тар'}/>
+            <WordAffix root={'жоолу'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'жоолук'} affix={'тар'}/>
           </td>
           <td>
             платок - платки

@@ -13,7 +13,7 @@ interface AffixItemProps {
 const AffixItem = (props: AffixItemProps): JSX.Element => {
   const { value } = props
   return (
-    <span style={{ color: 'red' }}>
+    <span style={{ color: 'orangered' }}>
       <b>-{value}</b>
     </span>
   )
