@@ -13,7 +13,6 @@ interface WordAffixProps {
 
 const WordAffix = (props: WordAffixProps): JSX.Element => {
   const { root, affix } = props
-  // а - лар
   return (
     <>
       {root}<b><u>{affix}</u></b>
