@@ -66,20 +66,40 @@ const Multiplicity = (): JSX.Element => {
           </td>
         </tr>
         <tr>
-          <td rowSpan={3}>э, е, и</td>
+          <td rowSpan={5}>э, е, и</td>
           <td>
-            гл., й, р
+            Гласная
           </td>
-          <td>
-            -лер<br/>
+          <td rowSpan={3}>
+            -лер
           </td>
           <td>
             <WordAffix root={'кем'} affix={'е'}/> - <WordAffix root={'кеме'} affix={'лер'}/><br/>
+          </td>
+          <td>
+            корабль - корабли
+          </td>
+        </tr>
+        <tr>
+          <td>
+            й
+          </td>
+          <td>
             <WordAffix root={'музе'} affix={'й'}/> - <WordAffix root={'музей'} affix={'лер'}/>
           </td>
           <td>
-            библиотека - библиотеки<br/>
             музей - музеи
+          </td>
+        </tr>
+        <tr>
+          <td>
+            р
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
           </td>
         </tr>
         <tr>
