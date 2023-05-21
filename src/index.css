@@ -73,3 +73,8 @@ code {
     margin: auto;
     max-width: 500px;
 }
+
+.center-block {
+    text-align: center;
+    font-weight: bold;
+}
