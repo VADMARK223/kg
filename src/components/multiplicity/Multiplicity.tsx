@@ -5,6 +5,7 @@
  * @since 21.05.2023
  */
 import React from 'react'
+import WordAffix from '../common/WordAffix'
 
 const Multiplicity = (): JSX.Element => {
   return (
@@ -16,7 +17,7 @@ const Multiplicity = (): JSX.Element => {
           <td>Последняя гласная буква корня</td>
           <td>Последняя буква корня</td>
           <td>Аффикс</td>
-          <td>Примеры</td>
+          <td>Пример</td>
           <td>Перевод</td>
         </tr>
         </thead>
@@ -30,7 +31,7 @@ const Multiplicity = (): JSX.Element => {
             -лар<br/>
           </td>
           <td>
-            библиотека - библиотеки
+            <WordAffix root={'китепкан'} affix={'а'}/> - <WordAffix root={'китепкана'} affix={'лар'}/>
           </td>
           <td>
             библиотека - библиотеки
@@ -44,10 +45,10 @@ const Multiplicity = (): JSX.Element => {
             -дар<br/>
           </td>
           <td>
-            дар1
+            <WordAffix root={'ада'} affix={'м'}/> - <WordAffix root={'адам'} affix={'дар'}/>
           </td>
           <td>
-            дар2
+            человек - люди
           </td>
         </tr>
         <tr>
@@ -58,10 +59,55 @@ const Multiplicity = (): JSX.Element => {
             -тар<br/>
           </td>
           <td>
-            тар1
+            <WordAffix root={'мышы'} affix={'к'}/> - <WordAffix root={'мышык'} affix={'тар'}/>
           </td>
           <td>
-            человек - люди
+            кот - коты
+          </td>
+        </tr>
+        <tr>
+          <td rowSpan={3}>э, е, и</td>
+          <td>
+            гл., й, р
+          </td>
+          <td>
+            -лер<br/>
+          </td>
+          <td>
+            <WordAffix root={'кем'} affix={'е'}/> - <WordAffix root={'кеме'} affix={'лер'}/><br/>
+            <WordAffix root={'музе'} affix={'й'}/> - <WordAffix root={'музей'} affix={'лер'}/>
+          </td>
+          <td>
+            библиотека - библиотеки<br/>
+            музей - музеи
+          </td>
+        </tr>
+        <tr>
+          <td>
+            зв. согл.
+          </td>
+          <td>
+            -дер<br/>
+          </td>
+          <td>
+            <WordAffix root={'мугали'} affix={'м'}/> - <WordAffix root={'мугалим'} affix={'дер'}/>
+          </td>
+          <td>
+            учитель - учителя
+          </td>
+        </tr>
+        <tr>
+          <td>
+            глух. согл.
+          </td>
+          <td>
+            -тер<br/>
+          </td>
+          <td>
+            <WordAffix root={'ките'} affix={'п'}/> - <WordAffix root={'китеп'} affix={'тер'}/>
+          </td>
+          <td>
+            книга - книги
           </td>
         </tr>
         </tbody>
