@@ -10,20 +10,20 @@ import { Tooltip } from 'antd'
 /**
  * Гласные
  */
-const VOWELS_NAME: string = 'Гласная'
-const VOWELS: string[] = ['а', 'э', 'о', 'е', 'ө', 'у', 'ү', 'ы', 'и']
+export const VOWELS_NAME: string = 'Гласная'
+export const VOWELS: string[] = ['а', 'э', 'о', 'е', 'ө', 'у', 'ү', 'ы', 'и']
 
 /**
  * Звонкие согласные
  */
-const VOICED_CONSONANTS_NAME: string = 'Звонкая согласная'
-const VOICED_CONSONANTS: string[] = ['б', 'в', 'г', 'д', 'ж', 'з', 'л', 'м', 'н', 'ң', 'р', 'й']
+export const VOICED_CONSONANTS_NAME: string = 'Звонкая согласная'
+export const VOICED_CONSONANTS: string[] = ['б', 'в', 'г', 'д', 'ж', 'з', 'л', 'м', 'н', 'ң', 'р', 'й']
 
 /**
  * Глухие согласные
  */
-const VOICELESS_CONSONANTS_NAME: string = 'Глухая согласная'
-const VOICELESS_CONSONANTS: string[] = ['п', 'ф', 'к', 'т', 'ш', 'с', 'х', 'ч', 'щ']
+export const VOICELESS_CONSONANTS_NAME: string = 'Глухая согласная'
+export const VOICELESS_CONSONANTS: string[] = ['п', 'ф', 'к', 'т', 'ш', 'с', 'х', 'ч', 'щ']
 
 interface LetterProps {
   value: string

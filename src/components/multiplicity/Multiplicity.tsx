@@ -8,6 +8,7 @@ import React from 'react'
 import WordAffix from '../common/WordAffix'
 import AffixItem from '../common/AffixItem'
 import Letter from '../common/Letter'
+import Letters from './Letters'
 
 const VOICED_CONSONANT = 'Звонкая согласная'
 const VOICELESS_CONSONANT = 'Глухая согласная'
@@ -15,6 +16,7 @@ const VOICELESS_CONSONANT = 'Глухая согласная'
 const Multiplicity = (): JSX.Element => {
   return (
     <>
+      <Letters/><br/>
       1. Форма множественного числа образуется путем присоединения к корню слова аффикса множественного числа <b>-лар</b>
       <table>
         <thead>
