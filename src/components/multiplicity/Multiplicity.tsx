@@ -7,6 +7,9 @@
 import React from 'react'
 import WordAffix from '../common/WordAffix'
 
+const VOICED_CONSONANT = 'Звонкая согласная'
+const VOICELESS_CONSONANT = 'Глухая согласная'
+
 const Multiplicity = (): JSX.Element => {
   return (
     <>
@@ -23,12 +26,12 @@ const Multiplicity = (): JSX.Element => {
         </thead>
         <tbody>
         <tr>
-          <td rowSpan={3}>а, я, ы</td>
+          <td rowSpan={5}>а, я, ы</td>
           <td>
-            гл., й, р
+            Гласная
           </td>
-          <td>
-            -лар<br/>
+          <td rowSpan={3}>
+            -лар
           </td>
           <td>
             <WordAffix root={'китепкан'} affix={'а'}/> - <WordAffix root={'китепкана'} affix={'лар'}/>
@@ -39,7 +42,29 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            зв. согл.
+            й
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <tr>
+          <td>
+            р
+          </td>
+          <td>
+            <WordAffix root={'шаа'} affix={'р'}/> - <WordAffix root={'шаар'} affix={'лар'}/>
+          </td>
+          <td>
+            город - города
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {VOICED_CONSONANT}
           </td>
           <td>
             -дар<br/>
@@ -53,7 +78,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            глух. согл.
+            {VOICELESS_CONSONANT}
           </td>
           <td>
             -тар<br/>
@@ -104,7 +129,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            зв. согл.
+            {VOICED_CONSONANT}
           </td>
           <td>
             -дер<br/>
@@ -118,7 +143,7 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         <tr>
           <td>
-            глух. согл.
+            {VOICELESS_CONSONANT}
           </td>
           <td>
             -тер<br/>
@@ -128,6 +153,71 @@ const Multiplicity = (): JSX.Element => {
           </td>
           <td>
             книга - книги
+          </td>
+        </tr>
+        <tr>
+          <td rowSpan={5}>ө ү</td>
+          <td>
+            Гласная
+          </td>
+          <td rowSpan={3}>
+            -лөр
+          </td>
+          <td>
+            <WordAffix root={'сүрөтч'} affix={'ү'}/> - <WordAffix root={'сүрөтчү'} affix={'лөр'}/>
+          </td>
+          <td>
+            художник - художники
+          </td>
+        </tr>
+        <tr>
+          <td>
+            й
+          </td>
+          <td>
+            <WordAffix root={'ү'} affix={'й'}/> - <WordAffix root={'үй'} affix={'лөр'}/>
+          </td>
+          <td>
+            дом - дома
+          </td>
+        </tr>
+        <tr>
+          <td>
+            р
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {VOICED_CONSONANT}
+          </td>
+          <td>
+            -дөр<br/>
+          </td>
+          <td>
+            <WordAffix root={'кө'} affix={'л'}/> - <WordAffix root={'көл'} affix={'дөр'}/>
+          </td>
+          <td>
+            озеро - озера
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {VOICELESS_CONSONANT}
+          </td>
+          <td>
+            -төр<br/>
+          </td>
+          <td>
+            <WordAffix root={'көйнө'} affix={'к'}/> - <WordAffix root={'көйнөк'} affix={'төр'}/>
+          </td>
+          <td>
+            платье - платья
           </td>
         </tr>
         </tbody>
