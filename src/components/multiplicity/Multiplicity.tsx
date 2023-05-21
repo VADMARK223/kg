@@ -17,7 +17,7 @@ const Multiplicity = (): JSX.Element => {
       <table>
         <thead>
         <tr>
-          <td>Последняя гласная буква корня</td>
+          <td colSpan={2}>Последняя гласная буква корня</td>
           <td>Последняя буква корня</td>
           <td>Аффикс</td>
           <td>Пример</td>
@@ -26,7 +26,7 @@ const Multiplicity = (): JSX.Element => {
         </thead>
         <tbody>
         <tr>
-          <td rowSpan={5}>а, я, ы</td>
+          <td rowSpan={5} colSpan={2}>а, я, ы</td>
           <td>
             Гласная
           </td>
@@ -91,7 +91,7 @@ const Multiplicity = (): JSX.Element => {
           </td>
         </tr>
         <tr>
-          <td rowSpan={5}>э, е, и</td>
+          <td rowSpan={5} colSpan={2}>э, е, и</td>
           <td>
             Гласная
           </td>
@@ -156,7 +156,73 @@ const Multiplicity = (): JSX.Element => {
           </td>
         </tr>
         <tr>
-          <td rowSpan={5}>ө ү</td>
+          <td rowSpan={5} colSpan={2}>ө ү</td>
+          <td>
+            Гласная
+          </td>
+          <td rowSpan={3}>
+            -лөр
+          </td>
+          <td>
+            <WordAffix root={'сүрөтч'} affix={'ү'}/> - <WordAffix root={'сүрөтчү'} affix={'лөр'}/>
+          </td>
+          <td>
+            художник - художники
+          </td>
+        </tr>
+        <tr>
+          <td>
+            й
+          </td>
+          <td>
+            <WordAffix root={'ү'} affix={'й'}/> - <WordAffix root={'үй'} affix={'лөр'}/>
+          </td>
+          <td>
+            дом - дома
+          </td>
+        </tr>
+        <tr>
+          <td>
+            р
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {VOICED_CONSONANT}
+          </td>
+          <td>
+            -дөр<br/>
+          </td>
+          <td>
+            <WordAffix root={'кө'} affix={'л'}/> - <WordAffix root={'көл'} affix={'дөр'}/>
+          </td>
+          <td>
+            озеро - озера
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {VOICELESS_CONSONANT}
+          </td>
+          <td>
+            -төр<br/>
+          </td>
+          <td>
+            <WordAffix root={'көйнө'} affix={'к'}/> - <WordAffix root={'көйнөк'} affix={'төр'}/>
+          </td>
+          <td>
+            платье - платья
+          </td>
+        </tr>
+        <tr>
+          <td rowSpan={5}>о ё у ю</td>
+          <td rowSpan={5}>о ё</td>
           <td>
             Гласная
           </td>
