@@ -57,7 +57,9 @@ const ModalQuiz = React.memo((props: ModalQuizProps) => {
           const currentAnswerIndex = getRandomIndex(currentAnswersWord.length)
           const currentAnswer = currentAnswersWord[currentAnswerIndex]
           currentAnswersWord.splice(currentAnswerIndex, 1)
-          tempAnswer.push(currentAnswer)
+          if (currentAnswer !== undefined) {
+            tempAnswer.push(currentAnswer)
+          }
         }
         // Добавляем правильный ответ в случайную позицию
         const rightPosition = getRandomIndex(answersValueCount)

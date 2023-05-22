@@ -10,6 +10,7 @@ import { Input, Button, Space } from 'antd'
 interface KgInputProps {
   valueState: [string, React.Dispatch<React.SetStateAction<string>>]
   placeholder?: string
+  width?: string
 }
 
 interface SymbolButtonProps {
@@ -17,7 +18,7 @@ interface SymbolButtonProps {
 }
 
 const KgInput = (props: KgInputProps): JSX.Element => {
-  const { placeholder = 'Кыргызский' } = props
+  const { placeholder = 'Кыргызский', width = '150px' } = props
   const value = props.valueState[0]
   const setValue = props.valueState[1]
   const [cursorPosition, setCursorPosition] = useState<number | null>(0)
@@ -47,6 +48,7 @@ const KgInput = (props: KgInputProps): JSX.Element => {
              ref={inputRef}
              allowClear
              value={value}
+             style={{ width: width }}
              onFocus={() => {
                if (cursorPosition != null) {
                  inputRef.current.setSelectionRange(cursorPosition, cursorPosition)

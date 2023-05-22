@@ -19,7 +19,7 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
   const valueState = useState('')
   const wordArray = word.split('')
   const [answerState, setAnswerState] = useState<boolean | null>(null) // Состояние ответа: null - неизвестно, true - верно, false - неверно
-  const [showHint, setShowHint] = useState<boolean>(true)
+  const [showHint, setShowHint] = useState<boolean>(false)
 
   const isVowels = (value: string): boolean => {
     return VOWELS.includes(value)
@@ -118,7 +118,10 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
       <div style={{ minWidth: '50px' }}>
         {word}
       </div>
-      <KgInput valueState={valueState} placeholder={'Впишите аффикс множественного числа'}/>
+      <KgInput valueState={valueState}
+               placeholder={'Впишите аффикс множественного числа'}
+               width={'80px'}
+      />
       <AnswerStateIcon/>
       <Tooltip title={'Показывать подсказку'}>
         <Checkbox checked={showHint}

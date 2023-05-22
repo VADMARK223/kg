@@ -436,7 +436,7 @@ const Multiplicity = (): JSX.Element => {
       <PhraseItem kg={'үчөө - аспирант,'} ru={'трое - аспиранты,'}/>
       <PhraseItem kg={'алтоо - студент,'} ru={'шестеро - студенты.'}/>
       <div className={'center-block'}>УПРАЖНЕНИЯ</div>
-      {practiceShuffledArray.map(value => (<MultiplicityAffixPractice key={value} word={value}/>))}
+      {practiceShuffledArray.map(value => (<div key={value}><MultiplicityAffixPractice word={value}/></div>))}
       <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 20, display: getIsTop() }} onClick={scrollUpHandler}/>
     </>
   )
