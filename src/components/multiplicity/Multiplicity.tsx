@@ -15,7 +15,7 @@ import { CaretUpOutlined } from '@ant-design/icons'
 import { FloatButton } from 'antd'
 
 const Multiplicity = (): JSX.Element => {
-  const [isAtTop, setIsAtTop] = useState(true)
+  const [isAtTop, setIsAtTop] = useState(false)
 
   const scrollUpHandler = (): void => {
     scroll(0, 0)
@@ -42,6 +42,17 @@ const Multiplicity = (): JSX.Element => {
       return undefined
     }
   }
+
+  const shuffleArray = (array: string[]): string[] => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
+  }
+
+  const practiceInitArray: string[] = ['кошуна', 'театр', 'адам', 'бак', 'текче', 'батир', 'тил', 'адис', 'күзгү', 'күн', 'сөз', 'чөнтөк', 'пальто', 'кол', 'стадион', 'дос', 'курбу', 'комуз', 'жоолук']
+  const practiceShuffledArray: string[] = shuffleArray(practiceInitArray)
 
   return (
     <>
@@ -425,26 +436,7 @@ const Multiplicity = (): JSX.Element => {
       <PhraseItem kg={'үчөө - аспирант,'} ru={'трое - аспиранты,'}/>
       <PhraseItem kg={'алтоо - студент,'} ru={'шестеро - студенты.'}/>
       <div className={'center-block'}>УПРАЖНЕНИЯ</div>
-      <MultiplicityAffixPractice word={'кошуна'}/><br/>
-      <MultiplicityAffixPractice word={'театр'}/><br/>
-      <MultiplicityAffixPractice word={'адам'}/><br/>
-      <MultiplicityAffixPractice word={'бак'}/><br/>
-      <MultiplicityAffixPractice word={'текче'}/><br/>
-      <MultiplicityAffixPractice word={'батир'}/><br/>
-      <MultiplicityAffixPractice word={'көкчө'}/><br/>
-      <MultiplicityAffixPractice word={'тил'}/><br/>
-      <MultiplicityAffixPractice word={'адис'}/><br/>
-      <MultiplicityAffixPractice word={'күзгү'}/><br/>
-      <MultiplicityAffixPractice word={'күн'}/><br/>
-      <MultiplicityAffixPractice word={'сөз'}/><br/>
-      <MultiplicityAffixPractice word={'чөнтөк'}/><br/>
-      <MultiplicityAffixPractice word={'пальто'}/><br/>
-      <MultiplicityAffixPractice word={'кол'}/><br/>
-      <MultiplicityAffixPractice word={'стадион'}/><br/>
-      <MultiplicityAffixPractice word={'дос'}/><br/>
-      <MultiplicityAffixPractice word={'курбу'}/><br/>
-      <MultiplicityAffixPractice word={'комуз'}/><br/>
-      <MultiplicityAffixPractice word={'жоолук'}/><br/>
+      {practiceShuffledArray.map(value => (<MultiplicityAffixPractice key={value} word={value}/>))}
       <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 20, display: getIsTop() }} onClick={scrollUpHandler}/>
     </>
   )

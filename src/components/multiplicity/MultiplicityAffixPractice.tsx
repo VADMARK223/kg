@@ -19,7 +19,7 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
   const valueState = useState('')
   const wordArray = word.split('')
   const [answerState, setAnswerState] = useState<boolean | null>(null) // Состояние ответа: null - неизвестно, true - верно, false - неверно
-  const [showHint, setShowHint] = useState<boolean>(false)
+  const [showHint, setShowHint] = useState<boolean>(true)
 
   const isVowels = (value: string): boolean => {
     return VOWELS.includes(value)
@@ -36,7 +36,7 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
   const getLastVowelLetter = (): string => {
     let result: string = '-'
     for (let i = wordArray.length - 1; i >= 0; i--) {
-      if (isVowels(wordArray[i]) && i !== wordArray.length - 1) {
+      if (isVowels(wordArray[i])) {
         result = wordArray[i]
         break
       }
@@ -95,7 +95,7 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
 
   useEffect(() => {
     if (valueState[0] !== '') {
-      setAnswerState(valueState[0] === rightAffix)
+      setAnswerState(valueState[0].toLowerCase() === rightAffix.toLowerCase())
     } else {
       setAnswerState(null)
     }
@@ -103,14 +103,14 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
 
   const AnswerStateIcon = (): JSX.Element => {
     if (answerState === null) {
-      return (<QuestionCircleTwoTone twoToneColor={'orange'}/>)
+      return (<Tooltip title={'Введите аффикс'}><QuestionCircleTwoTone twoToneColor={'orange'}/></Tooltip>)
     }
 
     if (answerState) {
-      return (<CheckCircleTwoTone twoToneColor="#52c41a"/>)
+      return (<Tooltip title={'Ответ верный'}><CheckCircleTwoTone twoToneColor="#52c41a"/></Tooltip>)
     }
 
-    return (<ExclamationCircleTwoTone twoToneColor={'red'}/>)
+    return (<Tooltip title={'Ответ неверный'}><ExclamationCircleTwoTone twoToneColor={'red'}/></Tooltip>)
   }
 
   return (

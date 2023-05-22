@@ -7,7 +7,7 @@ export enum RoutePath {
   PHRASES = 'phrases', // Страница фраз
   AFFIXES = 'affixes', // Страница аффиксов
   PHONETICS = 'phonetics', // Вводно-фонетический курс
-  MULTIPLICITY = 'Multiplicity', // Выражение множественности
+  MULTIPLICITY = 'multiplicity', // Выражение множественности
   PRONOUNS = 'pronouns', // Местоимения
   ALL = '*' // Шаблон для всех страниц
 }

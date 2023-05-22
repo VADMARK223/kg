@@ -56,7 +56,6 @@ export const removeWord = (dispatch: any, id: number): void => {
   commonApi.delete('delete_word', {
     body: String(id)
   }).json<ResponseDto>().then(response => {
-    console.log('response:', response)
     if (response.status) {
       toast.success('Слово успешно удалено.')
       fetchDic(dispatch)
