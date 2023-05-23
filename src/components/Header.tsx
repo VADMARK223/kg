@@ -57,6 +57,11 @@ const Header = (): JSX.Element => {
             type={'primary'}>Разговорник</Button></Link>
           <Link to={RoutePath.AFFIXES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Аффиксы</Button></Link>
           <hr/>
+
+          <Link to={RoutePath.INTRODUCTORY_PHONETIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический курс</Button></Link>
+          <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Основной курс</Button></Link>
+
+          <hr/>
           <Link to={RoutePath.PHONETICS} onClick={onCloseSideMenuHandler}><
             Button type={'primary'}>Вводно-фонетический курс</Button>
           </Link>

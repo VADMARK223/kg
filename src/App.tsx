@@ -12,6 +12,8 @@ import RegisterPage from './components/RegisterPage'
 // Словарь
 import Dictionary from './components/dictionary/Dictionary'
 import { useAppDispatch } from './store/hooks'
+import Page from './components/common/Page'
+
 // Числительные
 const Numerals = React.lazy(async () => await import('./components/numerals/Numerals'))
 // Разговорник
@@ -24,6 +26,10 @@ const Phonetics = React.lazy(async () => await import('./components/phonetics/Ph
 const Multiplicity = React.lazy(async () => await import('./components/multiplicity/Multiplicity'))
 // Местоимения
 const Pronouns = React.lazy(async () => await import('./components/pronouns/Pronouns'))
+// Вводно-фонетический курс
+const IntroductoryPhoneticPage = React.lazy(async () => await import('./components/mam/introductoryPhonetic/IntroductoryPhoneticPage'))
+// Основной курс
+const BasicPage = React.lazy(async () => await import('./components/mam/basic/BasicPage'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
@@ -92,6 +98,12 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.PRONOUNS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Pronouns/></Suspense>
+        }, {
+          path: RoutePath.INTRODUCTORY_PHONETIC,
+          element: <Page><IntroductoryPhoneticPage/></Page>
+        }, {
+          path: RoutePath.BASIC,
+          element: <Page><BasicPage/></Page>
         },
         {
           path: RoutePath.ALL,
