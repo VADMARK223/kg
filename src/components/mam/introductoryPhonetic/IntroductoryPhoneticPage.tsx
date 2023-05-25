@@ -6,16 +6,15 @@
  */
 import React from 'react'
 import { TabsProps, Tabs } from 'antd'
+import Lesson1 from './Lesson1'
 
 const IntroductoryPhoneticPage = (): JSX.Element => {
   const items: TabsProps['items'] = []
-  for (let i = 1; i <= 5; i++) {
-    items.push({
-      key: `${i}`,
-      label: `Урок ${i}`,
-      children: `${i}`
-    })
-  }
+  items.push({
+    key: '1',
+    label: 'Урок 1',
+    children: (<Lesson1/>)
+  })
   return (
     <Tabs tabPosition={'top'} items={items}/>
   )

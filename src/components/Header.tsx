@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Space, Button, Drawer, Tag, Tooltip } from 'antd'
+import { Space, Button, Drawer, Tag, Tooltip, Divider } from 'antd'
 import navigationService from '../service/navigation'
 import { LocalStoreKey, getSetting } from '../service/settings'
 import store from '../store'
@@ -50,19 +50,21 @@ const Header = (): JSX.Element => {
               closable={false}
       >
         <Space direction={'vertical'}>
-          <Link to={RoutePath.HOME} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
-          <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
-            type={'primary'}>Числительные</Button></Link>
-          <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button
-            type={'primary'}>Разговорник</Button></Link>
-          <Link to={RoutePath.AFFIXES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Аффиксы</Button></Link>
-          <hr/>
-
+          <Space direction={'horizontal'}>
+            <Link to={RoutePath.HOME} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
+            <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
+              type={'primary'}>Числительные</Button></Link>
+          </Space>
+          <Space direction={'horizontal'}>
+            <Link to={RoutePath.AFFIXES} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Аффиксы</Button></Link>
+            <Link to={RoutePath.PHRASES} onClick={onCloseSideMenuHandler}><Button
+              type={'primary'}>Разговорник</Button></Link>
+          </Space>
+          <Divider orientation={'left'}>Мамытова Э.Дж.</Divider>
           <Link to={RoutePath.INTRODUCTORY_PHONETIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический курс</Button></Link>
-          <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Основной курс</Button></Link>
-
+          <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}><Button disabled type={'primary'}>Основной курс</Button></Link>
           <hr/>
-          <Link to={RoutePath.PHONETICS} onClick={onCloseSideMenuHandler}><
+          <Link to={RoutePath.PHONETICS} style={{ display: 'none' }} onClick={onCloseSideMenuHandler}><
             Button type={'primary'}>Вводно-фонетический курс</Button>
           </Link>
           <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}><
