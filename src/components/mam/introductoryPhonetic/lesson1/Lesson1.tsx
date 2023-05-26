@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 23.05.2023
  */
-import React from 'react';
+import React from 'react'
 import { TabsProps, Tabs } from 'antd'
 import Lesson11 from './Lesson11'
 import Lesson12 from './Lesson12'
@@ -29,7 +29,7 @@ const Lesson1 = (): JSX.Element => {
   })
   return (
     <Tabs tabPosition={'top'} items={items}/>
-  );
+  )
 }
 
 export default Lesson1

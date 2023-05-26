@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { RoutePath } from '../../../service/router'
+import { RoutePath } from '../../../../service/router'
 import { Tooltip } from 'antd'
 import { InfoCircleTwoTone } from '@ant-design/icons'
 

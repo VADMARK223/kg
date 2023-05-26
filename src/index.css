@@ -15,6 +15,14 @@ table, tr, td {
     text-align: center;
 }
 
+ol {
+    padding: 0;
+    margin: 0;
+}
+ol li {
+    margin-left: 1.5em;
+}
+
 /*=====================Внутренняя таблица (С)=====================*/
 .inner-table {
     /*Скрываем внешние границы*/
