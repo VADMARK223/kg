@@ -5,7 +5,6 @@
  * @since 14.05.2023
  */
 import React from 'react'
-import PhraseItem from '../../common/PhraseItem'
 import MultiAffix from '../multiAffix/MultiAffix'
 
 const QuestionAffix = (): JSX.Element => {

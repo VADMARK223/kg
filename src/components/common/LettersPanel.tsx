@@ -1,14 +1,14 @@
 /**
- * Компонент
+ * Компонент c буквами
  *
  * @author Markitanov Vadim
- * @since 22.05.2023
+ * @since 26.05.2023
  */
 import React from 'react'
 import { Space } from 'antd'
-import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS } from '../common/Letter'
+import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS } from './Letter'
 
-const Letters = (): JSX.Element => {
+const LettersPanel = (): JSX.Element => {
   return (
     <Space size={1} direction={'vertical'}>
       <Space>
@@ -24,4 +24,4 @@ const Letters = (): JSX.Element => {
   )
 }
 
-export default Letters
+export default LettersPanel

@@ -5,14 +5,14 @@
  * @since 21.05.2023
  */
 import React, { useEffect, useState } from 'react'
-import WordAffix from '../common/WordAffix'
-import AffixItem from '../common/AffixItem'
-import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
-import Letters from './Letters'
-import PhraseItem from '../common/PhraseItem'
 import MultiplicityAffixPractice from './MultiplicityAffixPractice'
 import { CaretUpOutlined } from '@ant-design/icons'
 import { FloatButton } from 'antd'
+import LettersPanel from '../../common/LettersPanel'
+import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../../common/Letter'
+import AffixItem from '../../common/AffixItem'
+import WordAffix from '../../common/WordAffix'
+import PhraseItem from '../../common/PhraseItem'
 
 const Multiplicity = (): JSX.Element => {
   const [isAtTop, setIsAtTop] = useState(false)
@@ -56,7 +56,7 @@ const Multiplicity = (): JSX.Element => {
 
   return (
     <>
-      <Letters/><br/>
+      <LettersPanel/><br/>
       1. Форма множественного числа образуется путем присоединения к корню слова аффикса множественного числа <b>-лар</b>
       <table>
         <thead>

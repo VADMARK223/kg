@@ -49,7 +49,7 @@ const Header = (): JSX.Element => {
               placement={'left'}
               closable={false}
       >
-        <Space direction={'vertical'}>
+        <Space direction={'vertical'} size={1}>
           <Space direction={'horizontal'}>
             <Link to={RoutePath.HOME} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
             <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
@@ -65,17 +65,20 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'}>Основной курс</Button>
           </Link>
-          <hr/>
+          <Divider orientation={'left'}>Алгоритмические таблицы</Divider>
           <Link to={RoutePath.PHONETICS}
                 style={{ display: 'none' }}
                 onClick={onCloseSideMenuHandler}>
             <Button type={'primary'}>Вводно-фонетический курс</Button>
           </Link>
-          <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}><
-            Button type={'primary'}>Выражение множественности</Button>
+          <Link to={RoutePath.LOCATIVE} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Образование местного падежа</Button>
           </Link>
-          <Link to={RoutePath.PRONOUNS} onClick={onCloseSideMenuHandler}><
-            Button type={'primary'}>Местоимения</Button>
+          <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Образование множественного числа</Button>
+          </Link>
+          <Link to={RoutePath.PRONOUNS} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} style={{ display: 'none' }}>Местоимения</Button>
           </Link>
           {ADMIN_MODE &&
           <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}

@@ -23,7 +23,9 @@ const Affixes = React.lazy(async () => await import('./components/affixes/Affixe
 // Вводно-фонетический курс
 const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
 // Выражение множественности
-const Multiplicity = React.lazy(async () => await import('./components/multiplicity/Multiplicity'))
+const Multiplicity = React.lazy(async () => await import('./components/algorithmTables/multiplicity/Multiplicity'))
+// Местный падеж
+const Locative = React.lazy(async () => await import('./components/algorithmTables/locative/Locative'))
 // Местоимения
 const Pronouns = React.lazy(async () => await import('./components/pronouns/Pronouns'))
 // Вводно-фонетический курс
@@ -93,6 +95,9 @@ function App (): JSX.Element {
           path: RoutePath.PHONETICS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>
         }, {
+          path: RoutePath.LOCATIVE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><Locative/></Suspense>
+        },{
           path: RoutePath.MULTIPLICITY,
           element: <Suspense fallback={<div>Загрузка...</div>}><Multiplicity/></Suspense>
         }, {

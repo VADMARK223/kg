@@ -6,9 +6,9 @@
  */
 import React, { useState, useEffect } from 'react'
 import { Space, Checkbox, Tooltip } from 'antd'
-import KgInput from '../common/KgInput'
-import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS } from '../common/Letter'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
+import Letter, { VOWELS, VOICED_CONSONANTS, VOICELESS_CONSONANTS } from '../../common/Letter'
+import KgInput from '../../common/KgInput'
 
 interface MultiplicityAffixPracticeProps {
   word: string
