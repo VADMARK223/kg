@@ -64,8 +64,10 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.INTRODUCTORY_PHONETIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический курс</Button></Link>
           <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}><Button disabled type={'primary'}>Основной курс</Button></Link>
           <hr/>
-          <Link to={RoutePath.PHONETICS} style={{ display: 'none' }} onClick={onCloseSideMenuHandler}><
-            Button type={'primary'}>Вводно-фонетический курс</Button>
+          <Link to={RoutePath.PHONETICS}
+                style={{ display: 'none' }}
+                onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'}>Вводно-фонетический курс</Button>
           </Link>
           <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}><
             Button type={'primary'}>Выражение множественности</Button>
