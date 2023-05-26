@@ -146,41 +146,19 @@ const Locative = (): JSX.Element => {
           </td>
         </tr>
         <tr>
-          <td rowSpan={10}>о ё у ю</td>
-          <td rowSpan={5}>о ё</td>
+          <td rowSpan={6}>о ё у ю</td>
+          <td rowSpan={3}>о ё</td>
           <td>
             {VOWELS_NAME}
           </td>
-          <td rowSpan={3}>
-            <AffixItem value={'лор'}/>
+          <td rowSpan={2}>
+            <AffixItem value={'до'}/>
           </td>
           <td>
-            <WordAffix root={'коро'} affix={<Letter value={'о'}/>}/> - <WordAffix root={'короо'} affix={'лор'}/>
+            <WordAffix root={'то'} affix={<Letter value={'о'}/>}/> - <WordAffix root={'тоо'} affix={'до'}/>
           </td>
           <td>
-            двор - дворы
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Letter value={'й'}/>
-          </td>
-          <td>
-            <WordAffix root={'то'} affix={<Letter value={'й'}/>}/> - <WordAffix root={'той'} affix={'лор'}/>
-          </td>
-          <td>
-            пиршество - пиршества
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Letter value={'р'}/>
-          </td>
-          <td>
-            -
-          </td>
-          <td>
-            -
+            гора - в горах
           </td>
         </tr>
         <tr>
@@ -188,13 +166,10 @@ const Locative = (): JSX.Element => {
             {VOICED_CONSONANTS_NAME}
           </td>
           <td>
-            <AffixItem value={'дор'}/>
+            <WordAffix root={'телефо'} affix={<Letter value={'н'}/>}/> - <WordAffix root={'телефон'} affix={'до'}/>
           </td>
           <td>
-            <WordAffix root={'ко'} affix={<Letter value={'л'}/>}/> - <WordAffix root={'кол'} affix={'дор'}/>
-          </td>
-          <td>
-            рука - руки
+            телефон - на телефоне
           </td>
         </tr>
         <tr>
@@ -202,50 +177,28 @@ const Locative = (): JSX.Element => {
             {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
-            <AffixItem value={'тор'}/>
+            <AffixItem value={'то'}/>
           </td>
           <td>
-            <WordAffix root={'коно'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'конок'} affix={'тор'}/>
+            <WordAffix root={'аэропор'} affix={<Letter value={'т'}/>}/> - <WordAffix root={'аэропорт'} affix={'то'}/>
           </td>
           <td>
-            гость - гости
+            аэропорт - в аэропорту
           </td>
         </tr>
         <tr>
-          <td rowSpan={5}>у ю</td>
+          <td rowSpan={3}>у ю</td>
           <td>
             {VOWELS_NAME}
           </td>
-          <td rowSpan={3}>
-            <AffixItem value={'лар'}/>
+          <td rowSpan={2}>
+            <AffixItem value={'да'}/>
           </td>
           <td>
-            <WordAffix root={'окууч'} affix={<Letter value={'у'}/>}/> - <WordAffix root={'окуучу'} affix={'лар'}/>
+            <WordAffix root={'су'} affix={<Letter value={'у'}/>}/> - <WordAffix root={'уу'} affix={'да'}/>
           </td>
           <td>
-            ученик - ученики
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Letter value={'й'}/>
-          </td>
-          <td>
-            -
-          </td>
-          <td>
-            -
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Letter value={'р'}/>
-          </td>
-          <td>
-            -
-          </td>
-          <td>
-            -
+            вода - в воде
           </td>
         </tr>
         <tr>
@@ -253,13 +206,10 @@ const Locative = (): JSX.Element => {
             {VOICED_CONSONANTS_NAME}
           </td>
           <td>
-            <AffixItem value={'дар'}/>
+            <WordAffix root={'клу'} affix={<Letter value={'б'}/>}/> - <WordAffix root={'клуб'} affix={'да'}/>
           </td>
           <td>
-            <WordAffix root={'буй'} affix={<Letter value={'м'}/>}/> - <WordAffix root={'буйм'} affix={'дар'}/>
-          </td>
-          <td>
-            -
+            клуб - в клубе
           </td>
         </tr>
         <tr>
@@ -267,13 +217,13 @@ const Locative = (): JSX.Element => {
             {VOICELESS_CONSONANTS_NAME}
           </td>
           <td>
-            <AffixItem value={'тар'}/>
+            <AffixItem value={'та'}/>
           </td>
           <td>
-            <WordAffix root={'жоолу'} affix={<Letter value={'к'}/>}/> - <WordAffix root={'жоолук'} affix={'тар'}/>
+            <WordAffix root={'автобу'} affix={<Letter value={'с'}/>}/> - <WordAffix root={'автобус'} affix={'та'}/>
           </td>
           <td>
-            платок - платки
+            автобус - в автобусе
           </td>
         </tr>
         </tbody>

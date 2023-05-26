@@ -11,7 +11,7 @@ export enum RoutePath {
   PHONETICS = '/phonetics', // Вводно-фонетический курс
   INTRODUCTORY_PHONETIC = '/introductory_phonetic', // Вводно-фонетический курс
   BASIC = '/basic', // Основной курс
-  LOCATIVE = '/Locative', // Местный падеж
+  LOCATIVE = '/locative', // Местный падеж
   MULTIPLICITY = '/multiplicity', // Выражение множественности
   PRONOUNS = '/pronouns', // Местоимения
   ALL = '*' // Шаблон для всех страниц
