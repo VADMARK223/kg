@@ -62,7 +62,9 @@ const Header = (): JSX.Element => {
           </Space>
           <Divider orientation={'left'}>Мамытова Э.Дж.</Divider>
           <Link to={RoutePath.INTRODUCTORY_PHONETIC} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Вводно-фонетический курс</Button></Link>
-          <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}><Button disabled type={'primary'}>Основной курс</Button></Link>
+          <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'}>Основной курс</Button>
+          </Link>
           <hr/>
           <Link to={RoutePath.PHONETICS}
                 style={{ display: 'none' }}
