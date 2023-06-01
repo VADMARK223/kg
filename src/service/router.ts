@@ -1,4 +1,5 @@
 import IntroductoryPhoneticPage from '../components/mam/introductoryPhonetic/IntroductoryPhoneticPage'
+import BelongingSingle from '../components/algorithmTables/BelongingSingle'
 
 export enum RoutePath {
   HOME = '/', // Домашняя страница
@@ -14,5 +15,6 @@ export enum RoutePath {
   LOCATIVE = '/locative', // Местный падеж
   MULTIPLICITY = '/multiplicity', // Выражение множественности
   PRONOUNS = '/pronouns', // Местоимения
+  BELONGING_SINGLE = '/belonging_single', // Образование категории принадлежности единственного числа
   ALL = '*' // Шаблон для всех страниц
 }

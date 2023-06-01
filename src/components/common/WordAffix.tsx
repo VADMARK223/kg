@@ -8,7 +8,7 @@ import React from 'react'
 import Letter from './Letter'
 
 interface WordAffixProps {
-  root: string
+  root: string | JSX.Element
   affix: string | JSX.Element
 }
 

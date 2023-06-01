@@ -49,7 +49,7 @@ const Header = (): JSX.Element => {
               placement={'left'}
               closable={false}
       >
-        <Space direction={'vertical'} size={1}>
+        <Space direction={'vertical'} size={2}>
           <Space direction={'horizontal'}>
             <Link to={RoutePath.HOME} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Словарь</Button></Link>
             <Link to={RoutePath.NUMBERS} onClick={onCloseSideMenuHandler}><Button
@@ -73,6 +73,9 @@ const Header = (): JSX.Element => {
           </Link>
           <Link to={RoutePath.LOCATIVE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование местного падежа</Button>
+          </Link>
+          <Link to={RoutePath.BELONGING_SINGLE} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Принадлежность единственного числа</Button>
           </Link>
           <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование множественного числа</Button>

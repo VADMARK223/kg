@@ -152,13 +152,15 @@ const Lesson1 = (): JSX.Element => {
       </table>
       <div className={'center-block'}>Образование словоформ с аффиксом -чы</div>
       <table>
-        <tbody>
+        <thead>
         <tr>
           <td>а, я, ы</td>
           <td>э, е, и</td>
           <td>ө, ү</td>
           <td>о, ё, у, ю</td>
         </tr>
+        </thead>
+        <tbody>
         <tr>
           <td><b>-чы</b></td>
           <td><b>-чи</b></td>

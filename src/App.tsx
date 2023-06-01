@@ -33,6 +33,10 @@ const IntroductoryPhoneticPage = React.lazy(async () => await import('./componen
 // Основной курс
 const BasicPage = React.lazy(async () => await import('./components/mam/basic/BasicPage'))
 
+// === Алгоритмические таблицы ===
+// Образование категории принадлежности единственного числа
+const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
+
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -97,7 +101,7 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.LOCATIVE,
           element: <Suspense fallback={<div>Загрузка...</div>}><Locative/></Suspense>
-        },{
+        }, {
           path: RoutePath.MULTIPLICITY,
           element: <Suspense fallback={<div>Загрузка...</div>}><Multiplicity/></Suspense>
         }, {
@@ -109,6 +113,9 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.BASIC,
           element: <Page><BasicPage/></Page>
+        }, {
+          path: RoutePath.BELONGING_SINGLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingle/></Suspense>
         },
         {
           path: RoutePath.ALL,
