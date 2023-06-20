@@ -36,6 +36,7 @@ const BasicPage = React.lazy(async () => await import('./components/mam/basic/Ba
 // === Алгоритмические таблицы ===
 // Образование категории принадлежности единственного числа
 const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
+const Manas = React.lazy(async () => await import('./manas/Manas'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
@@ -116,6 +117,9 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.BELONGING_SINGLE,
           element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingle/></Suspense>
+        },{
+          path: RoutePath.MANAS,
+          element: <Suspense fallback={<div>Загрузка...</div>}><Manas/></Suspense>
         },
         {
           path: RoutePath.ALL,

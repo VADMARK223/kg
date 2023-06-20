@@ -16,5 +16,6 @@ export enum RoutePath {
   MULTIPLICITY = '/multiplicity', // Выражение множественности
   PRONOUNS = '/pronouns', // Местоимения
   BELONGING_SINGLE = '/belonging_single', // Образование категории принадлежности единственного числа
+  MANAS = '/manas',
   ALL = '*' // Шаблон для всех страниц
 }
