@@ -54,6 +54,7 @@ app.post('/build', (req: any, response: any) => {
   shell.cp('-R', `${BUILD_PATH}/*`, BUILD_PROJECT_PATH)
   shell.exec('git add .')
   shell.exec(`git commit -m "Auto-commit ${getCurrentTime()}"`)
+  shell.exec('git pull')
   shell.exec('git push')
   shell.echo('End build.')
   response.end()
