@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense } from 'react'
 import { updateUserInfo } from './store/userSlice'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
 import Header from './components/Header'
 import { RoutePath } from './service/router'
@@ -40,6 +40,7 @@ const Manas = React.lazy(async () => await import('./manas/Manas'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     dispatch(updateUserInfo({
       lastName: 'Vadmark',
@@ -56,6 +57,11 @@ function App (): JSX.Element {
   }
 
   const CustomLayout = (): JSX.Element => {
+    const location = useLocation()
+    useEffect(() => {
+      localStorage.setItem('previousPath', location.pathname)
+    }, [location.pathname])
+
     return (<>
       <AntHeader style={headerStyle}>
         <Header/>
@@ -117,7 +123,7 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.BELONGING_SINGLE,
           element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingle/></Suspense>
-        },{
+        }, {
           path: RoutePath.MANAS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Manas/></Suspense>
         },
