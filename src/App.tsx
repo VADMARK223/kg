@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense } from 'react'
 import { updateUserInfo } from './store/userSlice'
-import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom'
+import { Outlet, RouterProvider, useLocation, createHashRouter } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
 import Header from './components/Header'
 import { RoutePath } from './service/router'
@@ -69,7 +69,7 @@ function App (): JSX.Element {
       <Outlet/>
     </>)
   }
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       element: <CustomLayout/>,
       children: [
