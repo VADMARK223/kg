@@ -13,6 +13,7 @@ import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME 
 import AffixItem from '../../common/AffixItem'
 import WordAffix from '../../common/WordAffix'
 import PhraseItem from '../../common/PhraseItem'
+import { shuffleArray } from '../../../service/utils'
 
 const Multiplicity = (): JSX.Element => {
   const [isAtTop, setIsAtTop] = useState(false)
@@ -41,14 +42,6 @@ const Multiplicity = (): JSX.Element => {
     } else {
       return undefined
     }
-  }
-
-  const shuffleArray = (array: string[]): string[] => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
   }
 
   const practiceInitArray: string[] = ['кошуна', 'театр', 'адам', 'бак', 'текче', 'батир', 'тил', 'адис', 'күзгү', 'күн', 'сөз', 'чөнтөк', 'пальто', 'кол', 'стадион', 'дос', 'курбу', 'комуз', 'жоолук']

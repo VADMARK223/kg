@@ -7,6 +7,7 @@
 import React from 'react'
 import { RoutePath } from '../../../../service/router'
 import { Link } from 'react-router-dom'
+import QuestionAffixBlock from '../../../practice/question/affix/QuestionAffixBlock'
 
 const Lesson1 = (): JSX.Element => {
   return (
@@ -150,31 +151,36 @@ const Lesson1 = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-      <div className={'center-block'}>Образование словоформ с аффиксом -чы</div>
-      <table>
-        <thead>
-        <tr>
-          <td>а, я, ы</td>
-          <td>э, е, и</td>
-          <td>ө, ү</td>
-          <td>о, ё, у, ю</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><b>-чы</b></td>
-          <td><b>-чи</b></td>
-          <td><b>-чү</b></td>
-          <td><b>-чу</b></td>
-        </tr>
-        <tr>
-          <td><b>Газета<u>чы</u>?</b><br/>А газета?</td>
-          <td><b>Китеп<u>чи</u>?</b><br/>А книга?</td>
-          <td><b>Сүт<u>чү</u>?</b><br/>А молоко?</td>
-          <td><b>Стол<u>чу</u>?</b><br/>А стол?</td>
-        </tr>
-        </tbody>
-      </table>
+      <p>
+        <div className={'center-block'}>Образование словоформ с аффиксом -чы</div>
+        <table>
+          <thead>
+          <tr>
+            <td>а, я, ы</td>
+            <td>э, е, и</td>
+            <td>ө, ү</td>
+            <td>о, ё, у, ю</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><b>-чы</b></td>
+            <td><b>-чи</b></td>
+            <td><b>-чү</b></td>
+            <td><b>-чу</b></td>
+          </tr>
+          <tr>
+            <td><b>Газета<u>чы</u>?</b><br/>А газета?</td>
+            <td><b>Китеп<u>чи</u>?</b><br/>А книга?</td>
+            <td><b>Сүт<u>чү</u>?</b><br/>А молоко?</td>
+            <td><b>Стол<u>чу</u>?</b><br/>А стол?</td>
+          </tr>
+          </tbody>
+        </table>
+      </p>
+      <div className={'center-block'}>УПРАЖНЕНИЯ</div>
+      Уточните значение слова, задав вопрос.
+      <QuestionAffixBlock/>
     </>
   )
 }

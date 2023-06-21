@@ -1,21 +1,21 @@
 /**
- * Компонент
+ * Компонент элемента тестирования вопросительного аффикса
  *
  * @author Markitanov Vadim
- * @since 22.05.2023
+ * @since 21.06.2023
  */
-import React, { useState, useEffect } from 'react'
-import { Space, Checkbox, Tooltip } from 'antd'
+import React, { useState, useEffect } from 'react';
+import Letter from '../../../common/Letter'
+import { Tooltip, Space, Checkbox } from 'antd'
 import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
-import Letter from '../../common/Letter'
-import KgInput from '../../common/KgInput'
-import { isVowelLetter, isVoicedConsonant, isVoicelessConsonant } from '../../../service/utils'
+import KgInput from '../../../common/KgInput'
+import { isVowelLetter, isVoicedConsonant } from '../../../../service/utils'
 
-interface MultiplicityAffixPracticeProps {
+interface QuestionAffixPracticeItemProps {
   word: string
 }
 
-const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.Element => {
+const QuestionAffixPracticeItem = (props: QuestionAffixPracticeItemProps): JSX.Element => {
   const { word } = props
   const valueState = useState('')
   const wordArray = word.split('')
@@ -39,46 +39,28 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
 
   let rightAffix = '-'
   if (lastVowelLetter === 'а' || lastVowelLetter === 'я' || lastVowelLetter === 'ы') {
-    if (isVowelLetter(lastLetter) || lastLetter === 'й' || lastLetter === 'р') {
-      rightAffix = 'лар'
-    } else if (isVoicedConsonant(lastLetter)) {
-      rightAffix = 'дар'
-    } else if (isVoicelessConsonant(lastLetter)) {
-      rightAffix = 'тар'
+    if (isVowelLetter(lastLetter) || isVoicedConsonant(lastLetter)) {
+      rightAffix = 'бы'
+    } else {
+      rightAffix = 'пы'
     }
   } else if (lastVowelLetter === 'э' || lastVowelLetter === 'е' || lastVowelLetter === 'и') {
-    if (isVowelLetter(lastLetter) || lastLetter === 'й' || lastLetter === 'р') {
-      rightAffix = 'лер'
-    } else if (isVoicedConsonant(lastLetter)) {
-      rightAffix = 'дер'
-    } else if (isVoicelessConsonant(lastLetter)) {
-      rightAffix = 'тер'
+    if (isVowelLetter(lastLetter) || isVoicedConsonant(lastLetter)) {
+      rightAffix = 'би'
+    } else {
+      rightAffix = 'пи'
     }
   } else if (lastVowelLetter === 'ө' || lastVowelLetter === 'ү') {
-    if (isVowelLetter(lastLetter) || lastLetter === 'й' || lastLetter === 'р') {
-      rightAffix = 'лөр'
-    } else if (isVoicedConsonant(lastLetter)) {
-      rightAffix = 'дөр'
-    } else if (isVoicelessConsonant(lastLetter)) {
-      rightAffix = 'төр'
+    if (isVowelLetter(lastLetter) || isVoicedConsonant(lastLetter)) {
+      rightAffix = 'бү'
+    } else {
+      rightAffix = 'пү'
     }
   } else if (lastVowelLetter === 'о' || lastVowelLetter === 'ё' || lastVowelLetter === 'у' || lastVowelLetter === 'ю') {
-    if (lastVowelLetter === 'о' || lastVowelLetter === 'ё') {
-      if (isVowelLetter(lastLetter) || lastLetter === 'й' || lastLetter === 'р') {
-        rightAffix = 'лор'
-      } else if (isVoicedConsonant(lastLetter)) {
-        rightAffix = 'дор'
-      } else if (isVoicelessConsonant(lastLetter)) {
-        rightAffix = 'тор'
-      }
-    } else if (lastVowelLetter === 'у' || lastVowelLetter === 'ю') {
-      if (isVowelLetter(lastLetter) || lastLetter === 'й' || lastLetter === 'р') {
-        rightAffix = 'лар'
-      } else if (isVoicedConsonant(lastLetter)) {
-        rightAffix = 'дар'
-      } else if (isVoicelessConsonant(lastLetter)) {
-        rightAffix = 'тар'
-      }
+    if (isVowelLetter(lastLetter) || isVoicedConsonant(lastLetter)) {
+      rightAffix = 'бу'
+    } else {
+      rightAffix = 'пу'
     }
   }
 
@@ -126,4 +108,4 @@ const MultiplicityAffixPractice = (props: MultiplicityAffixPracticeProps): JSX.E
   )
 }
 
-export default MultiplicityAffixPractice
+export default QuestionAffixPracticeItem
