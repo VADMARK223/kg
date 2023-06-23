@@ -9,6 +9,7 @@ import { TabsProps, Tabs } from 'antd'
 import Lesson1 from './lesson1/Lesson1'
 import Lesson2 from './lesson2/Lesson2'
 import Lesson3 from './lesson3/Lesson3'
+import Lesson4 from './lesson4/Lesson4'
 
 const BasicPage = (): JSX.Element => {
   const items: TabsProps['items'] = []
@@ -26,6 +27,11 @@ const BasicPage = (): JSX.Element => {
     key: String(items.length),
     label: 'Выражение принадлежности',
     children: (<Lesson3/>)
+  })
+  items.push({
+    key: String(items.length),
+    label: 'Выражение принадлежности',
+    children: (<Lesson4/>)
   })
   return (
     <div style={{ width: '100hv' }}>

@@ -36,6 +36,8 @@ const BasicPage = React.lazy(async () => await import('./components/mam/basic/Ba
 // === Алгоритмические таблицы ===
 // Образование категории принадлежности единственного числа
 const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
+const GenitiveTable = React.lazy(async () => await import('./components/algorithmTables/GenitiveTable'))
+
 const Manas = React.lazy(async () => await import('./manas/Manas'))
 
 function App (): JSX.Element {
@@ -120,10 +122,17 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.BASIC,
           element: <Page><BasicPage/></Page>
-        }, {
+        },
+        // Алгоритмические таблицы
+        {
           path: RoutePath.BELONGING_SINGLE,
           element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingle/></Suspense>
-        }, {
+        },
+        {
+          path: RoutePath.GENITIVE_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><GenitiveTable/></Suspense>
+        },
+        {
           path: RoutePath.MANAS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Manas/></Suspense>
         },

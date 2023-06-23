@@ -77,6 +77,9 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.BELONGING_SINGLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Принадлежность единственного числа</Button>
           </Link>
+          <Link to={RoutePath.GENITIVE_TABLE} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Родительный падеж</Button>
+          </Link>
           <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование множественного числа</Button>
           </Link>
