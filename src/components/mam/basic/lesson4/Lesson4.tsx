@@ -11,8 +11,8 @@ import Lesson42 from './Lesson42'
 
 const Lesson4 = (): JSX.Element => {
   const items: TabsProps['items'] = []
-  items.push({ key: String(items.length), label: 'Общее', children: (<Lesson41/>) })
-  items.push({ key: String(items.length), label: 'Изафетные словосочетания', children: (<Lesson42/>) })
+  items.push({ key: '1', label: 'Общее', children: (<Lesson41/>) })
+  items.push({ key: '2', label: 'Изафетные словосочетания', children: (<Lesson42/>) })
   return (
     <Tabs items={items}/>
   )

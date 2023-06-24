@@ -14,34 +14,27 @@ import Lesson4 from './lesson4/Lesson4'
 const BasicPage = (): JSX.Element => {
   const items: TabsProps['items'] = []
   items.push({
-    key: String(items.length),
+    key: '1',
     label: 'Выражение вопроса',
     children: (<Lesson1/>)
   })
   items.push({
-    key: String(items.length),
+    key: '2',
     label: 'Выражение местонахождения',
     children: (<Lesson2/>)
   })
   items.push({
-    key: String(items.length),
-    label: 'Выражение принадлежности',
+    key: '3',
+    label: 'Выражение принадлежности I',
     children: (<Lesson3/>)
   })
   items.push({
-    key: String(items.length),
-    label: 'Выражение принадлежности',
+    key: '4',
+    label: 'Выражение принадлежности II',
     children: (<Lesson4/>)
   })
   return (
-    <div style={{ width: '100hv' }}>
-      <Tabs items={items}
-            tabPosition={'top'}
-            tabBarStyle={{ width: '100%', display: 'block' }}
-            style={{ width: '100%', whiteSpace: 'initial' }}
-            type="line"
-      />
-    </div>
+    <Tabs tabPosition={'top'} items={items}/>
   )
 }
 
