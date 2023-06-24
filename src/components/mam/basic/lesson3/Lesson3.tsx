@@ -22,8 +22,7 @@ const Lesson3 = (): JSX.Element => {
     key: String(items.length), label: 'Притяжательные местоимения II', children: (<Lesson33/>)
   })
   return (
-    <Tabs items={items}
-    />
+    <Tabs items={items}/>
   )
 }
 
