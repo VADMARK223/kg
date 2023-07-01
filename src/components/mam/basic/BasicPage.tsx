@@ -10,6 +10,7 @@ import Lesson1 from './lesson1/Lesson1'
 import Lesson2 from './lesson2/Lesson2'
 import Lesson3 from './lesson3/Lesson3'
 import Lesson4 from './lesson4/Lesson4'
+import Lesson5 from './lesson5/Lesson5'
 
 const BasicPage = (): JSX.Element => {
   const items: TabsProps['items'] = []
@@ -32,6 +33,11 @@ const BasicPage = (): JSX.Element => {
     key: '4',
     label: 'Выражение принадлежности II',
     children: (<Lesson4/>)
+  })
+  items.push({
+    key: '5',
+    label: 'Выражение пространственного местоположения объектов',
+    children: (<Lesson5/>)
   })
   return (
     <Tabs tabPosition={'top'} items={items}/>
