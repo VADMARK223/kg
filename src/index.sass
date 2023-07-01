@@ -1,0 +1,82 @@
+// Общие настройки для таблиц
+table, tr, td
+  border: 1px solid
+  border-collapse: collapse
+  text-align: center
+  padding: 5px
+
+// Настройки заголовков таблиц
+thead
+  background-color: #f2f2f2
+  font-weight: bold
+
+ol
+  padding: 0
+  margin: 0
+
+ol li
+  margin-left: 1.5em
+
+// Таблицы без границ
+table.table-no-borders
+  // Отключаем внешние границы
+  border: none
+
+.table-no-borders tr
+  // Отключаем горизонтальные внутренние границы
+  border: none
+
+.table-no-borders td
+  // Отключаем вертикальные внутренние границы
+  border: none
+  text-align: left
+  padding-top: 0
+  padding-bottom: 0
+
+.no-padding
+  padding: 0
+
+// Внутренние таблицы
+.inner-table
+  // Отключаем внешние границы
+  border: none
+  width: 100%
+  height: 100%
+
+.inner-table td, .inner-table tr
+  // Отключаем внутренние границы
+  border: none
+
+.inner-table td
+  // Включаем верхние границы у каждой ячейки
+  border-top: 1px solid
+  // Включаем нижние границы у каждой ячейки
+  border-bottom: 1px solid
+  // Включаем нижние границы у каждой ячейки
+  border-left: 1px solid
+
+.inner-table tr:first-child td
+  // У каждой первого колонки скрываем верхнюю границу
+  border-top: none
+
+.inner-table tr:last-child td
+  // У каждой последней колонки скрываем нижнюю границу
+  border-bottom: none
+
+.inner-table td:first-child
+  // Скрываем у первых колонок левую границу
+  border-left: none
+
+// Блок центровки
+.center-block
+  text-align: center
+  font-weight: bold
+
+.green-block
+  background-color: #07bc0c
+  color: white
+  border: 1px solid
+  border-radius: 10px
+  padding: 20px
+  margin: auto
+  max-width: 500px
