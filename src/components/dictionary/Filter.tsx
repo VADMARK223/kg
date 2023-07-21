@@ -5,11 +5,11 @@
  * @since 01.05.2023
  */
 import React from 'react'
-import Search from 'antd/es/input/Search'
 import Selector from '../common/Selector'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
 import { Space } from 'antd'
 import { useAppSelector } from '../../store/hooks'
+import SearchInput from './SearchInput'
 
 interface FilterProps {
   onSearch: (value: string) => void
@@ -23,15 +23,7 @@ const Filter = React.memo((props: FilterProps): JSX.Element => {
   const { onSearch, typesSelectCallback, tagsSelectCallback } = props
   return (
     <Space wrap>
-      <div style={{ maxWidth: '300px' }}>
-        <Search
-          placeholder={'Введите слово для поиска'}
-          allowClear
-          enterButton={'Поиск'}
-          size={'middle'}
-          onSearch={onSearch}
-        />
-      </div>
+      <SearchInput onSearch={onSearch}/>
       <Selector placeholder={'Части речи'}
                 minWidth={'200px'}
                 mode={'multiple'}

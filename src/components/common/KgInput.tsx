@@ -48,7 +48,7 @@ const KgInput = (props: KgInputProps): JSX.Element => {
              ref={inputRef}
              allowClear
              value={value}
-             style={{ width: width }}
+             style={{ width }}
              onFocus={() => {
                if (cursorPosition != null) {
                  inputRef.current.setSelectionRange(cursorPosition, cursorPosition)
