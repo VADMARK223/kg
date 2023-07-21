@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 14.04.2023
  */
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Input, Button, Space } from 'antd'
 
 interface KgInputProps {
@@ -21,21 +21,19 @@ const KgInput = (props: KgInputProps): JSX.Element => {
   const { placeholder = 'Кыргызский', width = '150px' } = props
   const value = props.valueState[0]
   const setValue = props.valueState[1]
-  const [cursorPosition, setCursorPosition] = useState<number | null>(0)
   const inputRef = useRef<any | null>()
 
   const SymbolButton = (props: SymbolButtonProps): JSX.Element => {
-    const handlerButton = (event: any): void => {
+    const handlerButton = (): void => {
       if (inputRef.current != null) {
         const selectionStart: number = inputRef.current.input.selectionStart
-        setCursorPosition(selectionStart + 1)
         const newVal = value.slice(0, selectionStart) + props.symbol.toLowerCase() + value.slice(selectionStart)
         setValue(newVal)
         inputRef.current.focus()
-      }
-
-      if (event.target != null) {
-        (event.target as HTMLButtonElement).blur()
+        setTimeout(() => {
+          const selectionPosition: number = selectionStart + 1
+          inputRef.current.setSelectionRange(selectionPosition, selectionPosition)
+        }, 0)
       }
     }
     return (
@@ -53,14 +51,8 @@ const KgInput = (props: KgInputProps): JSX.Element => {
              allowClear
              value={value}
              style={{ width }}
-             onFocus={() => {
-               if (cursorPosition != null) {
-                 inputRef.current.setSelectionRange(cursorPosition, cursorPosition)
-               }
-             }}
              onChange={(e) => {
                setValue(e.target.value)
-               setCursorPosition(null)
              }}/>
     </Space.Compact>
   )
