@@ -10,14 +10,16 @@ import { Col, Row } from 'antd'
 interface HymnLineProps {
   first: JSX.Element | string
   second: JSX.Element | string
+  third: JSX.Element | string
 }
 
 const HymnLine = (props: HymnLineProps): JSX.Element => {
-  const { first, second } = props
+  const { first, second, third } = props
   return (
     <Row>
-      <Col flex={1}>{first}</Col>
-      <Col flex={1}>{second}</Col>
+      <Col span={8}>{first}</Col>
+      <Col span={8}>{second}</Col>
+      <Col span={8}>{third}</Col>
     </Row>
   )
 }

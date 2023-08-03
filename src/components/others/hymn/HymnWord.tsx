@@ -12,38 +12,48 @@ import { updateHymnState } from '../../../store/hymnSlice'
 import { Popover } from 'antd'
 
 interface HymnWordProps {
-  ru?: string // Русский ключ для поиска
-  kg?: string // Кыргызский ключ для поиска
+  ru: string // Русский ключ для поиска в словаре
+  kgMode?: boolean // Русское текущее слово или кыргызское
   display?: string // Как слово должно отображаться в тексте
 }
 
 const HymnWord = (props: HymnWordProps): JSX.Element => {
-  const { ru, kg, display } = props
+  const { ru, kgMode = false, display } = props
+  const ruMode = !kgMode
   const dic: DicDto = useAppSelector(state => state.dic)
   const hymnState = useAppSelector(state => state.hymn)
   const dispatch = useAppDispatch()
-
-  if (ru === undefined && kg === undefined) {
-    throw new Error('Ru and kg null.')
-  }
-
-  const key = ru !== undefined ? ru : kg as string
-  const ruMode: boolean = ru !== undefined
+  let highlight: boolean = false
 
   if (hymnState.key != null) {
-    console.log('hymnState', hymnState)
+    // Если навели
+    if (hymnState.isHovered) {
+      // Если ключи совпадают
+      if (hymnState.key === ru) {
+        // Если режимы разные
+        if (hymnState.ruMode !== ruMode) {
+          highlight = true
+        }
+      }
+    }
   }
 
-  let foundWord: WordDto | undefined
-  if (ruMode) {
-    foundWord = dic.words.find(word => word.ru.toLowerCase() === (ru as string).toLowerCase())
-  } else {
-    foundWord = dic.words.find(word => word.kg.toLowerCase() === (kg as string).toLowerCase())
+  const foundWord: WordDto | undefined = dic.words.find(word => word.ru.toLowerCase() === ru.toLowerCase())
+
+  let translate: undefined | string
+  if (foundWord !== undefined) {
+    if (ruMode) {
+      translate = foundWord.ru
+    } else {
+      translate = foundWord.kg
+    }
   }
+
+  const errorMessage: string = `Слово не найдено "${ru}"`
 
   const tooltip = (): JSX.Element => {
     if (foundWord === undefined) {
-      return (<>Слово не найдено</>)
+      return (<>{errorMessage}</>)
     }
 
     if (ruMode) {
@@ -55,7 +65,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
 
   const style: React.CSSProperties = {
     cursor: 'pointer',
-    color: foundWord === undefined ? 'red' : 'green'
+    color: foundWord === undefined ? 'red' : highlight ? 'gray' : 'green'
   }
 
   const Text = (): JSX.Element => {
@@ -63,19 +73,19 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
       return (<u>{display}</u>)
     }
 
-    if (ruMode) {
-      return (<u>{ru}</u>)
-    } else {
-      return (<u>{kg}</u>)
+    if (translate === undefined) {
+      return (<u>{errorMessage}</u>)
     }
+
+    return (<u>{translate.toLowerCase()}</u>)
   }
 
   const handlerMouseEnter = (): void => {
-    dispatch(updateHymnState({ isHovered: true, key, ruMode }))
+    dispatch(updateHymnState({ isHovered: true, key: ru, ruMode }))
   }
 
   const handlerMouseLeave = (): void => {
-    dispatch(updateHymnState({ isHovered: false, key, ruMode }))
+    dispatch(updateHymnState({ isHovered: false, key: ru, ruMode }))
   }
 
   return (
