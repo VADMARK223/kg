@@ -38,7 +38,7 @@ const BasicPage = React.lazy(async () => await import('./components/mam/basic/Ba
 const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
 const GenitiveTable = React.lazy(async () => await import('./components/algorithmTables/GenitiveTable'))
 
-const Hymn = React.lazy(async () => await import('./components/others/Hymn'))
+const Hymn = React.lazy(async () => await import('./components/others/hymn/Hymn'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
