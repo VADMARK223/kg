@@ -38,7 +38,7 @@ const BasicPage = React.lazy(async () => await import('./components/mam/basic/Ba
 const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
 const GenitiveTable = React.lazy(async () => await import('./components/algorithmTables/GenitiveTable'))
 
-const Manas = React.lazy(async () => await import('./manas/Manas'))
+const Hymn = React.lazy(async () => await import('./components/others/Hymn'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
@@ -133,8 +133,8 @@ function App (): JSX.Element {
           element: <Suspense fallback={<div>Загрузка...</div>}><GenitiveTable/></Suspense>
         },
         {
-          path: RoutePath.MANAS,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Manas/></Suspense>
+          path: RoutePath.HYMN,
+          element: <Suspense fallback={<div>Загрузка...</div>}><Hymn/></Suspense>
         },
         {
           path: RoutePath.ALL,

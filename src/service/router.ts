@@ -15,6 +15,6 @@ export enum RoutePath {
   // Алгоритмические таблицы
   BELONGING_SINGLE = '/belonging_single', // Образование категории принадлежности единственного числа
   GENITIVE_TABLE = '/genitive_table', // Образование родительного падежа
-  MANAS = '/manas',
+  HYMN = '/hymn', // Гимн
   ALL = '*' // Шаблон для всех страниц
 }

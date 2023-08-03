@@ -86,9 +86,9 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.PRONOUNS} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} style={{ display: 'none' }}>Местоимения</Button>
           </Link>
-          <Divider/>
-          <Link style={{ display: 'none' }} to={RoutePath.MANAS} onClick={onCloseSideMenuHandler}>
-            <Button type={'primary'}>Манас</Button>
+          <Divider orientation={'left'}>Прочее</Divider>
+          <Link to={RoutePath.HYMN} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'}>Гимн</Button>
           </Link>
           {ADMIN_MODE &&
           <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}
