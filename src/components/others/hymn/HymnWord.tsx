@@ -65,7 +65,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
 
   const style: React.CSSProperties = {
     cursor: 'pointer',
-    color: foundWord === undefined ? 'red' : highlight ? 'gray' : 'green'
+    color: foundWord === undefined ? 'red' : highlight ? 'yellow' : 'green'
   }
 
   const Text = (): JSX.Element => {
@@ -80,7 +80,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
     return (<u>{translate.toLowerCase()}</u>)
   }
 
-  const handlerMouseEnter = (): void => {
+  const handlerStartAction = (): void => {
     dispatch(updateHymnState({ isHovered: true, key: ru, ruMode }))
   }
 
@@ -91,7 +91,8 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   return (
     <Popover content={tooltip}>
         <span style={style}
-              onMouseEnter={handlerMouseEnter}
+          // onClick={handlerStartAction}
+              onMouseEnter={handlerStartAction}
               onMouseLeave={handlerMouseLeave}
         >
           <Text/>
