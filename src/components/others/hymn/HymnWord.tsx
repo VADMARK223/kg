@@ -65,7 +65,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
 
   const style: React.CSSProperties = {
     cursor: 'pointer',
-    color: foundWord === undefined ? 'red' : highlight ? 'yellow' : 'green'
+    color: foundWord === undefined ? 'red' : highlight ? 'red' : 'green'
   }
 
   const Text = (): JSX.Element => {
