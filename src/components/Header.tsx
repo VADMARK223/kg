@@ -88,7 +88,7 @@ const Header = (): JSX.Element => {
           </Link>
           <Divider orientation={'left'}>Прочее</Divider>
           <Link to={RoutePath.HYMN} onClick={onCloseSideMenuHandler}>
-            <Button type={'primary'}>Гимн</Button>
+            <Button type={'primary'}>Гимн Кыргызстана</Button>
           </Link>
           {ADMIN_MODE &&
           <Link to={RoutePath.SERVICE} onClick={onCloseSideMenuHandler}><Button type={'primary'}>Сервис</Button></Link>}

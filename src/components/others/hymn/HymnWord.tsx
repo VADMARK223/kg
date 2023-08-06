@@ -9,7 +9,7 @@ import { WordDto } from '../../../models/dto/WordDto'
 import { DicDto } from '../../../models/dto/DicDto'
 import { useAppSelector } from '../../../store/hooks'
 import { Popover } from 'antd'
-import { eventManager, Event } from './eventManager'
+import { eventManager, Event, EventData } from './eventManager'
 
 interface HymnWordProps {
   ru: string // Русский ключ для поиска в словаре
@@ -23,18 +23,15 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   const dic: DicDto = useAppSelector(state => state.dic)
   const [highlight, setHighlight] = useState<boolean>(false)
 
-  console.log('RENDER')
   useEffect(() => {
-    eventManager.on(Event.Show, (id: string) => {
-      if (id === ru) {
-        console.log('Show', id)
+    eventManager.on(Event.Highlight, (data: EventData) => {
+      if (data.ru === ru && data.ruMode !== ruMode) {
         setHighlight(true)
       }
     })
 
-    eventManager.on(Event.Hide, (id: string) => {
-      if (id === ru) {
-        console.log('Hide', id)
+    eventManager.on(Event.Clear, (data: EventData) => {
+      if (data.ru === ru && data.ruMode !== ruMode) {
         setHighlight(false)
       }
     })
@@ -83,11 +80,11 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   }
 
   const handlerStartAction = (): void => {
-    eventManager.emit(Event.Show, ru)
+    eventManager.emit(Event.Highlight, { ru, ruMode })
   }
 
   const handlerMouseLeave = (): void => {
-    eventManager.emit(Event.Hide, ru)
+    eventManager.emit(Event.Clear, { ru, ruMode })
   }
 
   return (

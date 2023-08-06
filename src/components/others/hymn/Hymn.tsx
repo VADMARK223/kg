@@ -91,34 +91,32 @@ const Hymn = (): JSX.Element => {
                   third={<span>Ваша <HymnWord ru={'судьба'} display={'судьба'}/> в ваших <HymnWord ru={'рука'} display={'руках'}/>.</span>}
         />
 
-        <div style={{ display: 'none' }}>
-          <br/>
+        <br/>
 
-          <HymnLine first={<span><HymnWord ru={'припев'} display={'Кайырмасы.'} kgMode/></span>}
-                    second={<span><HymnWord ru={'припев'} display={'Припев.'}/></span>}
-                    third={<span>1</span>}
-          />
+        <HymnLine first={<span><HymnWord ru={'припев'} display={'Кайырма:'} kgMode/></span>}
+                  second={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
+                  third={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
+        />
 
-          <HymnLine first={<span>Аткарылып элдин умут, тилеги,</span>}
-                    second={<span>Мечты и надежды отцов сбылись.</span>}
-                    third={<span>2</span>}
-          />
+        <HymnLine first={<span>Аткарылып элдин умут, тилеги,</span>}
+                  second={<span>Мечты и надежды отцов сбылись.</span>}
+                  third={<span>2</span>}
+        />
 
-          <HymnLine first={<span>Желбиреди эркиндиктин желеги.</span>}
-                    second={<span>И знамя свободы возносится ввысь.</span>}
-                    third={<span>3</span>}
-          />
+        <HymnLine first={<span>Желбиреди эркиндиктин желеги.</span>}
+                  second={<span>И знамя свободы возносится ввысь.</span>}
+                  third={<span>3</span>}
+        />
 
-          <HymnLine first={<span>Бизге жеткен ата салтын, мурасын,</span>}
-                    second={<span>Наследие отцов наших передадим</span>}
-                    third={<span>4</span>}
-          />
+        <HymnLine first={<span>Бизге жеткен ата салтын, мурасын,</span>}
+                  second={<span>Наследие отцов наших передадим</span>}
+                  third={<span>4</span>}
+        />
 
-          <HymnLine first={<span>Ыйык сактап урпактарга берели.</span>}
-                    second={<span>На благо народа потомкам своим.</span>}
-                    third={<span>5</span>}
-          />
-        </div>
+        <HymnLine first={<span>Ыйык сактап урпактарга берели.</span>}
+                  second={<span>На благо народа потомкам своим.</span>}
+                  third={<span>5</span>}
+        />
       </Skeleton>
     </>
   )
