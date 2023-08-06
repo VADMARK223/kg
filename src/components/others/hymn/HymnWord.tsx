@@ -4,12 +4,12 @@
  * @author Markitanov Vadim
  * @since 03.08.2023
  */
-import React from 'react'
+import React, { useState } from 'react'
 import { WordDto } from '../../../models/dto/WordDto'
 import { DicDto } from '../../../models/dto/DicDto'
 import { useAppSelector, useAppDispatch } from '../../../store/hooks'
-import { updateHymnState } from '../../../store/hymnSlice'
 import { Popover } from 'antd'
+import { updateHymnState } from '../../../store/hymnSlice'
 
 interface HymnWordProps {
   ru: string // Русский ключ для поиска в словаре
@@ -24,6 +24,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   const hymnState = useAppSelector(state => state.hymn)
   const dispatch = useAppDispatch()
   let highlight: boolean = false
+  const [open, setOpen] = useState(false)
 
   if (hymnState.key != null) {
     // Если навели
@@ -81,17 +82,21 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   }
 
   const handlerStartAction = (): void => {
+    setOpen(true)
     dispatch(updateHymnState({ isHovered: true, key: ru, ruMode }))
   }
 
   const handlerMouseLeave = (): void => {
+    setOpen(false)
     dispatch(updateHymnState({ isHovered: false, key: ru, ruMode }))
   }
 
   return (
-    <Popover content={tooltip}>
+    <Popover
+      open={open}
+      content={tooltip}
+    >
         <span style={style}
-          // onClick={handlerStartAction}
               onMouseEnter={handlerStartAction}
               onMouseLeave={handlerMouseLeave}
         >
