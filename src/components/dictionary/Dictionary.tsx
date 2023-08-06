@@ -7,8 +7,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import data from '../../assets/dictionary.json'
 import Word from './Word'
-import { Button, Space, InputNumber, Tooltip, Popover, List, Empty, FloatButton } from 'antd'
-import { InfoCircleTwoTone, SwapOutlined, SettingOutlined, CaretUpOutlined } from '@ant-design/icons'
+import { Button, Space, InputNumber, Popover, List, Empty, FloatButton } from 'antd'
+import { SwapOutlined, SettingOutlined, CaretUpOutlined } from '@ant-design/icons'
 import { fetchDic } from '../../api/dictionary'
 import type { DicDto } from '../../models/dto/DicDto'
 import ModalQuiz from './ModalQuiz'
@@ -21,6 +21,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import Filter from './Filter'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
 import { useAppSelector, useAppDispatch } from '../../store/hooks'
+import InfoIcon from '../common/InfoIcon'
 
 const TOTAL_QUESTIONS_MAX = 50
 
@@ -179,9 +180,7 @@ const Dictionary = (): JSX.Element => {
                     setIsModalOpen(true)
                   }}>Быстрый опросник
           </Button>
-          <Tooltip title={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}>
-            <InfoCircleTwoTone twoToneColor={'blue'}/>
-          </Tooltip>
+          <InfoIcon tooltip={'Можете настроить фильтры по частям речи, категориям для генерации нужных вам слов'}/>
           <p>Слов: {emptyFilter ? initWords.length : displayWords?.length}</p>
 
           <Popover title={'Настройки опросников'}
@@ -236,9 +235,7 @@ const Dictionary = (): JSX.Element => {
                     setWordsForQuiz(newWordsForQuiz)
                     setIsModalOpen(true)
                   }}>Опросник из избранных слов</Button>
-          <Tooltip title={'Добавьте слова звездочкой'}>
-            <InfoCircleTwoTone twoToneColor={'blue'}/>
-          </Tooltip>
+          <InfoIcon tooltip={'Добавьте слова звездочкой'}/>
           <p>Слов: {favoriteWordIds?.length}</p>
         </Space>
         <Space direction={'horizontal'}>

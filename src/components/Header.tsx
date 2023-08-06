@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Space, Button, Drawer, Tag, Tooltip, Divider } from 'antd'
+import { Space, Button, Drawer, Tag, Divider } from 'antd'
 import navigationService from '../service/navigation'
 import { LocalStoreKey, getSetting } from '../service/settings'
 import store from '../store'
 import type { DicDto } from '../models/dto/DicDto'
 import { exportDic, runBuild } from '../api/express'
 import { ADMIN_MODE } from '../api/common'
-import { InstagramOutlined, MessageOutlined, InfoCircleTwoTone } from '@ant-design/icons'
+import { InstagramOutlined, MessageOutlined } from '@ant-design/icons'
 import { RoutePath } from '../service/router'
+import InfoIcon from './common/InfoIcon'
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate()
@@ -106,9 +107,7 @@ const Header = (): JSX.Element => {
           <a href={'https://t.me/kyrgyztili_2023'} target={'_blank'}
              rel={'noopener noreferrer'}>Кыргыз Тили</a><br/>
         </Tag>
-        <Tooltip title={'Также источник: Э.Дж. МАМЫТОВА (Кыргызский для начинающих)'}>
-          <InfoCircleTwoTone twoToneColor={'blue'}/>
-        </Tooltip>
+        <InfoIcon tooltip={'Также источник: Э.Дж. МАМЫТОВА (Кыргызский для начинающих)'}/>
         {ADMIN_MODE && <>
           {!isAuth ? <Link key={'4'} to={'/register'}>Регистрация</Link> : null}
           {!isAuth ? <Link key={'5'} to={'/login'}>Логин</Link> : null}

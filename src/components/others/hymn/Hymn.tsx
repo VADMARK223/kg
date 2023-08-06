@@ -14,6 +14,7 @@ import { getDic } from '../../../store/dicSlice'
 import data from '../../../assets/dictionary.json'
 import { DicDto } from '../../../models/dto/DicDto'
 import { Skeleton } from 'antd'
+import InfoIcon from '../../common/InfoIcon'
 
 const Hymn = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -34,12 +35,41 @@ const Hymn = (): JSX.Element => {
     }
   }, [dic.words])
 
+  const Chorus = (): JSX.Element => (
+    <>
+      <HymnLine first={<span><HymnWord ru={'припев'} display={'Кайырма:'} kgMode/></span>}
+                second={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
+                third={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
+      />
+
+      <HymnLine first={<span><HymnWord ru={'двигаться вперёд'} kgMode display={'Алгала'}/>й <HymnWord ru={'давать'} kgMode/>, кыргыз <HymnWord ru={'народ'} kgMode/>,</span>}
+                second={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
+                third={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
+      />
+
+      <HymnLine first={<span><HymnWord ru={'свобода'} kgMode display={'Азаттык'}/>тын <HymnWord ru={'путь'} kgMode display={'жол'}/>унда,</span>}
+                second={<span><HymnWord ru={'путь'} display={'Путем'}/> <HymnWord ru={'свобода'} display={'свободы'}/>, вперёд!</span>}
+                third={<span>В <HymnWord ru={'путь'} display={'путь'}/> к <HymnWord ru={'свобода'} display={'свободе'}/>,</span>}
+      />
+
+      <HymnLine first={<span><HymnWord ru={'развиваться, прогрессировать'} kgMode display={'Өркүндө'}/>й <HymnWord ru={'давать'} kgMode/>, өсө <HymnWord ru={'давать'} kgMode/>,</span>}
+                second={<span>Взрастай народ, расцветай,</span>}
+                third={<span>Продолжай <HymnWord ru={'развиваться, прогрессировать'} display={'прогрессировать'}/>, продолжай процветать,</span>}
+      />
+
+      <HymnLine first={<span><HymnWord ru={'свой'} kgMode display={'Өз'}/> <HymnWord ru={'судьба'} kgMode display={'тагдыр'}/>ың <HymnWord ru={'рука'} kgMode display={'кол'}/>унда.</span>}
+                second={<span><HymnWord ru={'свой'} display={'Свою'}/> <HymnWord ru={'судьба'} display={'судьбу'}/> созидай!</span>}
+                third={<span>Ваша <HymnWord ru={'судьба'} display={'судьба'}/> в ваших <HymnWord ru={'рука'} display={'руках'}/>.</span>}
+      />
+    </>
+  )
+
   return (
     <>
-      <h1>Гимн Кыргызстана</h1>
-      <HymnLine first={<h3>Кыргызский</h3>}
-                second={<h3>Русский (официальный)</h3>}
-                third={<h3>Русский (моя интерпретация)</h3>}
+      <h1> Гимн Кыргызстана <InfoIcon tooltip={'Гимн утверждён постановлением Верховного Совета Республики Кыргызстан от 18 декабря 1992 года.'}/></h1>
+      <HymnLine first={<h3> Кыргызский <InfoIcon tooltip={'Слова: Ж.Садыкова, Ш.Кулуева Музыка: Н.Давлесова, К.Молдобасанова'}/></h3>}
+                second={<h3> Русский (официальный) <InfoIcon tooltip={'К.Акматов и М.А.Рудов'}/></h3>}
+                third={<h3> Русский (моя интерпретация) <InfoIcon tooltip={'В.В.Маркитанов =)'}/></h3>}
       />
 
       <Skeleton loading={loading} active>
@@ -65,58 +95,32 @@ const Hymn = (): JSX.Element => {
         />
 
         <br/>
-
-        <HymnLine first={<span><HymnWord ru={'припев'} display={'Кайырма:'} kgMode/></span>}
-                  second={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
-                  third={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
-        />
-
-        <HymnLine first={<span><HymnWord ru={'двигаться вперёд'} kgMode display={'Алгала'}/>й <HymnWord ru={'давать'} kgMode/>, кыргыз <HymnWord ru={'народ'} kgMode/>,</span>}
-                  second={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
-                  third={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
-        />
-
-        <HymnLine first={<span><HymnWord ru={'свобода'} kgMode display={'Азаттык'}/>тын <HymnWord ru={'путь'} kgMode display={'жол'}/>унда,</span>}
-                  second={<span><HymnWord ru={'путь'} display={'Путем'}/> <HymnWord ru={'свобода'} display={'свободы'}/>, вперёд!</span>}
-                  third={<span>В <HymnWord ru={'путь'} display={'путь'}/> к <HymnWord ru={'свобода'} display={'свободе'}/>,</span>}
-        />
-
-        <HymnLine first={<span><HymnWord ru={'развиваться, прогрессировать'} kgMode display={'Өркүндө'}/>й <HymnWord ru={'давать'} kgMode/>, өсө <HymnWord ru={'давать'} kgMode/>,</span>}
-                  second={<span>Взрастай народ, расцветай,</span>}
-                  third={<span>Продолжай <HymnWord ru={'развиваться, прогрессировать'} display={'прогрессировать'}/>, продолжай процветать,</span>}
-        />
-
-        <HymnLine first={<span><HymnWord ru={'свой'} kgMode display={'Өз'}/> <HymnWord ru={'судьба'} kgMode display={'тагдыр'}/>ың <HymnWord ru={'рука'} kgMode display={'кол'}/>унда.</span>}
-                  second={<span><HymnWord ru={'свой'} display={'Свою'}/> <HymnWord ru={'судьба'} display={'судьбу'}/> созидай!</span>}
-                  third={<span>Ваша <HymnWord ru={'судьба'} display={'судьба'}/> в ваших <HymnWord ru={'рука'} display={'руках'}/>.</span>}
-        />
-
+        <Chorus/>
         <br/>
-
-        <HymnLine first={<span><HymnWord ru={'припев'} display={'Кайырма:'} kgMode/></span>}
-                  second={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
-                  third={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
-        />
 
         <HymnLine first={<span>Аткарылып элдин умут, тилеги,</span>}
                   second={<span>Мечты и надежды отцов сбылись.</span>}
-                  third={<span>2</span>}
+                  third={<span>Наши надежды и стремления выполнены.</span>}
         />
 
         <HymnLine first={<span>Желбиреди эркиндиктин желеги.</span>}
                   second={<span>И знамя свободы возносится ввысь.</span>}
-                  third={<span>3</span>}
+                  third={<span>Наши люди размахивают флагом свободы.</span>}
         />
 
         <HymnLine first={<span>Бизге жеткен ата салтын, мурасын,</span>}
                   second={<span>Наследие отцов наших передадим</span>}
-                  third={<span>4</span>}
+                  third={<span>Традиции наших отцов дошли к нас в целости.</span>}
         />
 
         <HymnLine first={<span>Ыйык сактап урпактарга берели.</span>}
                   second={<span>На благо народа потомкам своим.</span>}
-                  third={<span>5</span>}
+                  third={<span>Пусть поколения сохранят наше святое наследие.</span>}
         />
+
+        <br/>
+
+        <Chorus/>
       </Skeleton>
     </>
   )
