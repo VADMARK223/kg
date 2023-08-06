@@ -4,12 +4,12 @@
  * @author Markitanov Vadim
  * @since 03.08.2023
  */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { WordDto } from '../../../models/dto/WordDto'
 import { DicDto } from '../../../models/dto/DicDto'
-import { useAppSelector, useAppDispatch } from '../../../store/hooks'
+import { useAppSelector } from '../../../store/hooks'
 import { Popover } from 'antd'
-import { updateHymnState } from '../../../store/hymnSlice'
+import { eventManager, Event } from './eventManager'
 
 interface HymnWordProps {
   ru: string // Русский ключ для поиска в словаре
@@ -21,23 +21,24 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   const { ru, kgMode = false, display } = props
   const ruMode = !kgMode
   const dic: DicDto = useAppSelector(state => state.dic)
-  const hymnState = useAppSelector(state => state.hymn)
-  const dispatch = useAppDispatch()
-  let highlight: boolean = false
-  const [open, setOpen] = useState(false)
+  const [highlight, setHighlight] = useState<boolean>(false)
 
-  if (hymnState.key != null) {
-    // Если навели
-    if (hymnState.isHovered) {
-      // Если ключи совпадают
-      if (hymnState.key === ru) {
-        // Если режимы разные
-        if (hymnState.ruMode !== ruMode) {
-          highlight = true
-        }
+  console.log('RENDER')
+  useEffect(() => {
+    eventManager.on(Event.Show, (id: string) => {
+      if (id === ru) {
+        console.log('Show', id)
+        setHighlight(true)
       }
-    }
-  }
+    })
+
+    eventManager.on(Event.Hide, (id: string) => {
+      if (id === ru) {
+        console.log('Hide', id)
+        setHighlight(false)
+      }
+    })
+  }, [])
 
   const foundWord: WordDto | undefined = dic.words.find(word => word.ru.toLowerCase() === ru.toLowerCase())
 
@@ -82,18 +83,15 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
   }
 
   const handlerStartAction = (): void => {
-    setOpen(true)
-    dispatch(updateHymnState({ isHovered: true, key: ru, ruMode }))
+    eventManager.emit(Event.Show, ru)
   }
 
   const handlerMouseLeave = (): void => {
-    setOpen(false)
-    dispatch(updateHymnState({ isHovered: false, key: ru, ruMode }))
+    eventManager.emit(Event.Hide, ru)
   }
 
   return (
     <Popover
-      open={open}
       content={tooltip}
     >
         <span style={style}

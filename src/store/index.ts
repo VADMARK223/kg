@@ -6,10 +6,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import user from './userSlice'
 import common from './commonSlice'
 import dic from './dicSlice'
-import hymn from './hymnSlice'
 
 const store = configureStore({
-  reducer: { user, common, dic, hymn }
+  reducer: { user, common, dic }
 })
 
 export type CommonState = ReturnType<typeof store.getState>
