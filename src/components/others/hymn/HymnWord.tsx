@@ -56,7 +56,7 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
     }
 
     const ruWord: string = foundWords[0].ru
-    const kgWord: string = foundWords.length === 1 ? foundWords[0].kg : foundWords.map(value => value.kg).join(' или ')
+    const kgWord: string = foundWords.length === 1 ? foundWords[0].kg : foundWords.map(value => value.kg).join(', ')
 
     if (ruMode) {
       return (<>{ruWord} - {kgWord}</>)

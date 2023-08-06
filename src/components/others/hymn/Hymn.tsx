@@ -103,9 +103,9 @@ const Hymn = (): JSX.Element => {
                   third={<span>Наши надежды и стремления выполнены.</span>}
         />
 
-        <HymnLine first={<span>Желбиреди эркиндиктин желеги.</span>}
-                  second={<span>И знамя свободы возносится ввысь.</span>}
-                  third={<span>Наши люди размахивают флагом свободы.</span>}
+        <HymnLine first={<span><HymnWord ru={'развеваться'} kgMode display={'Желбире'}/>ди <HymnWord ru={'свобода'} kgMode display={'эркиндик'}/>тин <HymnWord ru={'флаг'} kgMode display={'желег'}/>и.</span>}
+                  second={<span>И <HymnWord ru={'флаг'} display={'знамя'}/> <HymnWord ru={'свобода'} display={'свободы'}/> <HymnWord ru={'развеваться'} display={'возносится'}/> ввысь.</span>}
+                  third={<span>Наши люди <HymnWord ru={'развеваться'} display={'размахивают'}/> <HymnWord ru={'флаг'} display={'флагом'}/> <HymnWord ru={'свобода'} display={'свободы'}/>.</span>}
         />
 
         <HymnLine first={<span>Бизге жеткен ата салтын, мурасын,</span>}
@@ -113,9 +113,9 @@ const Hymn = (): JSX.Element => {
                   third={<span>Традиции наших отцов дошли к нас в целости.</span>}
         />
 
-        <HymnLine first={<span>Ыйык сактап урпактарга берели.</span>}
+        <HymnLine first={<span><HymnWord ru={'святой'} kgMode display={'Ыйык'}/> <HymnWord ru={'хранить, оберегать, беречь'} kgMode display={'сакта'}/>п урпактарга берели.</span>}
                   second={<span>На благо народа потомкам своим.</span>}
-                  third={<span>Пусть поколения сохранят наше святое наследие.</span>}
+                  third={<span>Пусть поколения <HymnWord ru={'хранить, оберегать, беречь'} display={'сохранят'}/> наше <HymnWord ru={'святой'} display={'святое'}/> наследие.</span>}
         />
 
         <br/>
