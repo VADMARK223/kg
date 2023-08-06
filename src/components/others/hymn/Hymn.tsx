@@ -42,9 +42,9 @@ const Hymn = (): JSX.Element => {
                 third={<span><HymnWord ru={'припев'} display={'Припев:'}/></span>}
       />
 
-      <HymnLine first={<span><HymnWord ru={'двигаться вперёд'} kgMode display={'Алгала'}/>й <HymnWord ru={'давать'} kgMode/>, кыргыз <HymnWord ru={'народ'} kgMode/>,</span>}
-                second={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
-                third={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'}/>,</span>}
+      <HymnLine first={<span><HymnWord ru={'двигаться вперёд'} kgMode display={'Алгала'}/>й <HymnWord ru={'давать'} kgMode display={'бер'}/>, кыргыз <HymnWord ru={'народ'} kgMode display={'эл'}/>,</span>}
+                second={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'} display={'народ'}/>,</span>}
+                third={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'} display={'народ'}/>,</span>}
       />
 
       <HymnLine first={<span><HymnWord ru={'свобода'} kgMode display={'Азаттык'}/>тын <HymnWord ru={'путь'} kgMode display={'жол'}/>унда,</span>}
@@ -52,7 +52,7 @@ const Hymn = (): JSX.Element => {
                 third={<span>В <HymnWord ru={'путь'} display={'путь'}/> к <HymnWord ru={'свобода'} display={'свободе'}/>,</span>}
       />
 
-      <HymnLine first={<span><HymnWord ru={'развиваться, прогрессировать'} kgMode display={'Өркүндө'}/>й <HymnWord ru={'давать'} kgMode/>, өсө <HymnWord ru={'давать'} kgMode/>,</span>}
+      <HymnLine first={<span><HymnWord ru={'развиваться, прогрессировать'} kgMode display={'Өркүндө'}/>й <HymnWord ru={'давать'} kgMode display={'бер'}/>, өсө <HymnWord ru={'давать'} kgMode display={'бер'}/>,</span>}
                 second={<span>Взрастай народ, расцветай,</span>}
                 third={<span>Продолжай <HymnWord ru={'развиваться, прогрессировать'} display={'прогрессировать'}/>, продолжай процветать,</span>}
       />
@@ -79,7 +79,7 @@ const Hymn = (): JSX.Element => {
                   third={<span><HymnWord ru={'белый'} display={'Белые'}/> <HymnWord ru={'горный ледник'} display={'горные ледники'}/>, <HymnWord ru={'неприступная высокая скалистая гора'} display={'высокие'}/> <HymnWord ru={'скала'} display={'скалы'}/>, <HymnWord ru={'поле'}
                                                                                                                                                                                                                                                                         display={'поля'}/>,</span>}
         />
-        <HymnLine first={<span><HymnWord ru={'народ'} kgMode display={'Эл'}/>ибиздин <HymnWord ru={'душа'} kgMode display={'жан'}/>ы менен <HymnWord ru={'равно'} kgMode/>.</span>}
+        <HymnLine first={<span><HymnWord ru={'народ'} kgMode display={'Эл'}/>ибиздин <HymnWord ru={'душа'} kgMode display={'жан'}/>ы менен <HymnWord ru={'равно'} kgMode display={'барабар'}/>.</span>}
                   second={<span>Родная, заветная наша земля.</span>}
                   third={<span><HymnWord ru={'равно'} display={'Равные'}/> <HymnWord ru={'душа'} display={'душам'}/> нашего <HymnWord ru={'народ'} display={'народа'}/>.</span>}
         />

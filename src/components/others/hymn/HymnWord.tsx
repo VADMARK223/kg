@@ -14,7 +14,7 @@ import { eventManager, Event, EventData } from './eventManager'
 interface HymnWordProps {
   ru: string // Русский ключ для поиска в словаре
   kgMode?: boolean // Русское текущее слово или кыргызское
-  display?: string // Как слово должно отображаться в тексте
+  display: string // Как слово должно отображаться в тексте
 }
 
 const HymnWord = (props: HymnWordProps): JSX.Element => {
@@ -37,34 +37,37 @@ const HymnWord = (props: HymnWordProps): JSX.Element => {
     })
   }, [])
 
-  const foundWord: WordDto | undefined = dic.words.find(word => word.ru.toLowerCase() === ru.toLowerCase())
+  const foundWords: WordDto[] = dic.words.filter(word => word.ru.toLowerCase() === ru.toLowerCase())
 
   let translate: undefined | string
-  if (foundWord !== undefined) {
+  if (foundWords.length !== 0) {
     if (ruMode) {
-      translate = foundWord.ru
+      translate = foundWords[0].ru
     } else {
-      translate = foundWord.kg
+      translate = foundWords[0].kg
     }
   }
 
   const errorMessage: string = `Слово не найдено "${ru}"`
 
   const tooltip = (): JSX.Element => {
-    if (foundWord === undefined) {
+    if (foundWords.length === 0) {
       return (<>{errorMessage}</>)
     }
 
+    const ruWord: string = foundWords[0].ru
+    const kgWord: string = foundWords.length === 1 ? foundWords[0].kg : foundWords.map(value => value.kg).join(' или ')
+
     if (ruMode) {
-      return (<>{foundWord?.ru} - {foundWord?.kg}</>)
+      return (<>{ruWord} - {kgWord}</>)
     } else {
-      return (<>{foundWord?.kg} - {foundWord?.ru}</>)
+      return (<>{kgWord} - {ruWord}</>)
     }
   }
 
   const style: React.CSSProperties = {
     cursor: 'pointer',
-    color: foundWord === undefined ? 'red' : highlight ? 'red' : 'green'
+    color: foundWords.length === 0 ? 'red' : highlight ? 'red' : 'green'
   }
 
   const Text = (): JSX.Element => {
