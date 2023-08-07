@@ -15,6 +15,7 @@ import data from '../../../assets/dictionary.json'
 import { DicDto } from '../../../models/dto/DicDto'
 import { Skeleton } from 'antd'
 import InfoIcon from '../../common/InfoIcon'
+import HymnAffix from './HymnAffix'
 
 const Hymn = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -73,8 +74,8 @@ const Hymn = (): JSX.Element => {
       />
 
       <Skeleton loading={loading} active>
-        <HymnLine first={<span><HymnWord ru={'белый'} kgMode display={'Ак'}/> <HymnWord ru={'горный ледник'} kgMode display={'мөңгү'}/>лүү <HymnWord ru={'неприступная высокая скалистая гора'} kgMode display={'аска'}/> <HymnWord ru={'скала'} kgMode display={'зоо'}/>лор, <HymnWord ru={'поле'} kgMode
-                                                                                                                                                                                                                                                                                        display={'талаа'}/>лар,</span>}
+        <HymnLine first={<span><HymnWord ru={'белый'} kgMode display={'Ак'}/> <HymnWord ru={'горный ледник'} kgMode display={'мөңгү'}/>лүү <HymnWord ru={'неприступная высокая скалистая гора'} kgMode display={'аска'}/> <HymnWord ru={'скала'} kgMode display={'зоо'}/><HymnAffix tooltip={<span><b>Аффикс множественного числа</b><br/>о - последняя гласная буква корня<br/>о - последняя буква корня гласная</span>} display={'лор'}/>, <HymnWord ru={'поле'} kgMode
+                                                                                                                                                                                                                                                                                        display={'талаа'}/><HymnAffix tooltip={<span><b>Аффикс множественного числа</b><br/>а - последняя гласная буква корня<br/>а - последняя буква корня гласная</span>} display={'лар'}/>,</span>}
                   second={<span><HymnWord ru={'неприступная высокая скалистая гора'} display={'Высокие горы'}/>, долины, <HymnWord ru={'поле'} display={'поля'}/> - </span>}
                   third={<span><HymnWord ru={'белый'} display={'Белые'}/> <HymnWord ru={'горный ледник'} display={'горные ледники'}/>, <HymnWord ru={'неприступная высокая скалистая гора'} display={'высокие'}/> <HymnWord ru={'скала'} display={'скалы'}/>, <HymnWord ru={'поле'}
                                                                                                                                                                                                                                                                         display={'поля'}/>,</span>}
@@ -108,9 +109,9 @@ const Hymn = (): JSX.Element => {
                   third={<span>Наши люди <HymnWord ru={'развеваться'} display={'размахивают'}/> <HymnWord ru={'флаг'} display={'флагом'}/> <HymnWord ru={'свобода'} display={'свободы'}/>.</span>}
         />
 
-        <HymnLine first={<span>Бизге жеткен ата салтын, мурасын,</span>}
-                  second={<span>Наследие отцов наших передадим</span>}
-                  third={<span>Традиции наших отцов дошли к нас в целости.</span>}
+        <HymnLine first={<span>Бизге жеткен <HymnWord ru={'отец, папа'} kgMode display={'ата'}/> салтын, мурасын,</span>}
+                  second={<span>Наследие <HymnWord ru={'отец, папа'} display={'отцов'}/> наших передадим</span>}
+                  third={<span>Традиции наших <HymnWord ru={'отец, папа'} display={'отцов'}/> дошли к нас в целости.</span>}
         />
 
         <HymnLine first={<span><HymnWord ru={'святой'} kgMode display={'Ыйык'}/> <HymnWord ru={'хранить, оберегать, беречь'} kgMode display={'сакта'}/>п урпактарга берели.</span>}
