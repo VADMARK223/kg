@@ -5,14 +5,13 @@
  * @since 26.05.2023
  */
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { RoutePath } from '../../../../service/router'
+import LinkLocative from '../../../common/links/LinkLocative'
 
 const Lesson2 = (): JSX.Element => {
   return (
     <>
       <p>
-        1. Значение местонахождения выражает местный падеж (см. <Link to={RoutePath.LOCATIVE}>Образование местного падежа</Link>)
+        1. Значение местонахождения выражает местный падеж (см. <LinkLocative/>)
       </p>
       <table>
         <tbody>

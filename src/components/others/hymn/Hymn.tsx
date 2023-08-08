@@ -16,6 +16,8 @@ import { DicDto } from '../../../models/dto/DicDto'
 import { Skeleton } from 'antd'
 import InfoIcon from '../../common/InfoIcon'
 import HymnAffix from './HymnAffix'
+import LinkMultiplicity from '../../common/links/LinkMultiplicity'
+import LinkLocative from '../../common/links/LinkLocative'
 
 const Hymn = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -48,7 +50,8 @@ const Hymn = (): JSX.Element => {
                 third={<span><HymnWord ru={'двигаться вперёд'} display={'Вперёд'}/> кыргызский <HymnWord ru={'народ'} display={'народ'}/>,</span>}
       />
 
-      <HymnLine first={<span><HymnWord ru={'свобода'} kgMode display={'Азаттык'}/>тын <HymnWord ru={'путь'} kgMode display={'жол'}/>унда,</span>}
+      <HymnLine first={<span><HymnWord ru={'свобода'} kgMode display={'Азаттык'}/>тын <HymnWord ru={'путь'} kgMode display={'жол'}/>ун<HymnAffix
+        tooltip={<span><LinkLocative/><br/>у - последняя гласная буква корня<br/>н - последняя буква корня звонкая согласная</span>} display={'да'}/>,</span>}
                 second={<span><HymnWord ru={'путь'} display={'Путем'}/> <HymnWord ru={'свобода'} display={'свободы'}/>, вперёд!</span>}
                 third={<span>В <HymnWord ru={'путь'} display={'путь'}/> к <HymnWord ru={'свобода'} display={'свободе'}/>,</span>}
       />
@@ -58,7 +61,8 @@ const Hymn = (): JSX.Element => {
                 third={<span>Продолжай <HymnWord ru={'развиваться, прогрессировать'} display={'прогрессировать'}/>, продолжай процветать,</span>}
       />
 
-      <HymnLine first={<span><HymnWord ru={'свой'} kgMode display={'Өз'}/> <HymnWord ru={'судьба'} kgMode display={'тагдыр'}/>ың <HymnWord ru={'рука'} kgMode display={'кол'}/>унда.</span>}
+      <HymnLine first={<span><HymnWord ru={'свой'} kgMode display={'Өз'}/> <HymnWord ru={'судьба'} kgMode display={'тагдыр'}/>ың <HymnWord ru={'рука'} kgMode display={'кол'}/>ун<HymnAffix
+        tooltip={<span><LinkLocative/><br/>у - последняя гласная буква корня<br/>н - последняя буква корня звонкая согласная</span>} display={'да'}/>.</span>}
                 second={<span><HymnWord ru={'свой'} display={'Свою'}/> <HymnWord ru={'судьба'} display={'судьбу'}/> созидай!</span>}
                 third={<span>Ваша <HymnWord ru={'судьба'} display={'судьба'}/> в ваших <HymnWord ru={'рука'} display={'руках'}/>.</span>}
       />
@@ -74,8 +78,10 @@ const Hymn = (): JSX.Element => {
       />
 
       <Skeleton loading={loading} active>
-        <HymnLine first={<span><HymnWord ru={'белый'} kgMode display={'Ак'}/> <HymnWord ru={'горный ледник'} kgMode display={'мөңгү'}/>лүү <HymnWord ru={'неприступная высокая скалистая гора'} kgMode display={'аска'}/> <HymnWord ru={'скала'} kgMode display={'зоо'}/><HymnAffix tooltip={<span><b>Аффикс множественного числа</b><br/>о - последняя гласная буква корня<br/>о - последняя буква корня гласная</span>} display={'лор'}/>, <HymnWord ru={'поле'} kgMode
-                                                                                                                                                                                                                                                                                        display={'талаа'}/><HymnAffix tooltip={<span><b>Аффикс множественного числа</b><br/>а - последняя гласная буква корня<br/>а - последняя буква корня гласная</span>} display={'лар'}/>,</span>}
+        <HymnLine first={<span><HymnWord ru={'белый'} kgMode display={'Ак'}/> <HymnWord ru={'горный ледник'} kgMode display={'мөңгү'}/>лүү <HymnWord ru={'неприступная высокая скалистая гора'} kgMode display={'аска'}/> <HymnWord ru={'скала'} kgMode display={'зоо'}/><HymnAffix
+          tooltip={<span><LinkMultiplicity/><br/>о - последняя гласная буква корня<br/>о - последняя буква корня гласная<br/></span>} display={'лор'}/>, <HymnWord ru={'поле'} kgMode
+                                                                                                                                                                   display={'талаа'}/><HymnAffix
+          tooltip={<span><LinkMultiplicity/><br/>а - последняя гласная буква корня<br/>а - последняя буква корня гласная</span>} display={'лар'}/>,</span>}
                   second={<span><HymnWord ru={'неприступная высокая скалистая гора'} display={'Высокие горы'}/>, долины, <HymnWord ru={'поле'} display={'поля'}/> - </span>}
                   third={<span><HymnWord ru={'белый'} display={'Белые'}/> <HymnWord ru={'горный ледник'} display={'горные ледники'}/>, <HymnWord ru={'неприступная высокая скалистая гора'} display={'высокие'}/> <HymnWord ru={'скала'} display={'скалы'}/>, <HymnWord ru={'поле'}
                                                                                                                                                                                                                                                                         display={'поля'}/>,</span>}
