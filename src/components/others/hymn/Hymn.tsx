@@ -115,9 +115,10 @@ const Hymn = (): JSX.Element => {
                   third={<span>Наши люди <HymnWord ru={'развеваться'} display={'размахивают'}/> <HymnWord ru={'флаг'} display={'флагом'}/> <HymnWord ru={'свобода'} display={'свободы'}/>.</span>}
         />
 
-        <HymnLine first={<span>Бизге жеткен <HymnWord ru={'отец, папа'} kgMode display={'ата'}/> салтын, мурасын,</span>}
-                  second={<span>Наследие <HymnWord ru={'отец, папа'} display={'отцов'}/> наших передадим</span>}
-                  third={<span>Традиции наших <HymnWord ru={'отец, папа'} display={'отцов'}/> дошли к нас в целости.</span>}
+        {/* -ге дательный падеж */}
+        <HymnLine first={<span><HymnWord ru={'мы'} kgMode display={'Биз'}/>ге жеткен <HymnWord ru={'отец, папа'} kgMode display={'ата'}/> <HymnWord ru={'обычай'} kgMode display={'салт'}/>ын, <HymnWord ru={'наследство, наследие'} kgMode display={'мурас'}/>ын,</span>}
+                  second={<span><HymnWord ru={'наследство, наследие'} display={'Наследие'}/> <HymnWord ru={'отец, папа'} display={'отцов'}/> наших передадим</span>}
+                  third={<span><HymnWord ru={'обычай'} display={'Традиции'}/> наших <HymnWord ru={'отец, папа'} display={'отцов'}/> дошли к нас в целости.</span>}
         />
 
         <HymnLine first={<span><HymnWord ru={'святой'} kgMode display={'Ыйык'}/> <HymnWord ru={'хранить, оберегать, беречь'} kgMode display={'сакта'}/>п урпактарга берели.</span>}
