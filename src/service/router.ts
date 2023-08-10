@@ -11,6 +11,7 @@ export enum RoutePath {
   BASIC = '/basic', // Основной курс
   LOCATIVE = '/locative', // Местный падеж
   MULTIPLICITY = '/multiplicity', // Выражение множественности
+  DATIVE = '/dative', // Дательный падеж
   PRONOUNS = '/pronouns', // Местоимения
   // Алгоритмические таблицы
   BELONGING_SINGLE = '/belonging_single', // Образование категории принадлежности единственного числа

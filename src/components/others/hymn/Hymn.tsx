@@ -18,6 +18,7 @@ import InfoIcon from '../../common/InfoIcon'
 import HymnAffix from './HymnAffix'
 import LinkMultiplicity from '../../common/links/LinkMultiplicity'
 import LinkLocative from '../../common/links/LinkLocative'
+import LinkDative from '../../common/links/LinkDative'
 
 const Hymn = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -115,8 +116,8 @@ const Hymn = (): JSX.Element => {
                   third={<span>Наши люди <HymnWord ru={'развеваться'} display={'размахивают'}/> <HymnWord ru={'флаг'} display={'флагом'}/> <HymnWord ru={'свобода'} display={'свободы'}/>.</span>}
         />
 
-        {/* -ге дательный падеж */}
-        <HymnLine first={<span><HymnWord ru={'мы'} kgMode display={'Биз'}/>ге жеткен <HymnWord ru={'отец, папа'} kgMode display={'ата'}/> <HymnWord ru={'обычай'} kgMode display={'салт'}/>ын, <HymnWord ru={'наследство, наследие'} kgMode display={'мурас'}/>ын,</span>}
+        <HymnLine first={<span><HymnWord ru={'мы'} kgMode display={'Биз'}/><HymnAffix
+          tooltip={<span><LinkDative/><br/>и - последняя гласная буква корня<br/>з - последняя буква корня звонкая согласная</span>} display={'ге'}/> жеткен <HymnWord ru={'отец, папа'} kgMode display={'ата'}/> <HymnWord ru={'обычай'} kgMode display={'салт'}/>ын, <HymnWord ru={'наследство, наследие'} kgMode display={'мурас'}/>ын,</span>}
                   second={<span><HymnWord ru={'наследство, наследие'} display={'Наследие'}/> <HymnWord ru={'отец, папа'} display={'отцов'}/> наших передадим</span>}
                   third={<span><HymnWord ru={'обычай'} display={'Традиции'}/> наших <HymnWord ru={'отец, папа'} display={'отцов'}/> дошли к нас в целости.</span>}
         />

@@ -28,6 +28,8 @@ const Multiplicity = React.lazy(async () => await import('./components/algorithm
 const Locative = React.lazy(async () => await import('./components/algorithmTables/locative/Locative'))
 // Местоимения
 const Pronouns = React.lazy(async () => await import('./components/pronouns/Pronouns'))
+// Дательный падеж
+const DativeTable = React.lazy(async () => await import('./components/algorithmTables/DativeTable'))
 // Вводно-фонетический курс
 const IntroductoryPhoneticPage = React.lazy(async () => await import('./components/mam/introductoryPhonetic/IntroductoryPhoneticPage'))
 // Основной курс
@@ -113,6 +115,9 @@ function App (): JSX.Element {
         }, {
           path: RoutePath.MULTIPLICITY,
           element: <Suspense fallback={<div>Загрузка...</div>}><Multiplicity/></Suspense>
+        }, {
+          path: RoutePath.DATIVE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><DativeTable/></Suspense>
         }, {
           path: RoutePath.PRONOUNS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Pronouns/></Suspense>

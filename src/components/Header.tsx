@@ -84,6 +84,9 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование множественного числа</Button>
           </Link>
+          <Link to={RoutePath.DATIVE} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Образование дательного падежа</Button>
+          </Link>
           <Link to={RoutePath.PRONOUNS} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} style={{ display: 'none' }}>Местоимения</Button>
           </Link>
