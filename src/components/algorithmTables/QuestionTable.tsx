@@ -1,17 +1,15 @@
 /**
- * Компонент вопросительных аффиксов
+ * Компонент алгоритмической таблицы образования вопросительных аффиксов
  *
  * @author Markitanov Vadim
- * @since 14.05.2023
+ * @since 10.08.2023
  */
 import React from 'react'
-import MultiAffix from '../multiAffix/MultiAffix'
+import CommonTable from './CommonTable'
 
-const QuestionAffix = (): JSX.Element => {
+const QuestionTable = (): JSX.Element => {
   return (
-    <>
-      <h2>Вопросительные аффиксы</h2>
-      <br/>
+    <CommonTable title={'№1 Образование словоформ с вопросительным аффиксом -бы'}>
       <table>
         <tbody>
         <tr>
@@ -72,9 +70,8 @@ const QuestionAffix = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-      <MultiAffix/>
-    </>
+    </CommonTable>
   )
 }
 
-export default QuestionAffix
+export default QuestionTable

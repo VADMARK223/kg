@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 01.06.2023
  */
-import React from 'react';
+import React from 'react'
 import AffixItem from '../common/AffixItem'
 import WordAffix from '../common/WordAffix'
 import Letter from '../common/Letter'
@@ -13,6 +13,7 @@ import LettersPanel from '../common/LettersPanel'
 const BelongingSingle = (): JSX.Element => {
   return (
     <>
+      <h3>№3 Образование категории принадлежности единственного числа</h3>
       <LettersPanel/><br/>
       <table>
         <thead>

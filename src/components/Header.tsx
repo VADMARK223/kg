@@ -66,25 +66,28 @@ const Header = (): JSX.Element => {
           <Link to={RoutePath.BASIC} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'}>Основной курс</Button>
           </Link>
-          <Divider orientation={'left'}>Алгоритмические таблицы</Divider>
           <Link to={RoutePath.PHONETICS}
                 style={{ display: 'none' }}
                 onClick={onCloseSideMenuHandler}>
             <Button type={'primary'}>Вводно-фонетический курс</Button>
           </Link>
-          <Link to={RoutePath.LOCATIVE} onClick={onCloseSideMenuHandler}>
+          <Divider orientation={'left'}>Алгоритмические таблицы</Divider>
+          <Link to={RoutePath.QUESTION_TABLE} onClick={onCloseSideMenuHandler}>
+            <Button type={'primary'} size={'small'}>Вопросительные аффиксы</Button>
+          </Link>
+          <Link to={RoutePath.LOCATIVE_TABLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование местного падежа</Button>
           </Link>
-          <Link to={RoutePath.BELONGING_SINGLE} onClick={onCloseSideMenuHandler}>
+          <Link to={RoutePath.BELONGING_SINGLE_TABLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Принадлежность единственного числа</Button>
           </Link>
           <Link to={RoutePath.GENITIVE_TABLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Родительный падеж</Button>
           </Link>
-          <Link to={RoutePath.MULTIPLICITY} onClick={onCloseSideMenuHandler}>
+          <Link to={RoutePath.MULTIPLICITY_TABLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование множественного числа</Button>
           </Link>
-          <Link to={RoutePath.DATIVE} onClick={onCloseSideMenuHandler}>
+          <Link to={RoutePath.DATIVE_TABLE} onClick={onCloseSideMenuHandler}>
             <Button type={'primary'} size={'small'}>Образование дательного падежа</Button>
           </Link>
           <Link to={RoutePath.PRONOUNS} onClick={onCloseSideMenuHandler}>

@@ -8,12 +8,12 @@ import React, { useEffect, useState } from 'react'
 import MultiplicityAffixPractice from './MultiplicityAffixPractice'
 import { CaretUpOutlined } from '@ant-design/icons'
 import { FloatButton } from 'antd'
-import LettersPanel from '../../common/LettersPanel'
 import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../../common/Letter'
 import AffixItem from '../../common/AffixItem'
 import WordAffix from '../../common/WordAffix'
 import PhraseItem from '../../common/PhraseItem'
 import { shuffleArray } from '../../../service/utils'
+import CommonTable from '../CommonTable'
 
 const Multiplicity = (): JSX.Element => {
   const [isAtTop, setIsAtTop] = useState(false)
@@ -48,9 +48,7 @@ const Multiplicity = (): JSX.Element => {
   const practiceShuffledArray: string[] = shuffleArray(practiceInitArray)
 
   return (
-    <>
-      <LettersPanel/><br/>
-      1. Форма множественного числа образуется путем присоединения к корню слова аффикса множественного числа <b>-лар</b>
+    <CommonTable title={'№10 Образование множественного числа'}>
       <table>
         <thead>
         <tr>
@@ -390,8 +388,10 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-      Место аффикса множественного числа - всегда после корня.<br/>
-      Аффиксы множественного числа универсальны, обслуживают не только имена существительные:
+      <p>
+        Место аффикса множественного числа - всегда после корня.<br/>
+        Аффиксы множественного числа универсальны, обслуживают не только имена существительные:
+      </p>
       <table>
         <tbody>
         <tr>
@@ -420,18 +420,21 @@ const Multiplicity = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-      <br/>
-      2. В роли подлежащего, сказуемого или дополнения в предложениях иногда выступают <b>собирательные</b> числительные, которые отвечают на вопрос <b>канчоо?</b> (сколько?). <br/>
-      Из всего семь: <br/>
-      бирөө, экөө (двое), үчөө (трое), төртөө (четверо), бешөө (пятеро), алтоо (шестеро), жетөө (семеро). <br/>
+      <p>
+        2. В роли подлежащего, сказуемого или дополнения в предложениях иногда выступают <b>собирательные</b> числительные, которые отвечают на вопрос <b>канчоо?</b> (сколько?). <br/>
+        Из всего семь: <br/>
+        бирөө, экөө (двое), үчөө (трое), төртөө (четверо), бешөө (пятеро), алтоо (шестеро), жетөө (семеро).
+      </p>
       <PhraseItem kg={'Китепканада он адам:'} ru={'В библиотеке десять человек:'}/>
       <PhraseItem kg={'бирөө - окутуучу,'} ru={'один - преподователь,'}/>
       <PhraseItem kg={'үчөө - аспирант,'} ru={'трое - аспиранты,'}/>
       <PhraseItem kg={'алтоо - студент,'} ru={'шестеро - студенты.'}/>
       <div className={'center-block'}>УПРАЖНЕНИЯ</div>
-      {practiceShuffledArray.map(value => (<div key={value}><MultiplicityAffixPractice word={value}/></div>))}
+      <p>
+        {practiceShuffledArray.map(value => (<div key={value}><MultiplicityAffixPractice word={value}/></div>))}
+      </p>
       <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 20, display: getIsTop() }} onClick={scrollUpHandler}/>
-    </>
+    </CommonTable>
   )
 }
 

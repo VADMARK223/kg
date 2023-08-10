@@ -22,23 +22,26 @@ const Phrases = React.lazy(async () => await import('./components/phrases/Phrase
 const Affixes = React.lazy(async () => await import('./components/affixes/Affixes'))
 // Вводно-фонетический курс
 const Phonetics = React.lazy(async () => await import('./components/phonetics/Phonetics'))
-// Выражение множественности
-const Multiplicity = React.lazy(async () => await import('./components/algorithmTables/multiplicity/Multiplicity'))
-// Местный падеж
-const Locative = React.lazy(async () => await import('./components/algorithmTables/locative/Locative'))
 // Местоимения
 const Pronouns = React.lazy(async () => await import('./components/pronouns/Pronouns'))
-// Дательный падеж
-const DativeTable = React.lazy(async () => await import('./components/algorithmTables/DativeTable'))
 // Вводно-фонетический курс
 const IntroductoryPhoneticPage = React.lazy(async () => await import('./components/mam/introductoryPhonetic/IntroductoryPhoneticPage'))
 // Основной курс
 const BasicPage = React.lazy(async () => await import('./components/mam/basic/BasicPage'))
 
 // === Алгоритмические таблицы ===
+// Таблица вопросительных аффиксов
+const QuestionTable = React.lazy(async () => await import('./components/algorithmTables/QuestionTable'))
+// Местный падеж
+const LocativeTable = React.lazy(async () => await import('./components/algorithmTables/LocativeTable'))
 // Образование категории принадлежности единственного числа
-const BelongingSingle = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
+const BelongingSingleTable = React.lazy(async () => await import('./components/algorithmTables/BelongingSingle'))
+// Родительный падеж
 const GenitiveTable = React.lazy(async () => await import('./components/algorithmTables/GenitiveTable'))
+// Выражение множественности
+const MultiplicityTable = React.lazy(async () => await import('./components/algorithmTables/multiplicity/Multiplicity'))
+// Дательный падеж
+const DativeTable = React.lazy(async () => await import('./components/algorithmTables/DativeTable'))
 
 const Hymn = React.lazy(async () => await import('./components/others/hymn/Hymn'))
 
@@ -110,15 +113,6 @@ function App (): JSX.Element {
           path: RoutePath.PHONETICS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>
         }, {
-          path: RoutePath.LOCATIVE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Locative/></Suspense>
-        }, {
-          path: RoutePath.MULTIPLICITY,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Multiplicity/></Suspense>
-        }, {
-          path: RoutePath.DATIVE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><DativeTable/></Suspense>
-        }, {
           path: RoutePath.PRONOUNS,
           element: <Suspense fallback={<div>Загрузка...</div>}><Pronouns/></Suspense>
         }, {
@@ -130,12 +124,25 @@ function App (): JSX.Element {
         },
         // Алгоритмические таблицы
         {
-          path: RoutePath.BELONGING_SINGLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingle/></Suspense>
+          path: RoutePath.QUESTION_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><QuestionTable/></Suspense>
+        }, {
+          path: RoutePath.LOCATIVE_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><LocativeTable/></Suspense>
+        },
+        {
+          path: RoutePath.BELONGING_SINGLE_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingleTable/></Suspense>
         },
         {
           path: RoutePath.GENITIVE_TABLE,
           element: <Suspense fallback={<div>Загрузка...</div>}><GenitiveTable/></Suspense>
+        }, {
+          path: RoutePath.MULTIPLICITY_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><MultiplicityTable/></Suspense>
+        }, {
+          path: RoutePath.DATIVE_TABLE,
+          element: <Suspense fallback={<div>Загрузка...</div>}><DativeTable/></Suspense>
         },
         {
           path: RoutePath.HYMN,

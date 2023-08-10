@@ -1,20 +1,18 @@
 /**
- * Компонент
+ * Компонент алгоритмическая таблица образования родительного падежа
  *
  * @author Markitanov Vadim
  * @since 23.06.2023
  */
 import React from 'react'
-import LettersPanel from '../common/LettersPanel'
 import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
 import AffixItem from '../common/AffixItem'
 import WordAffix from '../common/WordAffix'
+import CommonTable from './CommonTable'
 
 const GenitiveTable = (): JSX.Element => {
   return (
-    <>
-      <h3>Образование родительного падежа</h3>
-      <LettersPanel/><br/><br/>
+    <CommonTable title={'№5 Образование родительного падежа'}>
       <table>
         <thead>
         <tr>
@@ -203,7 +201,7 @@ const GenitiveTable = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-    </>
+    </CommonTable>
   )
 }
 

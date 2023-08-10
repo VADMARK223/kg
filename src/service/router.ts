@@ -9,13 +9,14 @@ export enum RoutePath {
   PHONETICS = '/phonetics', // Вводно-фонетический курс
   INTRODUCTORY_PHONETIC = '/introductory_phonetic', // Вводно-фонетический курс
   BASIC = '/basic', // Основной курс
-  LOCATIVE = '/locative', // Местный падеж
-  MULTIPLICITY = '/multiplicity', // Выражение множественности
-  DATIVE = '/dative', // Дательный падеж
   PRONOUNS = '/pronouns', // Местоимения
   // Алгоритмические таблицы
-  BELONGING_SINGLE = '/belonging_single', // Образование категории принадлежности единственного числа
+  QUESTION_TABLE = '/question_table', // Алгоритмическая таблица вопросительных аффиксов
+  LOCATIVE_TABLE = '/locative_table', // Местный падеж
+  BELONGING_SINGLE_TABLE = '/belonging_single_table', // Образование категории принадлежности единственного числа
   GENITIVE_TABLE = '/genitive_table', // Образование родительного падежа
+  MULTIPLICITY_TABLE = '/multiplicity_table', // Выражение множественности
+  DATIVE_TABLE = '/dative_table', // Дательный падеж
   HYMN = '/hymn', // Гимн
   ALL = '*' // Шаблон для всех страниц
 }

@@ -4,16 +4,15 @@
  * @author Markitanov Vadim
  * @since 26.05.2023
  */
-import React from 'react';
-import LettersPanel from '../../common/LettersPanel'
-import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../../common/Letter'
-import AffixItem from '../../common/AffixItem'
-import WordAffix from '../../common/WordAffix'
+import React from 'react'
+import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
+import AffixItem from '../common/AffixItem'
+import WordAffix from '../common/WordAffix'
+import CommonTable from './CommonTable'
 
-const Locative = (): JSX.Element => {
+const LocativeTable = (): JSX.Element => {
   return (
-    <>
-      <LettersPanel/><br/>
+    <CommonTable title={'№2 Образование местного падежа'}>
       <table>
         <thead>
         <tr>
@@ -228,8 +227,8 @@ const Locative = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-    </>
+    </CommonTable>
   )
 }
 
-export default Locative
+export default LocativeTable

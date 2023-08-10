@@ -5,15 +5,14 @@
  * @since 10.08.2023
  */
 import React from 'react'
-import LettersPanel from '../common/LettersPanel'
 import Letter, { VOWELS_NAME, VOICED_CONSONANTS_NAME, VOICELESS_CONSONANTS_NAME } from '../common/Letter'
 import AffixItem from '../common/AffixItem'
 import WordAffix from '../common/WordAffix'
+import CommonTable from './CommonTable'
 
 const DativeTable = (): JSX.Element => {
   return (
-    <>
-      <LettersPanel/><br/>
+    <CommonTable title={'№12 Образование дательного падежа'}>
       <table>
         <thead>
         <tr>
@@ -228,7 +227,7 @@ const DativeTable = (): JSX.Element => {
         </tr>
         </tbody>
       </table>
-    </>
+    </CommonTable>
   )
 }
 

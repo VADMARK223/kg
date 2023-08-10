@@ -7,7 +7,6 @@
 import React from 'react'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
-import QuestionAffix from './questionAffix/QuestionAffix'
 import PredicateAffix from './predicateAffix/PredicateAffix'
 import AboutAffix from './AboutAffix'
 import PersonalAffix from './personalAffix/PersonalAffix'
@@ -20,14 +19,10 @@ const Affixes = (): JSX.Element => {
       children: (<AboutAffix/>)
     },
     {
-      key: 'QuestionAffix',
-      label: 'Вопросительные',
-      children: (<QuestionAffix/>)
-    }, {
       key: 'PersonalAffix',
       label: 'Личные',
       children: (<PersonalAffix/>)
-    },{
+    }, {
       key: 'PredicateAffix',
       label: 'Сказуемости',
       children: (<PredicateAffix/>)
