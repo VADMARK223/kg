@@ -2,7 +2,7 @@ import React, { useEffect, Suspense } from 'react'
 import { updateUserInfo } from './store/userSlice'
 import { Outlet, RouterProvider, useLocation, createHashRouter } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
-import Header from './components/header/Header'
+import Menu from './components/header/Menu'
 import { RoutePath } from './service/router'
 import NoPage from './components/NoPage'
 import ServicePage from './components/ServicePage'
@@ -71,7 +71,7 @@ function App (): JSX.Element {
 
     return (<>
       <AntHeader style={headerStyle}>
-        <Header/>
+        <Menu/>
       </AntHeader>
       <Outlet/>
     </>)

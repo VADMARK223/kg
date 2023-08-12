@@ -1,3 +1,9 @@
+/**
+ * Компонент бокового меню.
+ *
+ * @author Markitanov Vadim
+ * @since 12.08.2023
+ */
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Space, Button, Drawer, Tag, Divider } from 'antd'
@@ -10,9 +16,10 @@ import { ADMIN_MODE } from '../../api/common'
 import { InstagramOutlined, MessageOutlined } from '@ant-design/icons'
 import { RoutePath } from '../../service/router'
 import InfoIcon from '../common/InfoIcon'
-import HeaderButtonLink from './HeaderButtonLink'
+import MenuButtonLink from './MenuButtonLink'
+import { menuEventManager } from './menuEventManager'
 
-const Header = (): JSX.Element => {
+const Menu = (): JSX.Element => {
   const navigate = useNavigate()
   const [openSideMenu, setOpenSideMenu] = useState(false)
 
@@ -39,43 +46,45 @@ const Header = (): JSX.Element => {
     runBuild()
   }
 
-  const onCloseHandler = (): void => {
+  const hideMenu = (): void => {
     setOpenSideMenu(false)
   }
+
+  menuEventManager.onClose(hideMenu)
 
   return (
     <>
       <Drawer title={'Меню'}
               open={openSideMenu}
-              onClose={onCloseHandler}
+              onClose={hideMenu}
               placement={'left'}
               closable={true}
       >
         <Space direction={'vertical'} size={2}>
           <Space direction={'horizontal'}>
-            <HeaderButtonLink to={RoutePath.HOME} label={'Словарь'} onClose={onCloseHandler}/>
-            <HeaderButtonLink to={RoutePath.NUMBERS} label={'Числительные'} onClose={onCloseHandler}/>
+            <MenuButtonLink to={RoutePath.HOME} label={'Словарь'}/>
+            <MenuButtonLink to={RoutePath.NUMBERS} label={'Числительные'}/>
           </Space>
           <Space direction={'horizontal'}>
-            <HeaderButtonLink to={RoutePath.AFFIXES} label={'Аффиксы'} onClose={onCloseHandler}/>
-            <HeaderButtonLink to={RoutePath.PHRASES} label={'Разговорник'} onClose={onCloseHandler}/>
+            <MenuButtonLink to={RoutePath.AFFIXES} label={'Аффиксы'}/>
+            <MenuButtonLink to={RoutePath.PHRASES} label={'Разговорник'}/>
           </Space>
           <Divider orientation={'left'}>Мамытова Э.Дж.</Divider>
-          <HeaderButtonLink to={RoutePath.INTRODUCTORY_PHONETIC} label={'Вводно-фонетический курс'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.BASIC} label={'Основной курс'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.PHONETICS} label={'Вводно-фонетический курс'} hide onClose={onCloseHandler}/>
+          <MenuButtonLink to={RoutePath.INTRODUCTORY_PHONETIC} label={'Вводно-фонетический курс'}/>
+          <MenuButtonLink to={RoutePath.BASIC} label={'Основной курс'}/>
+          <MenuButtonLink to={RoutePath.PHONETICS} label={'Вводно-фонетический курс'} hide/>
 
           <Divider orientation={'left'}>Алгоритмические таблицы</Divider>
-          <HeaderButtonLink to={RoutePath.QUESTION_TABLE} label={'Вопросительные аффиксы'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.LOCATIVE_TABLE} label={'Местный падежа'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.BELONGING_SINGLE_TABLE} label={'Принадлежность единственного числа'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.GENITIVE_TABLE} label={'Родительный падеж'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.MULTIPLICITY_TABLE} label={'Множественно число'} onClose={onCloseHandler}/>
-          <HeaderButtonLink to={RoutePath.DATIVE_TABLE} label={'Дательный падеж'} onClose={onCloseHandler}/>
+          <MenuButtonLink to={RoutePath.QUESTION_TABLE} label={'Вопросительные аффиксы'}/>
+          <MenuButtonLink to={RoutePath.LOCATIVE_TABLE} label={'Местный падежа'}/>
+          <MenuButtonLink to={RoutePath.BELONGING_SINGLE_TABLE} label={'Принадлежность единственного числа'}/>
+          <MenuButtonLink to={RoutePath.GENITIVE_TABLE} label={'Родительный падеж'}/>
+          <MenuButtonLink to={RoutePath.MULTIPLICITY_TABLE} label={'Множественно число'}/>
+          <MenuButtonLink to={RoutePath.DATIVE_TABLE} label={'Дательный падеж'}/>
 
           <Divider orientation={'left'}>Прочее</Divider>
-          <HeaderButtonLink to={RoutePath.HYMN} label={'Гимн Кыргызстана'} onClose={onCloseHandler}/>
-          {ADMIN_MODE && <HeaderButtonLink to={RoutePath.SERVICE} label={'Сервис'} onClose={onCloseHandler}/>}
+          <MenuButtonLink to={RoutePath.HYMN} label={'Гимн Кыргызстана'}/>
+          {ADMIN_MODE && <MenuButtonLink to={RoutePath.SERVICE} label={'Сервис'}/>}
         </Space>
       </Drawer>
       <Space>
@@ -103,4 +112,4 @@ const Header = (): JSX.Element => {
   )
 }
 
-export default Header
+export default Menu
