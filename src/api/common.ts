@@ -13,7 +13,7 @@ import { getSetting, LocalStoreKey } from '../service/settings'
 
 export const ADMIN_MODE: boolean = process.env.REACT_APP_ADMIN_MODE === 'true'
 
-const PORT: number = 8080 // Java
+const PORT: number = 60899 // Java
 const BASE_API_URL: string = `http://localhost:${PORT}/`
 
 export const commonApi = ky.create({
