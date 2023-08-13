@@ -11,6 +11,8 @@ interface KgInputProps {
   valueState: [string, React.Dispatch<React.SetStateAction<string>>]
   placeholder?: string
   width?: string
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 interface SymbolButtonProps {
@@ -18,7 +20,7 @@ interface SymbolButtonProps {
 }
 
 const KgInput = (props: KgInputProps): JSX.Element => {
-  const { placeholder = 'Кыргызский', width = '150px' } = props
+  const { placeholder = 'Кыргызский', width = '150px', onFocus, onBlur } = props
   const value = props.valueState[0]
   const setValue = props.valueState[1]
   const inputRef = useRef<any | null>()
@@ -51,6 +53,8 @@ const KgInput = (props: KgInputProps): JSX.Element => {
              allowClear
              value={value}
              style={{ width }}
+             onFocus={onFocus}
+             onBlur={onBlur}
              onChange={(e) => {
                setValue(e.target.value)
              }}/>

@@ -9,7 +9,7 @@ import Selector from '../common/Selector'
 import type { SelectorDto } from '../../models/dto/SelectorDto'
 import { Space } from 'antd'
 import { useAppSelector } from '../../store/hooks'
-import SearchInput from './SearchInput'
+import SearchInput from './search/SearchInput'
 
 interface FilterProps {
   onSearch: (value: string) => void
