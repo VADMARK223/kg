@@ -399,7 +399,7 @@ const Multiplicity = (): JSX.Element => {
           <td>большие; взрослые</td>
         </tr>
         <tr>
-          <td><WordAffix root={'жар'} affix={'таш'}/></td>
+          <td><WordAffix root={'жаш'} affix={'таш'}/></td>
           <td>молодые</td>
         </tr>
         <tr>
