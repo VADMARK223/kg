@@ -41,12 +41,22 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
    * Метод вызывается либо по клику на кнопку "Поиск", либо по горячей клавише "Enter"
    */
   const handlerSearch = (): void => {
-    const newSearchWord: string = valueState[0]
-    if (valueState[0] !== '') {
-      searchHistory.push(newSearchWord)
-      localStorage.setItem(SEARCH_HISTORY, JSON.stringify(searchHistory))
+    const newSearchWord: string = valueState[0].toLowerCase()
+    if (newSearchWord !== '') {
+      const index = searchHistory.indexOf(newSearchWord)
+      if (index !== -1) {
+        // Слово найдено в истории, его надо переместить в начало
+        searchHistory.splice(index, 1)
+        searchHistory.unshift(newSearchWord)
+      } else {
+        // Слово не найдено в истории, добавляем его в конец массива
+        searchHistory.push(newSearchWord)
+        localStorage.setItem(SEARCH_HISTORY, JSON.stringify(searchHistory))
+      }
     }
     onSearch(newSearchWord)
+    // Закрывает контейнер истории поиска
+    closeHistoryContainer()
   }
 
   const handlerInputFocus = (): void => {
@@ -64,6 +74,8 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
    * @param {string} value - значение по которому кликнули
    */
   const handlerHistoryItemClick = (value: string): void => {
+    const setValue = valueState[1]
+    setValue(value)
     onSearch(value)
     closeHistoryContainer()
   }
