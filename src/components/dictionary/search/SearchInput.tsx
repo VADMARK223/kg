@@ -49,8 +49,8 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
         searchHistory.splice(index, 1)
         searchHistory.unshift(newSearchWord)
       } else {
-        // Слово не найдено в истории, добавляем его в конец массива
-        searchHistory.push(newSearchWord)
+        // Слово не найдено в истории, добавляем его в начало массива
+        searchHistory.unshift(newSearchWord)
         localStorage.setItem(SEARCH_HISTORY, JSON.stringify(searchHistory))
       }
     }
@@ -66,7 +66,7 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
   const handlerInputBlur = (): void => {
     setTimeout(() => {
       closeHistoryContainer()
-    }, 1000)
+    }, 200)
   }
 
   /**
@@ -96,6 +96,9 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
           width={'210px'}
           onFocus={handlerInputFocus}
           onBlur={handlerInputBlur}
+          handlerSearch={() => {
+            onSearch('')
+          }}
         />
         <div className={isDropdownOpen && searchHistory.length !== 0 ? 'dropdown-container-active' : 'dropdown-container'}>
           <Space direction={'vertical'}>

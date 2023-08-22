@@ -6,6 +6,7 @@
  */
 import React, { useRef } from 'react'
 import { Input, Button, Space } from 'antd'
+import { CloseCircleOutlined } from '@ant-design/icons'
 
 interface KgInputProps {
   valueState: [string, React.Dispatch<React.SetStateAction<string>>]
@@ -13,6 +14,7 @@ interface KgInputProps {
   width?: string
   onFocus?: () => void
   onBlur?: () => void
+  handlerSearch?: () => void
 }
 
 interface SymbolButtonProps {
@@ -20,7 +22,7 @@ interface SymbolButtonProps {
 }
 
 const KgInput = (props: KgInputProps): JSX.Element => {
-  const { placeholder = 'Кыргызский', width = '150px', onFocus, onBlur } = props
+  const { placeholder = 'Кыргызский', width = '150px', onFocus, onBlur, handlerSearch } = props
   const value = props.valueState[0]
   const setValue = props.valueState[1]
   const inputRef = useRef<any | null>()
@@ -50,14 +52,24 @@ const KgInput = (props: KgInputProps): JSX.Element => {
       <SymbolButton key={3} symbol={'Ө'}/>
       <Input placeholder={placeholder}
              ref={inputRef}
-             allowClear
              value={value}
              style={{ width }}
              onFocus={onFocus}
              onBlur={onBlur}
              onChange={(e) => {
                setValue(e.target.value)
+             }}
+             suffix={<CloseCircleOutlined style={{
+               color: 'rgba(0, 0, 0, 0.25)'
+             }} onClick={() => {
+               setValue('')
+               if (handlerSearch !== undefined) {
+                 handlerSearch()
+               }
              }}/>
+             }
+             className={value.length > 0 ? '' : 'hide-icon'}
+      />
     </Space.Compact>
   )
 }
