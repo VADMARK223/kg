@@ -37,6 +37,9 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
     enableOnFormTags: true
   })
 
+  /**
+   * Метод вызывается либо по клику на кнопку "Поиск", либо по горячей клавише "Enter"
+   */
   const handlerSearch = (): void => {
     const newSearchWord: string = valueState[0]
     if (valueState[0] !== '') {
@@ -51,11 +54,24 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
   }
 
   const handlerInputBlur = (): void => {
-    // setIsDropdownOpen(false)
+    setTimeout(() => {
+      closeHistoryContainer()
+    }, 1000)
   }
 
-  const handlerSearchHistoryClick = (value: string): void => {
+  /**
+   * Метод срабатывает при клике на элемент списка истории поиска
+   * @param {string} value - значение по которому кликнули
+   */
+  const handlerHistoryItemClick = (value: string): void => {
     onSearch(value)
+    closeHistoryContainer()
+  }
+
+  /**
+   * Метод закрывает контейнер с историей поиска
+   */
+  const closeHistoryContainer = (): void => {
     setIsDropdownOpen(false)
   }
 
@@ -70,21 +86,20 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
           onBlur={handlerInputBlur}
         />
         <div className={isDropdownOpen && searchHistory.length !== 0 ? 'dropdown-container-active' : 'dropdown-container'}>
-          {/*<DropdownContainer>*/}
           <Space direction={'vertical'}>
             <Space>
               <Button onClick={() => {
                 localStorage.setItem(SEARCH_HISTORY, JSON.stringify([]))
                 setSearchHistory([])
               }}>Очистить историю</Button>
-              <Button onClick={() => setIsDropdownOpen(false)}>Закрыть</Button>
+              <Button onClick={closeHistoryContainer}>Закрыть</Button>
             </Space>
 
             {searchHistory.map(value => (
               <span key={value}>
                 <Space>
                   <div style={{ cursor: 'pointer' }} onClick={() => {
-                    handlerSearchHistoryClick(value)
+                    handlerHistoryItemClick(value)
                   }}>{value}
                   </div>
                   <Button onClick={() => {
@@ -97,7 +112,6 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
                 </span>
             ))}
           </Space>
-          {/*</DropdownContainer>*/}
         </div>
       </div>
       <Button type={'primary'} onClick={handlerSearch}>Поиск</Button>
