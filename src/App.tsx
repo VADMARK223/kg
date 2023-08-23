@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react'
+import React, { useEffect } from 'react'
 import { updateUserInfo } from './store/userSlice'
 import { Outlet, RouterProvider, useLocation, createHashRouter } from 'react-router-dom'
 import { Content, Header as AntHeader } from 'antd/es/layout/layout'
@@ -13,6 +13,7 @@ import RegisterPage from './components/RegisterPage'
 import Dictionary from './components/dictionary/Dictionary'
 import { useAppDispatch } from './store/hooks'
 import Page from './components/common/Page'
+import SuspenseBlock from './components/SuspenseBlock'
 
 // Числительные
 const Numerals = React.lazy(async () => await import('./components/numerals/Numerals'))
@@ -76,6 +77,7 @@ function App (): JSX.Element {
       <Outlet/>
     </>)
   }
+
   const routes = createHashRouter([
     {
       element: <CustomLayout/>,
@@ -102,19 +104,19 @@ function App (): JSX.Element {
           element: <RegisterPage/>
         }, {
           path: RoutePath.NUMBERS,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Numerals/></Suspense>
+          element: <SuspenseBlock><Numerals/></SuspenseBlock>
         }, {
           path: RoutePath.PHRASES,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Phrases/></Suspense>
+          element: <SuspenseBlock><Phrases/></SuspenseBlock>
         }, {
           path: RoutePath.AFFIXES,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Affixes/></Suspense>
+          element: <SuspenseBlock><Affixes/></SuspenseBlock>
         }, {
           path: RoutePath.PHONETICS,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Phonetics/></Suspense>
+          element: <SuspenseBlock><Phonetics/></SuspenseBlock>
         }, {
           path: RoutePath.PRONOUNS,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Pronouns/></Suspense>
+          element: <SuspenseBlock><Pronouns/></SuspenseBlock>
         }, {
           path: RoutePath.INTRODUCTORY_PHONETIC,
           element: <Page><IntroductoryPhoneticPage/></Page>
@@ -125,28 +127,28 @@ function App (): JSX.Element {
         // Алгоритмические таблицы
         {
           path: RoutePath.QUESTION_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><QuestionTable/></Suspense>
+          element: <SuspenseBlock><QuestionTable/></SuspenseBlock>
         }, {
           path: RoutePath.LOCATIVE_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><LocativeTable/></Suspense>
+          element: <SuspenseBlock><LocativeTable/></SuspenseBlock>
         },
         {
           path: RoutePath.BELONGING_SINGLE_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><BelongingSingleTable/></Suspense>
+          element: <SuspenseBlock><BelongingSingleTable/></SuspenseBlock>
         },
         {
           path: RoutePath.GENITIVE_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><GenitiveTable/></Suspense>
+          element: <SuspenseBlock><GenitiveTable/></SuspenseBlock>
         }, {
           path: RoutePath.MULTIPLICITY_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><MultiplicityTable/></Suspense>
+          element: <SuspenseBlock><MultiplicityTable/></SuspenseBlock>
         }, {
           path: RoutePath.DATIVE_TABLE,
-          element: <Suspense fallback={<div>Загрузка...</div>}><DativeTable/></Suspense>
+          element: <SuspenseBlock><DativeTable/></SuspenseBlock>
         },
         {
           path: RoutePath.HYMN,
-          element: <Suspense fallback={<div>Загрузка...</div>}><Hymn/></Suspense>
+          element: <SuspenseBlock><Hymn/></SuspenseBlock>
         },
         {
           path: RoutePath.ALL,
