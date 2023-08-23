@@ -11,6 +11,7 @@ import Lesson2 from './lesson2/Lesson2'
 import Lesson3 from './lesson3/Lesson3'
 import Lesson4 from './lesson4/Lesson4'
 import Lesson5 from './lesson5/Lesson5'
+import Lesson6 from './lesson6/Lesson6'
 import Lesson24 from './lesson24/Lesson24'
 
 const BasicPage = (): JSX.Element => {
@@ -59,6 +60,15 @@ const BasicPage = (): JSX.Element => {
       </Tooltip>
     </>,
     children: (<Lesson5/>)
+  })
+  items.push({
+    key: '6',
+    label: <>
+      <Tooltip title={'Выражение объекта-обладателя'}>
+        Урок 6
+      </Tooltip>
+    </>,
+    children: (<Lesson6/>)
   })
   items.push({
     key: '24',

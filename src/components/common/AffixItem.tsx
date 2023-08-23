@@ -8,13 +8,14 @@ import React from 'react'
 
 interface AffixItemProps {
   value: string
+  inWord?: boolean // Обособленный ли аффикс или в составе слова
 }
 
 const AffixItem = (props: AffixItemProps): JSX.Element => {
-  const { value } = props
+  const { value, inWord = false } = props
   return (
     <span style={{ color: 'orangered' }}>
-      <b>-{value}</b>
+      {inWord ? <b><u>{value}</u></b> : <b>-{value}</b>}
     </span>
   )
 }
