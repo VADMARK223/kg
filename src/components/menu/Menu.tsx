@@ -13,7 +13,7 @@ import store from '../../store'
 import type { DicDto } from '../../models/dto/DicDto'
 import { exportDic, runBuild } from '../../api/express'
 import { ADMIN_MODE } from '../../api/common'
-import { InstagramOutlined, MessageOutlined } from '@ant-design/icons'
+import { InstagramOutlined } from '@ant-design/icons'
 import { RoutePath } from '../../service/router'
 import InfoIcon from '../common/InfoIcon'
 import MenuButtonLink from './MenuButtonLink'
@@ -44,6 +44,10 @@ const Menu = (): JSX.Element => {
 
   const buildHandler = (): void => {
     runBuild()
+  }
+
+  const handlerEffector = (): void => {
+
   }
 
   const hideMenu = (): void => {
@@ -102,6 +106,9 @@ const Menu = (): JSX.Element => {
           {isAuth ? <Button onClick={logoutHandler}>Разголиниться</Button> : null}
             <Button type={'primary'} onClick={exportHandler}>Экспортировать словарь</Button>
             <Button type={'primary'} onClick={buildHandler}>Собрать</Button>
+            <Link to={'effector'}>
+                <Button type={'primary'} onClick={handlerEffector}>Effector</Button>
+            </Link>
         </>}
       </Space>
     </>

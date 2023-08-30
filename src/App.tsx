@@ -46,6 +46,8 @@ const DativeTable = React.lazy(async () => await import('./components/algorithmT
 
 const Hymn = React.lazy(async () => await import('./components/others/hymn/Hymn'))
 
+const Effector = React.lazy(async () => await import('./components/others/Effector'))
+
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
 
@@ -149,6 +151,10 @@ function App (): JSX.Element {
         {
           path: RoutePath.HYMN,
           element: <SuspenseBlock><Hymn/></SuspenseBlock>
+        },
+        {
+          path: 'effector',
+          element: <SuspenseBlock><Effector/></SuspenseBlock>
         },
         {
           path: RoutePath.ALL,
