@@ -31,6 +31,12 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
     }
   }, [])
 
+  useEffect(() => {
+    if (valueState[0] !== '') {
+      closeHistoryContainer()
+    }
+  }, [valueState[0]])
+
   useHotkeys('Enter', () => {
     handlerSearch()
   }, {
@@ -59,10 +65,18 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
     closeHistoryContainer()
   }
 
+  /**
+   * Метод вызывается при получении фокуса строкой ввода
+   */
   const handlerInputFocus = (): void => {
-    setIsDropdownOpen(true)
+    if (valueState[0] === '') {
+      openHistoryContainer()
+    }
   }
 
+  /**
+   * Метод вызывается при потери фокуса строкой ввода
+   */
   const handlerInputBlur = (): void => {
     setTimeout(() => {
       closeHistoryContainer()
@@ -78,6 +92,13 @@ const SearchInput = (props: SearchInputProps): JSX.Element => {
     setValue(value)
     onSearch(value)
     closeHistoryContainer()
+  }
+
+  /**
+   * Метод открывает контейнер с историей поиска
+   */
+  const openHistoryContainer = (): void => {
+    setIsDropdownOpen(true)
   }
 
   /**

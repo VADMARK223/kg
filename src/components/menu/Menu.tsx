@@ -95,10 +95,6 @@ const Menu = (): JSX.Element => {
           <a href={'https://www.instagram.com/vadmark_in_kyrgyzstan/'} target={'_blank'}
              rel={'noopener noreferrer'}>Автор</a><br/>
         </Tag>
-        <Tag icon={<MessageOutlined/>} color="#55acee">
-          <a href={'https://t.me/kyrgyztili_2023'} target={'_blank'}
-             rel={'noopener noreferrer'}>Кыргыз Тили</a><br/>
-        </Tag>
         <InfoIcon tooltip={'Также источник: Э.Дж. МАМЫТОВА (Кыргызский для начинающих)'}/>
         {ADMIN_MODE && <>
           {!isAuth ? <Link key={'4'} to={'/register'}>Регистрация</Link> : null}
