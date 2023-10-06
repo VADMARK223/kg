@@ -9,6 +9,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ConfigProvider } from 'antd'
 import ruRU from 'antd/locale/ru_RU'
+import { attachLogger } from 'effector-logger'
+
+export const unLogger = attachLogger();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
