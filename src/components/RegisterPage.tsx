@@ -29,17 +29,20 @@ const RegisterPage = (): JSX.Element => {
   }
 
   return (
-    <Space.Compact>
-      <Input placeholder={'Имя'}
-             onChange={(e) => {
-               setUsername(e.target.value)
-             }}/>
-      <Input placeholder={'Пароль'}
-             onChange={(e) => {
-               setPassword(e.target.value)
-             }}/>
-      <Button type={'primary'} onClick={registerHandler} disabled={buttonDisable}>Зарегистрироваться</Button>
-    </Space.Compact>
+    <Space direction={'vertical'}>
+      <h1>Регистрация</h1>
+      <Space.Compact>
+        <Input placeholder={'Имя'}
+               onChange={(e) => {
+                 setUsername(e.target.value)
+               }}/>
+        <Input placeholder={'Пароль'}
+               onChange={(e) => {
+                 setPassword(e.target.value)
+               }}/>
+        <Button type={'primary'} onClick={registerHandler} disabled={buttonDisable}>Зарегистрироваться</Button>
+      </Space.Compact>
+    </Space>
   )
 }
 

@@ -17,8 +17,14 @@ export const fetchUserInfo = (): void => {
 export const registerUser = (user: UserDto): void => {
   commonApi.post('register_user', {
     json: user
-  }).then(response => {
-    console.log('Register user:', response)
+  }).json<ResponseDto>().then((response: ResponseDto) => {
+    if (response.status) {
+      if (response.data === null) {
+        toast.success('Успешная регистрация')
+      } else {
+        toast.error(response.data)
+      }
+    }
   }).catch(reason => {
     console.warn('Error fetch user info', reason)
   })
