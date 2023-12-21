@@ -46,10 +46,6 @@ const Menu = (): JSX.Element => {
     runBuild()
   }
 
-  const handlerEffector = (): void => {
-
-  }
-
   const hideMenu = (): void => {
     setOpenSideMenu(false)
   }
@@ -68,6 +64,7 @@ const Menu = (): JSX.Element => {
           <Space direction={'horizontal'}>
             <MenuButtonLink to={RoutePath.HOME} label={'Словарь'}/>
             <MenuButtonLink to={RoutePath.NUMBERS} label={'Числительные'}/>
+            <MenuButtonLink to={RoutePath.INTERACTIVE} label={'Интерактив'}/>
           </Space>
           <Space direction={'horizontal'}>
             <MenuButtonLink to={RoutePath.AFFIXES} label={'Аффиксы'}/>
@@ -106,9 +103,6 @@ const Menu = (): JSX.Element => {
           {isAuth ? <Button onClick={logoutHandler}>Разголиниться</Button> : null}
             <Button type={'primary'} onClick={exportHandler}>Экспортировать словарь</Button>
             <Button type={'primary'} onClick={buildHandler}>Собрать</Button>
-            <Link to={'effector'}>
-                <Button type={'primary'} onClick={handlerEffector}>Effector</Button>
-            </Link>
         </>}
       </Space>
     </>

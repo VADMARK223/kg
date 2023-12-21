@@ -4,12 +4,12 @@
  * @author Markitanov Vadim
  * @since 21.06.2023
  */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
 import Letter from '../../../common/Letter'
-import { Tooltip, Space, Checkbox } from 'antd'
-import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
+import { Checkbox, Space, Tooltip } from 'antd'
+import { CheckCircleTwoTone, ExclamationCircleTwoTone, QuestionCircleTwoTone } from '@ant-design/icons'
 import KgInput from '../../../common/KgInput'
-import { isVowelLetter, isVoicedConsonant } from '../../../../service/utils'
+import { isVoicedConsonant, isVowelLetter } from '../../../../service/utils'
 
 interface QuestionAffixPracticeItemProps {
   word: string

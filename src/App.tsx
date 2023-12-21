@@ -29,6 +29,8 @@ const Pronouns = React.lazy(async () => await import('./components/pronouns/Pron
 const IntroductoryPhoneticPage = React.lazy(async () => await import('./components/mam/introductoryPhonetic/IntroductoryPhoneticPage'))
 // Основной курс
 const BasicPage = React.lazy(async () => await import('./components/mam/basic/BasicPage'))
+// Интерактив
+const Interactive = React.lazy(async () => await import('./components/interactive/Interactive'))
 
 // === Алгоритмические таблицы ===
 // Таблица вопросительных аффиксов
@@ -45,8 +47,6 @@ const MultiplicityTable = React.lazy(async () => await import('./components/algo
 const DativeTable = React.lazy(async () => await import('./components/algorithmTables/DativeTable'))
 
 const Hymn = React.lazy(async () => await import('./components/others/hymn/Hymn'))
-
-const Effector = React.lazy(async () => await import('./components/others/Effector'))
 
 function App (): JSX.Element {
   const dispatch = useAppDispatch()
@@ -108,6 +108,9 @@ function App (): JSX.Element {
           path: RoutePath.NUMBERS,
           element: <SuspenseBlock><Numerals/></SuspenseBlock>
         }, {
+          path: RoutePath.INTERACTIVE,
+          element: <SuspenseBlock><Interactive/></SuspenseBlock>
+        }, {
           path: RoutePath.PHRASES,
           element: <SuspenseBlock><Phrases/></SuspenseBlock>
         }, {
@@ -151,10 +154,6 @@ function App (): JSX.Element {
         {
           path: RoutePath.HYMN,
           element: <SuspenseBlock><Hymn/></SuspenseBlock>
-        },
-        {
-          path: 'effector',
-          element: <SuspenseBlock><Effector/></SuspenseBlock>
         },
         {
           path: RoutePath.ALL,

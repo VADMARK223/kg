@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 23.05.2023
  */
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react'
 import { CaretUpOutlined } from '@ant-design/icons'
 import { FloatButton } from 'antd'
 
@@ -45,9 +45,10 @@ const Page = (props: PageProps): JSX.Element => {
   return (
     <Suspense fallback={<div>Загрузка...</div>}>
       {children}
-      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 20, display: getUpButtonDisplay() }} onClick={scrollUpHandler}/>
+      <FloatButton icon={<CaretUpOutlined/>} type="primary" style={{ right: 20, display: getUpButtonDisplay() }}
+                   onClick={scrollUpHandler}/>
     </Suspense>
-  );
+  )
 }
 
 export default Page

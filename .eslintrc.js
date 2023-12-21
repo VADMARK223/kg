@@ -28,6 +28,7 @@ module.exports = {
         "no-trailing-spaces": "warn", //
 
         // Type script
+        "@typescript-eslint/no-invalid-void-type": "off", // void действителен только в качестве возвращаемого типа или аргумента универсального типа
         "@typescript-eslint/quotes": "warn", // Строки должны использовать одинарные кавычки
         "@typescript-eslint/key-spacing": "warn", // Отсутствует пробел перед значением для ключа
         "@typescript-eslint/no-empty-interface": "warn", // Пустой интерфейс эквивалентен `{}`

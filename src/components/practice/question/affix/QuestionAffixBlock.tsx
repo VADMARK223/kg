@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 21.06.2023
  */
-import React from 'react';
+import React from 'react'
 import { shuffleArray } from '../../../../service/utils'
 import QuestionAffixPracticeItem from './QuestionAffixPracticeItem'
 

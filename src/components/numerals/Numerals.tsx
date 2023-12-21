@@ -4,10 +4,10 @@
  * @author Markitanov Vadim
  * @since 11.03.2023
  */
-import React, { useState, useEffect } from 'react'
-import { Space, Button, InputNumber, Checkbox, Tooltip } from 'antd'
-import { QuestionCircleTwoTone, CheckCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons'
-import { generateRandomInteger, countDigitsInNumber } from '../../service/utils'
+import React, { useEffect, useState } from 'react'
+import { Button, Checkbox, InputNumber, Space, Tooltip } from 'antd'
+import { CheckCircleTwoTone, ExclamationCircleTwoTone, QuestionCircleTwoTone } from '@ant-design/icons'
+import { countDigitsInNumber, generateRandomInteger } from '../../service/utils'
 import NumberTag from './NumberTag'
 import AnswerTag from './AnswerTag'
 import type { NumberData } from './NumberData'

@@ -4,6 +4,7 @@ export enum RoutePath {
   LOGIN = '/login', // Страница логина
   REGISTER = '/register', // Страница регистрации
   NUMBERS = '/numbers', // Страница числительных
+  INTERACTIVE = '/interactive',
   PHRASES = '/phrases', // Страница фраз
   AFFIXES = '/affixes', // Страница аффиксов
   PHONETICS = '/phonetics', // Вводно-фонетический курс

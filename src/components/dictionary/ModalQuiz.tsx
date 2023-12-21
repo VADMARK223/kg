@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 04.04.2023
  */
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Question from '../quiz/right/Question'
 import { Modal } from 'antd'
 import type { ResultItemProps } from './ModalQuizResults'

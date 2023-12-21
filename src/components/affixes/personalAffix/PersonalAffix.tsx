@@ -4,7 +4,7 @@
  * @author Markitanov Vadim
  * @since 19.05.2023
  */
-import React from 'react';
+import React from 'react'
 import Pronouns from '../../pronouns/Pronouns'
 
 const PersonalAffix = (): JSX.Element => {
@@ -121,7 +121,7 @@ const PersonalAffix = (): JSX.Element => {
         </tbody>
       </table>
     </>
-  );
+  )
 }
 
 export default PersonalAffix
